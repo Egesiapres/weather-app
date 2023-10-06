@@ -30,19 +30,43 @@
   </head>
 
   <body class="container y-centering x-centering">
-    <div id="content" class="black-border width-70">
-      <header class="container x-centering"><h1>Check out the weather!</h1></header>
+    <div
+      class="black-border width-70"
+      id="content"
+    >
+      <header class="container x-centering">
+        <h1>Check out the weather!</h1>
+      </header>
 
       <main class="container x-centering">
         <form>
           <input
+            class="p-5"
             type="text"
-            placeholder="Type the name of a city..."
+            placeholder="Type your city..."
+            value=""
           />
 
-          <button type="button">Search</button>
+          <button
+            class="p-5"
+            id="search-btn"
+            type="button"
+          >
+            Search
+          </button>
+          <button
+            class="p-5"
+            type="button"
+            disabled
+          >
+            Your location
+          </button>
         </form>
-      </main>
+      </main>      
+
+      <div id="weather-data-div">
+        <!-- display weather data -->
+      </div>
     </div>
 
     <script src="main.js"></script>
