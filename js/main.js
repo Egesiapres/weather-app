@@ -10,14 +10,11 @@ const displayWeatherData = async location => {
   let cityData;
 
   if (location) {
-    const data = await fetchData(location);
-
-    cityData = data;
+    cityData = await fetchData(location);
 
     resetInput();
   } else {
-    const data = await fetchData();
-    cityData = data;
+    cityData = await fetchData();
   }
 
   const cityCoordinates = {
