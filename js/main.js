@@ -1,8 +1,30 @@
-import { input, searchBtn, weatherDataDiv } from './elements.js';
+import { input, form, searchBtn, weatherDataDiv } from './elements.js';
 import fetchData from './data.js';
 
-const resetInput = () => {
+const clearInput = () => {
   input.value = '';
+};
+
+const clearWeatherDataDiv = () => {
+  weatherDataDiv.innerHTML = '';
+};
+
+// f that generates a new custom element
+const setNewElement = (element, classes, innerHTML, id) => {
+  const newElement = document.createElement(element);
+  newElement.setAttribute('class', classes);
+  newElement.innerHTML = innerHTML;
+
+  if (id) {
+    newElement.setAttribute('id', id);
+  }
+
+  return newElement;
+};
+
+// f that capitalizes the first letter
+const capitalizeFirstLetter = word => {
+  return `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
 };
 
 // f that displays the data retrieved
@@ -12,7 +34,7 @@ const displayWeatherData = async location => {
   if (location) {
     cityData = await fetchData(location);
 
-    resetInput();
+    clearInput();
   } else {
     cityData = await fetchData();
   }
@@ -25,25 +47,55 @@ const displayWeatherData = async location => {
   const weatherData = await fetchData(cityCoordinates);
   console.log(weatherData);
 
-  // city data display
-  const cityP = document.createElement('p');
-  cityP.setAttribute('class', 'container x-centering');
-  cityP.innerHTML = `Location: ${cityData.name}, ${
-    cityData.state ? `${cityData.state},` : ''
-  }  (${cityData.country})`;
+  // if (weatherData?.weather[0]?.icon){
 
-  weatherDataDiv.appendChild(cityP);
+  //   console.log(weatherData.weather[0].icon);
+  // }
+
+  // clear the weather data of the previous city
+  clearWeatherDataDiv();
+
+  // city data display
+  const cityHead = setNewElement('h4', 'container x-centering', 'Location');
+
+  const cityPar = setNewElement(
+    'p',
+    'container x-centering',
+    `${cityData.name}, ${cityData.state ? `${cityData.state},` : ''}  (${
+      cityData.country
+    })`
+  );
+
+  weatherDataDiv.appendChild(cityHead);
+  
+  weatherDataDiv.appendChild(cityPar);
 
   // weather data display
-  const weatherP = document.createElement('p');
-  weatherP.setAttribute('class', 'container x-centering');
-  weatherP.innerHTML = `${weatherData.weather[0].description}`;
+  const weatherHead = setNewElement('h4', 'container x-centering', 'Weather');
 
-  weatherDataDiv.appendChild(weatherP);
+  const weatherMainPar = setNewElement(
+    'p',
+    'container x-centering',
+    weatherData.weather[0].main
+  );
 
+  const weatherDescriptionPar = setNewElement(
+    'p',
+    'description container x-centering',
+    capitalizeFirstLetter(weatherData.weather[0].description),
+  );
+
+  weatherDataDiv.appendChild(weatherHead);
+
+  weatherDataDiv.appendChild(weatherMainPar);
+  weatherDataDiv.appendChild(weatherDescriptionPar);
   // TODO city data display
 };
 
 displayWeatherData();
 
 searchBtn.addEventListener('click', () => displayWeatherData(input.value));
+
+// TODO: gestire il submit del form
+// TODO: UI design with CSS
+// TODO: retrieve img

@@ -5,12 +5,15 @@
 body {
   margin: 0;
   height: 100vh;
+  background-color: gray;
 }
 
 #content {
   width: 50%;
+  background-color: #fff;
 }
 
+/* classes */
 .container {
   display: flex;
 }
@@ -27,28 +30,43 @@ body {
   flex-direction: column;
 }
 
-.black-border {
-  border: 3px solid black;
-  border-radius: 10px;
-  padding: 10px;
+.b-25 {
+  border-radius: 25px;  
 }
 
-.m-10 {
-  margin: 10px;
+.b-grey {
+  border: 1px solid;
+  border-color: grey;
 }
 
-input {
-  width: 200px;
+.m-h-7 {
+  margin: 0 7%;
 }
 
-.p-5 {
-  padding: 5px;
+.h-m-3 {
+  margin: 0 3px;
+}
+
+.p-15 {
+  padding: 15px;
 }
 
 .radius-6 {
   border-radius: 6;
 }
 
+input {
+  width: 200px;
+}
+
 h1 {
   font-weight: 400;
+}
+
+#weather-data-div {
+  margin: 5%;
+}
+
+h4, h5 {
+  font-weight: 500;
 }
