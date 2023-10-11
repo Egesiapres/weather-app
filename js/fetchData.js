@@ -1,18 +1,20 @@
-import { setLocationUrl, setCurrentWeatherUrl } from './urls.js';
+import { getLocation } from './api/location.js';
+import { getCurrentWeather } from './api/weather.js';
+
+const options = {
+  method: 'GET',
+};
 
 export default async function fetchData(location) {
   try {
     let url;
-    const options = {
-      method: 'GET',
-    };
     let response;
     let data;
 
     if (!location || typeof location === 'string') {
-      url = setLocationUrl(location);
+      url = getLocation(location);
     } else if (typeof location === 'object') {
-      url = setCurrentWeatherUrl(location.lat, location.lon);
+      url = getCurrentWeather(location.lat, location.lon);
     }
 
     response = await fetch(url, options);
