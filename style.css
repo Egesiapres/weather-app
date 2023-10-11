@@ -1,16 +1,23 @@
 * {
   font-family: Roboto, sans-serif;
+  color: #ffffff;
 }
 
 body {
   margin: 0;
   height: 100vh;
-  background-color: gray;
+  /* background-color: rgba(49, 103, 186, 0.5); */
+  background-color: #d2d2d2;
+  /* background-color: #658fc4; */
 }
 
 #content {
-  width: 50%;
-  background-color: #fff;
+  /* border: 2px solid #a1b2d67e ; */
+  background-color: #4b7dbc;
+  box-shadow: 5px 5px 10px #4d4e51;
+  /* backdrop-filter: blur(30px); */
+  width: fit-content;
+  height: fit-content;
 }
 
 /* classes */
@@ -18,55 +25,113 @@ body {
   display: flex;
 }
 
-.x-centering {
+.x-center {
   justify-content: center;
 }
 
-.y-centering {
+.y-center {
   align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .col-direction {
   flex-direction: column;
 }
 
-.b-25 {
-  border-radius: 25px;  
+.br-25 {
+  border-radius: 25px;
 }
 
-.b-grey {
+.br-15 {
+  border-radius: 15px;
+}
+
+.br-10 {
+  border-radius: 10px;
+}
+
+.bc-grey {
   border: 1px solid;
   border-color: grey;
 }
 
-.m-h-7 {
-  margin: 0 7%;
+.mr-5 {
+  margin: 0 5px 0 0;
 }
 
-.h-m-3 {
-  margin: 0 3px;
+.ym-20 {
+  margin: 20px 0;
+}
+
+.p-20 {
+  padding: 20px;
 }
 
 .p-15 {
   padding: 15px;
 }
 
-.radius-6 {
-  border-radius: 6;
-}
-
 input {
   width: 200px;
 }
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-black {
+  color: #000000
+}
+
+.text-dark {
+  color: grey;
+}
+
+
 
 h1 {
   font-weight: 400;
 }
 
-#weather-data-div {
-  margin: 5%;
-}
-
-h4, h5 {
+h3 {
+  margin: 10px 0;
   font-weight: 500;
 }
+
+h4,
+h5 {
+  font-weight: 500;
+}
+
+/* weather data display classes */
+p {
+  margin: 10px 0;
+}
+
+.small {
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.medium {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.big {
+  font-size: 70px;
+  font-weight: 300;
+}
+
+div > div > div {
+  width: 41.5%;
+  background-color: #77a1d9;
+  padding: 10px;
+}
+
+
+/* TODO: remove the classes used just once **/
+

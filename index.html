@@ -29,32 +29,32 @@
     <title>Weather app</title>
   </head>
 
-  <body class="container y-centering x-centering">
+  <body class="container y-center x-center">
     <div
-      class="width-70 b-25"
+      class="width-70 br-25 p-15"
       id="content"
     >
-      <header class="container x-centering m-h-7">
-        <h1>Check out the weather!</h1>
+      <header class="container x-center">
+        <h1>Check the weather!</h1>
       </header>
 
-      <main class="container x-centering">
-        <form>
+      <main>
+        <form class="container x-center">
           <input
-            class="h-m-3 b-25 b-grey p-15"
+            class="mr-5 bc-grey br-10 p-15 text-black"
             type="text"
-            placeholder="Type your city..."
+            placeholder="Type your city name..."
             value=""
           />
 
           <button
-            class="b-25 b-grey p-15 "
+            class="br-10 bc-grey p-15 text-black"
             id="search-btn"
             type="button"
           >
-            Search
+            SEARCH
           </button>
-          
+
           <!-- <button
             class="p-10"
             type="button"
@@ -63,11 +63,11 @@
             Your location
           </button> -->
         </form>
-      </main>
 
-      <div id="weather-data-div">
-        <!-- display weather data -->
-      </div>
+        <div id="weather-data-div"> 
+          <!-- display weather data -->
+        </div>
+      </main>
     </div>
 
     <script
