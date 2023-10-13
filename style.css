@@ -20,6 +20,10 @@ body {
   height: fit-content;
 }
 
+.hidden {
+  display: none;
+}
+
 /* classes */
 .container {
   display: flex;
@@ -35,6 +39,10 @@ body {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
 }
 
 .col-direction {
@@ -53,6 +61,14 @@ body {
   border-radius: 10px;
 }
 
+.br-7 {
+  border-radius: 7px;
+}
+
+.br-5 {
+  border-radius: 5px;
+}
+
 .bc-grey {
   border: 1px solid;
   border-color: grey;
@@ -62,8 +78,12 @@ body {
   margin: 0 5px 0 0;
 }
 
-.ym-20 {
-  margin: 20px 0;
+.my-15 {
+  margin: 15px 0;
+}
+
+.mt-15 {
+  margin-top: 15px;
 }
 
 .p-20 {
@@ -74,8 +94,12 @@ body {
   padding: 15px;
 }
 
-input {
-  width: 200px;
+.p-10 {
+  padding: 10px;
+}
+
+.p-2 {
+  padding: 2px;
 }
 
 .text-white {
@@ -83,14 +107,27 @@ input {
 }
 
 .text-black {
-  color: #000000
+  color: #000000;
 }
 
 .text-dark {
   color: grey;
 }
 
+.small {
+  margin: 5px 0;
+  font-size: 12px;
+}
 
+.medium {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.big {
+  font-size: 70px;
+  font-weight: 300;
+}
 
 h1 {
   font-weight: 400;
@@ -106,32 +143,34 @@ h5 {
   font-weight: 500;
 }
 
+input {
+  width: 200px;
+}
+
 /* weather data display classes */
 p {
-  margin: 10px 0;
+  margin: 10px;
 }
 
-.small {
-  margin: 5px 0;
-  font-size: 12px;
+#weather-main-par {
+  margin-top: -8px;
 }
 
-.medium {
-  font-size: 25px;
-  font-weight: 500;
+.light-blue {
+  background-color: #77a1d9;;
 }
 
-.big {
-  font-size: 70px;
-  font-weight: 300;
+.small-box {
+  width: 42%;
 }
 
-div > div > div {
-  width: 41.5%;
-  background-color: #77a1d9;
-  padding: 10px;
+#temp-scale-div {
+  width: 25%;
 }
 
+img {
+  width: 120px;
+  height: auto;
+}
 
 /* TODO: remove the classes used just once **/
-

@@ -6,7 +6,7 @@ import { personalAPIkey } from "../utils.js";
  * @param {string} lat - The city latitude (req)
  * @param {string} lon - The city longitude (req)
  * @param {string} APIkey - The API key (req)
- * @returns {array} - The cities that match the params
+ * @returns {string} - The URL for the API request
  */
 
 export const getCurrentWeather = (lat, lon, APIkey = personalAPIkey) =>

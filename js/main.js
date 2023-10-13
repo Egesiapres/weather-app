@@ -1,9 +1,26 @@
-import { input, form, searchBtn, weatherDataDiv } from './elements.js';
 import {
-  setNewElement,
-  capitalizeFirstLetter,
-  kelvinToCelsius,
+  input,
+  form,
+  searchBtn,
+  weatherDataDiv,
+  namePar,
+  positionDetailsPar,
+  weatherMainPar,
+  tempDegPar,
+  sunrisePar,
+  sunsetPar,
+  windSpeedPar,
+  windDegPar,
+  weatherMainImg,
+  maxTempPar,
+  minTempPar,
+  scaleSelect,
+} from './elements.js';
+import {
+  kelvinToScale,
   unixTStoHour,
+  meteoDegToDirection,
+  getImg,
 } from './utils.js';
 import fetchData from './fetchData.js';
 
@@ -11,13 +28,15 @@ const clearInput = () => {
   input.value = '';
 };
 
-const clearWeatherDataDiv = () => {
-  weatherDataDiv.innerHTML = '';
+const handleChangeScale = ({ temp, temp_max, temp_min }, value) => {
+  tempDegPar.innerHTML = kelvinToScale(temp, value);
+  minTempPar.innerHTML = `Min: ${kelvinToScale(temp_min, value)}`;
+  maxTempPar.innerHTML = `Max: ${kelvinToScale(temp_max, value)}`;
 };
 
 // f that displays the data retrieved
 const displayWeatherData = async (location, event) => {
-  // avoid the automatic submitting of the form
+  // avoid the automatic form submit
   if (event) {
     event.preventDefault();
   }
@@ -44,97 +63,26 @@ const displayWeatherData = async (location, event) => {
 
   const { main, sys, weather, wind } = weatherData;
 
-  // if (weatherData?.weather[0]?.icon){
+  // city main info
+  namePar.innerHTML = `📍 ${name}`;
+  positionDetailsPar.innerHTML = `${state}${country ? `, (${country})` : ''}`;
+  weatherMainPar.innerHTML = weather[0].main;
 
-  //   console.log(weatherData.weather[0].icon);
-  // }
+  tempDegPar.innerHTML = kelvinToScale(main.temp, 'celsius');
+  minTempPar.innerHTML = `Min: ${kelvinToScale(main.temp_min, 'celsius')}`;
+  maxTempPar.innerHTML = `Max: ${kelvinToScale(main.temp_max, 'celsius')}`;
 
-  // clear the weather data of the previous city
-  clearWeatherDataDiv();
-
-  // city data display
-  const mainInfoDiv = setNewElement('div', 'container col-direction ym-20');
-
-  const namePar = setNewElement('h3', 'container x-center', name);
-
-  const positionDetailsPar = setNewElement(
-    'p',
-    'container x-center small',
-    `${state ? `${state}, ` : ''}  (${country})`
+  scaleSelect.addEventListener('change', e =>
+    handleChangeScale(main, e.target.value)
   );
 
-  weatherDataDiv.appendChild(mainInfoDiv);
+  weatherMainImg.setAttribute('src', getImg(weather[0].icon));
 
-  mainInfoDiv.appendChild(namePar);
-  mainInfoDiv.appendChild(positionDetailsPar);
-
-  // weather data display
-  // most important data
-
-  const mainTempPar = setNewElement(
-    'h3',
-    'container x-center big',
-    kelvinToCelsius(main.temp)
-  );
-
-  const weatherMainPar = setNewElement(
-    'p',
-    'container x-center medium',
-    weather[0].main
-  );
-
-  // const weatherDescriptionPar = setNewElement(
-  //   'p',
-  //   'description container x-center',
-  //   capitalizeFirstLetter(weather[0].description)
-  // );
-
-  mainInfoDiv.appendChild(mainTempPar);
-  mainInfoDiv.appendChild(weatherMainPar);
-  // weatherDiv.appendChild(weatherDescriptionPar);
-
-  const secondaryInfoDiv = setNewElement(
-    'div',
-    'container justify-between b-25'
-  );
-
-  const sysDiv = setNewElement('div', 'container flex col-direction br-15');
-
-  const sysSunrisePar = setNewElement(
-    'p',
-    'container x-center',
-    `Sunrise: ${unixTStoHour(sys.sunrise)}`
-  );
-
-  const sysSunsetPar = setNewElement(
-    'p',
-    'container x-center',
-    `Sunset: ${unixTStoHour(sys.sunset)}`
-  );
-
-  const windDiv = setNewElement('div', 'container flex col-direction br-15');
-
-  const windSpeedPar = setNewElement(
-    'p',
-    'container x-center',
-    `Speed: ${wind.speed} km/h`
-  );
-
-  const windDegPar = setNewElement(
-    'p',
-    'container x-center',
-    `Degrees: ${wind.deg}`
-  );
-
-  sysDiv.appendChild(sysSunrisePar);
-  sysDiv.appendChild(sysSunsetPar);
-
-  windDiv.appendChild(windSpeedPar);
-  windDiv.appendChild(windDegPar);
-
-  secondaryInfoDiv.appendChild(sysDiv);
-  secondaryInfoDiv.appendChild(windDiv);
-  weatherDataDiv.appendChild(secondaryInfoDiv);
+  // city secondary info
+  sunrisePar.innerHTML = `⬆️ Sunrise: ${unixTStoHour(sys.sunrise)}`;
+  sunsetPar.innerHTML = `⬇️ Sunset: ${unixTStoHour(sys.sunset)}`;
+  windSpeedPar.innerHTML = `⏱️ Speed: ${wind.speed} km/h`;
+  windDegPar.innerHTML = `🧭 Direction: ${meteoDegToDirection(wind.deg)}`;
 };
 
 displayWeatherData();

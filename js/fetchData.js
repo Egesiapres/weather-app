@@ -1,4 +1,4 @@
-import { getLocation } from './api/location.js';
+import { getGeocoding } from './api/location.js';
 import { getCurrentWeather } from './api/weather.js';
 
 const options = {
@@ -12,7 +12,7 @@ export default async function fetchData(location) {
     let data;
 
     if (!location || typeof location === 'string') {
-      url = getLocation(location);
+      url = getGeocoding(location);
     } else if (typeof location === 'object') {
       url = getCurrentWeather(location.lat, location.lon);
     }

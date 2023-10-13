@@ -41,18 +41,18 @@
       <main>
         <form class="container x-center">
           <input
-            class="mr-5 bc-grey br-10 p-15 text-black"
+            class="mr-5 bc-grey br-7 p-10 text-black"
             type="text"
             placeholder="Type your city name..."
             value=""
           />
 
           <button
-            class="br-10 bc-grey p-15 text-black"
+            class="br-7 bc-grey p-10 text-black"
             id="search-btn"
             type="button"
           >
-            SEARCH
+            🔎 Search
           </button>
 
           <!-- <button
@@ -64,8 +64,124 @@
           </button> -->
         </form>
 
-        <div id="weather-data-div"> 
-          <!-- display weather data -->
+        <div
+          id="weather-data-div"
+          class=""
+        >
+          <!-- primary info -->
+          <div
+            id="city-main-info-div"
+            class="container col-direction my-15"
+          >
+            <p
+              id="name-par"
+              class="container x-center medium"
+            >
+              📍 City name
+            </p>
+            <p
+              id="position-details-par"
+              class="container x-center small"
+            >
+              State, (COUNTRY)
+            </p>
+
+            <div class="container x-center">
+              <img />
+            </div>
+
+            <p
+              id="weather-main-par"
+              class="container x-center medium"
+            >
+              Weather main
+            </p>
+
+            <div
+              id="temp-div"
+              class="container br-15 p-10 light-blue justify-evenly"
+            >
+              <div>
+                <p
+                  id="temp-deg-par"
+                  class="big"
+                >
+                  XX°C
+                </p>
+
+                <div
+                  id="temp-deg-div"
+                  class="container x-center"
+                >
+                  <p id="min-temp-par">Min: XX°C</p>
+                  <p id="max-temp-par">Max: XX°C</p>
+                </div>
+              </div>
+
+              <div
+                id="temp-scale-div"
+                class="container col-direction x-center p-10"
+              >
+                <label
+                  for="scale-select"
+                  class="small"
+                  >Select a temperature scale</label
+                >
+
+                <select
+                  name="scales"
+                  id="scale-select"
+                  class="text-black br-5 p-2"
+                >
+                  <option value="celsius">Celsius (°C)</option>
+                  <option value="fahrenheit">Fahrenheit (°F)</option>
+                  <option value="kelvin">Kelvin (K)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- secondary info -->
+          <div
+            id="city-secondary-info-div"
+            class="container justify-between b-25"
+          >
+            <div
+              id="sys-div"
+              class="container flex col-direction br-15 p-10 light-blue"
+            >
+              <p
+                id="sunrise-par"
+                class=""
+              >
+                Sunrise: hh:mm
+              </p>
+              <p
+                id="sunset-par"
+                class=""
+              >
+                Sunset: hh:mm
+              </p>
+            </div>
+
+            <div
+              id="wind-div"
+              class="container col-direction br-15 p-10 light-blue"
+            >
+              <p
+                id="wind-speed-par"
+                class="grow"
+              >
+                Speed: XX km/h
+              </p>
+              <p
+                id="wind-deg-par"
+                class="grow"
+              >
+                Degrees: XX
+              </p>
+            </div>
+          </div>
         </div>
       </main>
     </div>

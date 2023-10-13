@@ -12,11 +12,11 @@ import { personalAPIkey } from "../utils.js";
  */
 
 // TODO: improve params input managing
-export const getLocation = (
+export const getGeocoding = (
   cityName = 'Barcelona',
   stateCode = '',
   countryCode = '',
   limit = '',
   APIkey = personalAPIkey
 ) =>
-  `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=${limit}&appid=${APIkey}`;
+  `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=${limit}&appid=${APIkey}`;
