@@ -35,20 +35,20 @@
       id="content"
     >
       <header class="container x-center">
-        <h1>Check the weather!</h1>
+        <h1>Emoji weather 👅</h1>
       </header>
 
-      <main>
+      <main class="container col-direction rg-15">
         <form class="container x-center">
           <input
-            class="mr-5 bc-grey br-7 p-10 text-black"
+            class="br-10 b-0 p-10 text-black"
             type="text"
             placeholder="Type your city name..."
             value=""
           />
 
           <button
-            class="br-7 bc-grey p-10 text-black"
+            class="br-10 b-0 p-10 text-black"
             id="search-btn"
             type="button"
           >
@@ -66,12 +66,12 @@
 
         <div
           id="weather-data-div"
-          class=""
+          class="container col-direction rg-15"
         >
           <!-- primary info -->
           <div
             id="city-main-info-div"
-            class="container col-direction my-15"
+            class="container col-direction"
           >
             <p
               id="name-par"
@@ -96,11 +96,18 @@
             >
               Weather main
             </p>
+          </div>
 
-            <div
-              id="temp-div"
-              class="container br-15 p-10 light-blue justify-evenly"
-            >
+          <!-- secondary info -->
+          <div
+            id="city-secondary-info-div"
+            class="br-15 light-blue b-1 bc-transparent"
+          >
+            <p class="extra-small">🌡️ TEMPERATURE</p>
+
+            <hr class="bc-transparent" />
+
+            <div class="container justify-evenly m-10">
               <div>
                 <p
                   id="temp-deg-par"
@@ -113,8 +120,8 @@
                   id="temp-deg-div"
                   class="container x-center"
                 >
-                  <p id="min-temp-par">Min: XX°C</p>
-                  <p id="max-temp-par">Max: XX°C</p>
+                  <p id="min-temp-par">🥶 Min: XX°C</p>
+                  <p id="max-temp-par">🥵 Max: XX°C</p>
                 </div>
               </div>
 
@@ -124,7 +131,7 @@
               >
                 <label
                   for="scale-select"
-                  class="small"
+                  class="small my-10"
                   >Select a temperature scale</label
                 >
 
@@ -141,45 +148,51 @@
             </div>
           </div>
 
-          <!-- secondary info -->
+          <!-- tertiary info -->
           <div
-            id="city-secondary-info-div"
-            class="container justify-between b-25"
+            id="city-tertiary-info-div"
+            class="container cg-15 b-25"
           >
             <div
               id="sys-div"
-              class="container flex col-direction br-15 p-10 light-blue"
+              class="container flex col-direction br-15 light-blue small-box b-1 bc-transparent"
             >
-              <p
-                id="sunrise-par"
-                class=""
-              >
-                Sunrise: hh:mm
-              </p>
-              <p
-                id="sunset-par"
-                class=""
-              >
-                Sunset: hh:mm
-              </p>
+              <div>
+                <p class="extra-small">🌞 SUN</p>
+
+                <hr class="bc-transparent" />
+
+                <div class="p-10">
+                  <p
+                    id="sunrise-par"
+                    class=""
+                  >
+                    🌅 Sunrise: hh:mm
+                  </p>
+                  <p
+                    id="sunset-par"
+                    class=""
+                  >
+                    🌄 Sunset: hh:mm
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div
               id="wind-div"
-              class="container col-direction br-15 p-10 light-blue"
+              class="container col-direction br-15 light-blue small-box b-1 bc-transparent"
             >
-              <p
-                id="wind-speed-par"
-                class="grow"
-              >
-                Speed: XX km/h
-              </p>
-              <p
-                id="wind-deg-par"
-                class="grow"
-              >
-                Degrees: XX
-              </p>
+              <div>
+                <p class="extra-small">💨 WIND</p>
+
+                <hr class="bc-transparent" />
+
+                <div class="p-10">
+                  <p id="wind-speed-par">⏱️ Speed: XX km/h</p>
+                  <p id="wind-deg-par">🧭 Degrees: D (XX°)</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

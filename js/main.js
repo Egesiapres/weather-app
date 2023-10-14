@@ -30,8 +30,8 @@ const clearInput = () => {
 
 const handleChangeScale = ({ temp, temp_max, temp_min }, value) => {
   tempDegPar.innerHTML = kelvinToScale(temp, value);
-  minTempPar.innerHTML = `Min: ${kelvinToScale(temp_min, value)}`;
-  maxTempPar.innerHTML = `Max: ${kelvinToScale(temp_max, value)}`;
+  minTempPar.innerHTML = `🥶 Min: ${kelvinToScale(temp_min, value)}`;
+  maxTempPar.innerHTML = `🥵 Max: ${kelvinToScale(temp_max, value)}`;
 };
 
 // f that displays the data retrieved
@@ -69,8 +69,8 @@ const displayWeatherData = async (location, event) => {
   weatherMainPar.innerHTML = weather[0].main;
 
   tempDegPar.innerHTML = kelvinToScale(main.temp, 'celsius');
-  minTempPar.innerHTML = `Min: ${kelvinToScale(main.temp_min, 'celsius')}`;
-  maxTempPar.innerHTML = `Max: ${kelvinToScale(main.temp_max, 'celsius')}`;
+  minTempPar.innerHTML = `🥶 Min: ${kelvinToScale(main.temp_min, 'celsius')}`;
+  maxTempPar.innerHTML = `🥵 Max: ${kelvinToScale(main.temp_max, 'celsius')}`;
 
   scaleSelect.addEventListener('change', e =>
     handleChangeScale(main, e.target.value)
@@ -79,9 +79,9 @@ const displayWeatherData = async (location, event) => {
   weatherMainImg.setAttribute('src', getImg(weather[0].icon));
 
   // city secondary info
-  sunrisePar.innerHTML = `⬆️ Sunrise: ${unixTStoHour(sys.sunrise)}`;
-  sunsetPar.innerHTML = `⬇️ Sunset: ${unixTStoHour(sys.sunset)}`;
-  windSpeedPar.innerHTML = `⏱️ Speed: ${wind.speed} km/h`;
+  sunrisePar.innerHTML = `🌅 Sunrise: ${unixTStoHour(sys.sunrise)}`;
+  sunsetPar.innerHTML = `🌄 Sunset: ${unixTStoHour(sys.sunset)}`;
+  windSpeedPar.innerHTML = `🏎️ Speed: ${wind.speed} km/h`;
   windDegPar.innerHTML = `🧭 Direction: ${meteoDegToDirection(wind.deg)}`;
 };
 

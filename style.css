@@ -6,9 +6,7 @@
 body {
   margin: 0;
   height: 100vh;
-  /* background-color: rgba(49, 103, 186, 0.5); */
   background-color: #d2d2d2;
-  /* background-color: #658fc4; */
 }
 
 #content {
@@ -24,7 +22,6 @@ body {
   display: none;
 }
 
-/* classes */
 .container {
   display: flex;
 }
@@ -49,6 +46,26 @@ body {
   flex-direction: column;
 }
 
+.rg-15 {
+  row-gap: 15px;
+}
+
+.cg-15 {
+  column-gap: 15px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
+.mr-5 {
+  margin: 0 5px 0 0;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
 .br-25 {
   border-radius: 25px;
 }
@@ -61,29 +78,28 @@ body {
   border-radius: 10px;
 }
 
-.br-7 {
-  border-radius: 7px;
-}
-
 .br-5 {
   border-radius: 5px;
 }
 
+.b-0 {
+  border: none;
+}
+
+.b-1 {
+  border: 1px solid
+}
+
+.bc-transparent {
+  border-color: #ffffff51;
+}
+
+.text-transparent {
+  color: #ffffff51;
+}
+
 .bc-grey {
-  border: 1px solid;
-  border-color: grey;
-}
-
-.mr-5 {
-  margin: 0 5px 0 0;
-}
-
-.my-15 {
-  margin: 15px 0;
-}
-
-.mt-15 {
-  margin-top: 15px;
+  border: 1px solid grey;
 }
 
 .p-20 {
@@ -114,33 +130,40 @@ body {
   color: grey;
 }
 
+.extra-small {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ebebeb
+}
+
 .small {
-  margin: 5px 0;
-  font-size: 12px;
+  margin: 0;
+  font-size: 15px;
+}
+
+.my-10 {
+  margin: 10px 0;
 }
 
 .medium {
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 300;
 }
 
 .big {
-  font-size: 70px;
-  font-weight: 300;
+  font-size: 80px;
+  font-weight: 400;
+  margin: 0;
 }
 
 h1 {
   font-weight: 400;
 }
 
-h3 {
-  margin: 10px 0;
-  font-weight: 500;
-}
-
-h4,
-h5 {
-  font-weight: 500;
+form {
+  display: flex;
+  column-gap: 10px;
 }
 
 input {
@@ -152,16 +175,28 @@ p {
   margin: 10px;
 }
 
+div > p.extra-small {
+  margin: 10px 13px;
+}
+
+hr {
+  margin: 0;
+}
+
+#name-par {
+  margin: 5px;
+}
+
 #weather-main-par {
-  margin-top: -8px;
+  margin: -8px 5px 5px 5px;
 }
 
 .light-blue {
-  background-color: #77a1d9;;
+  background-color: #ffffff38;
 }
 
 .small-box {
-  width: 42%;
+  width: 50%;
 }
 
 #temp-scale-div {
