@@ -1,4 +1,4 @@
-export const personalAPIkey = 'd84df6a5359d1ca50cf0749743171b50';
+export const API_KEY = 'd84df6a5359d1ca50cf0749743171b50';
 
 export const capitalizeFirstLetter = word =>
   `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
