@@ -13,7 +13,7 @@ export const kelvinToScale = (temperature, scale) => {
   }
 
   if (scale === 'kelvin') {
-    return `${temperature} K`
+    return `${temperature} K`;
   }
 };
 
@@ -33,28 +33,70 @@ export const unixTStoHour = timestamp => {
   return `${addZero(hour)}:${addZero(minutes)}`;
 };
 
-export const meteoDegToDirection = meteoDeg => {
-  let direction;
-
-  if (0 < meteoDeg < 23 || 337 < meteoDeg < 360) {
-    direction = 'N';
-  } else if (24 < meteoDeg < 68) {
-    direction = 'NE';
-  } else if (69 < meteoDeg < 113) {
-    direction = 'E';
-  } else if (114 < meteoDeg < 158) {
-    direction = 'SE';
-  } else if (159 < meteoDeg < 203) {
-    direction = 'S';
-  } else if (204 < meteoDeg < 248) {
-    direction = 'SW';
-  } else if (249 < meteoDeg < 293) {
-    direction = 'W';
-  } else if (294 < meteoDeg < 336) {
-    direction = 'NW';
-  }
-
-  return `${direction} (${meteoDeg}°)`;
+export const msToKm = speed => {
+  return `${(speed * 3.6).toFixed(1)}km/h`;
 };
 
-export const getImg = code => `https://openweathermap.org/img/wn/${code}@2x.png`;
+export const meteoDegToDirection = meteoDeg => {
+  const directions = [
+    { direction: 'N', arrow: '↓', interval: [0, 11.25] },
+    { direction: 'N', arrow: '↓', interval: [348.75, 360] },
+    { direction: 'NNE', arrow: '↙', interval: [11.25, 33.75] },
+    { direction: 'NE', arrow: '↙', interval: [33.75, 56.25] },
+    { direction: 'ENE', arrow: '↙', interval: [56.25, 78.75] },
+    { direction: 'E', arrow: '←', interval: [78.75, 101.25] },
+    { direction: 'ESE', arrow: '↖', interval: [101.25, 123.75] },
+    { direction: 'SE', arrow: '↖', interval: [123.75, 146.25] },
+    { direction: 'SSE', arrow: '↖', interval: [146.25, 168.75] },
+    { direction: 'S', arrow: '↑', interval: [168.75, 191.25] },
+    { direction: 'SSW', arrow: '↗', interval: [191.25, 213.75] },
+    { direction: 'SW', arrow: '↗', interval: [213.75, 236.25] },
+    { direction: 'WSW', arrow: '↗', interval: [236.25, 258.75] },
+    { direction: 'W', arrow: '→', interval: [258.75, 281.25] },
+    { direction: 'WNW', arrow: '↘', interval: [281.25, 303.75] },
+    { direction: 'NW', arrow: '↘', interval: [303.75, 326.25] },
+    { direction: 'NNW', arrow: '↘', interval: [326.25, 348.75] },
+  ];
+
+  let direction;
+
+  directions.forEach(el => {
+    if (meteoDeg >= el.interval[0] && meteoDeg < el.interval[1]) {
+      direction = `${el.arrow} ${el.direction}`;
+    }
+  });
+
+  return direction;
+};
+
+export const getOriginalIcon = code =>
+  `https://openweathermap.org/img/wn/${code}@2x.png`;
+
+// TODO: hour based img
+export const getCustomIcon = weather => {
+  let icon;
+
+  switch (weather) {
+    case 'Clear':
+      icon = '/img/clear-day.svg';
+      break;
+
+    case 'Clouds':
+      icon = '/img/cloudy.svg';
+      break;
+
+    case 'Mist':
+      icon = '/img/mist.svg';
+      break;
+
+    case 'Rain':
+      icon = '/img/rain.svg';
+      break;
+
+    case 'Snow':
+      icon = '/img/snow.svg';
+      break;
+  }
+
+  return icon;
+};
