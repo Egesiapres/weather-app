@@ -21,22 +21,25 @@
       href="https://fonts.gstatic.com"
       crossorigin
     />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Space+Mono&display=swap"
-      rel="stylesheet"
+      rel="icon"
+      sizes="72x72"
+      href="/img/partly-cloudy-day.svg"
+      type="image/svg"
     />
 
     <title>Weather app</title>
   </head>
 
-  <body class="container y-center x-center">
+  <body class="container y-center x-center m-0">
     <div
       class="width-70 br-25 p-15"
       id="content"
     >
-      <header class="container x-center">
-        <h1>Emoji weather 👅</h1>
-      </header>
+      <!-- <header class="container x-center">
+        <h1>Let's weather 👅</h1>
+      </header> -->
 
       <main class="container col-direction rg-15">
         <form class="container x-center">
@@ -77,22 +80,22 @@
               id="name-par"
               class="container x-center medium"
             >
-              📍 City name
+              City name
             </p>
             <p
               id="position-details-par"
-              class="container x-center small"
+              class="container x-center small m-0"
             >
               State, (COUNTRY)
             </p>
 
             <div class="container x-center">
-              <img />
+              <img class="m-5" />
             </div>
 
             <p
               id="weather-main-par"
-              class="container x-center medium"
+              class="container x-center medium m-0"
             >
               Weather main
             </p>
@@ -101,17 +104,24 @@
           <!-- secondary info -->
           <div
             id="city-secondary-info-div"
-            class="br-15 light-blue b-1 bc-transparent"
+            class="br-15 bg-transparent b-1 bc-transparent"
           >
-            <p class="extra-small">🌡️ TEMPERATURE</p>
+            <div class="container y-center">
+              <!-- <img
+                src="/img/thermometer.svg"
+                class="icon"
+              /> -->
 
-            <hr class="bc-transparent" />
+              <p class="label m-10">TEMPERATURE</p>
+            </div>
+
+            <hr class="m-0 bc-transparent" />
 
             <div class="container justify-evenly m-10">
               <div>
                 <p
                   id="temp-deg-par"
-                  class="big"
+                  class="big cg-15 m-0"
                 >
                   XX°C
                 </p>
@@ -120,18 +130,42 @@
                   id="temp-deg-div"
                   class="container x-center"
                 >
-                  <p id="min-temp-par">🥶 Min: XX°C</p>
-                  <p id="max-temp-par">🥵 Max: XX°C</p>
+                  <div class="container y-center">
+                    <img
+                      src="img/thermometer-colder.svg"
+                      class="icon"
+                    />
+
+                    <p
+                      id="min-temp-par"
+                      class="m-0"
+                    >
+                      Min: XX°C
+                    </p>
+                  </div>
+
+                  <div class="container y-center">
+                    <img
+                      src="img/thermometer-warmer.svg"
+                      class="icon"
+                    />
+                    <p
+                      id="max-temp-par"
+                      class="m-0"
+                    >
+                      Max: XX°C
+                    </p>
+                  </div>
                 </div>
               </div>
 
               <div
                 id="temp-scale-div"
-                class="container col-direction x-center p-10"
+                class="container col-direction x-center p-10 rg-15"
               >
                 <label
                   for="scale-select"
-                  class="small my-10"
+                  class="small m-0 my-10"
                   >Select a temperature scale</label
                 >
 
@@ -155,42 +189,93 @@
           >
             <div
               id="sys-div"
-              class="container flex col-direction br-15 light-blue small-box b-1 bc-transparent"
+              class="container flex col-direction br-15 bg-transparent small-box b-1 bc-transparent"
             >
               <div>
-                <p class="extra-small">🌞 SUN</p>
+                <div class="container y-center">
+                  <!-- <img
+                    src="img/horizon.svg"
+                    class="icon mx-7"
+                  /> -->
 
-                <hr class="bc-transparent" />
+                  <p class="label m-10">SUN</p>
+                </div>
+
+                <hr class="m-0 bc-transparent" />
 
                 <div class="p-10">
-                  <p
-                    id="sunrise-par"
-                    class=""
-                  >
-                    🌅 Sunrise: hh:mm
-                  </p>
-                  <p
-                    id="sunset-par"
-                    class=""
-                  >
-                    🌄 Sunset: hh:mm
-                  </p>
+                  <div class="container y-center">
+                    <img
+                      src="img/sunrise.svg"
+                      class="small-icon mr-5"
+                    />
+                    <p
+                      id="sunrise-par"
+                      class="m-0"
+                    >
+                      Sunrise: hh:mm
+                    </p>
+                  </div>
+
+                  <div class="container y-center">
+                    <img
+                      src="img/sunset.svg"
+                      class="small-icon mr-5"
+                    />
+
+                    <p
+                      id="sunset-par"
+                      class="m-0"
+                    >
+                      Sunset: hh:mm
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div
               id="wind-div"
-              class="container col-direction br-15 light-blue small-box b-1 bc-transparent"
+              class="container col-direction br-15 bg-transparent small-box b-1 bc-transparent"
             >
               <div>
-                <p class="extra-small">💨 WIND</p>
+                <div class="container y-center">
+                  <!-- <img
+                    src="img/wind.svg"
+                    class="icon"
+                  /> -->
+                  <p class="label m-10">WIND</p>
+                </div>
 
-                <hr class="bc-transparent" />
+                <hr class="m-0 bc-transparent" />
 
                 <div class="p-10">
-                  <p id="wind-speed-par">⏱️ Speed: XX km/h</p>
-                  <p id="wind-deg-par">🧭 Degrees: D (XX°)</p>
+                  <div class="container y-center">
+                    <img
+                      src="img/wind.svg"
+                      class="small-icon mr-5"
+                    />
+                    <p
+                      id="wind-speed-par"
+                      class="m-0"
+                    >
+                      Speed: XX km/h
+                    </p>
+                  </div>
+
+                  <div class="container y-center">
+                    <img
+                      src="img/compass.svg"
+                      class="small-icon mr-5"
+                    />
+
+                    <p
+                      id="wind-deg-par"
+                      class="m-0"
+                    >
+                      Degrees: D (XX°)
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

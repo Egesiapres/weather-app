@@ -1,17 +1,22 @@
+@font-face {
+  font-family: 'Apercu';
+  src: url('apercu-pro-regular.otf');
+}
+
 * {
-  font-family: Roboto, sans-serif;
+  font-family: Apercu, serif;
   color: #ffffff;
 }
 
 body {
-  margin: 0;
   height: 100vh;
   background-color: #d2d2d2;
 }
 
 #content {
   /* border: 2px solid #a1b2d67e ; */
-  background-color: #4b7dbc;
+  /* background-color: #4b7dbc; */
+  background-image: linear-gradient(to bottom, #4b7dbc, #ff2a00aa);
   box-shadow: 5px 5px 10px #4d4e51;
   /* backdrop-filter: blur(30px); */
   width: fit-content;
@@ -62,6 +67,10 @@ body {
   margin: 0 5px 0 0;
 }
 
+.m-0 {
+  margin: 0;
+}
+
 .mt-15 {
   margin-top: 15px;
 }
@@ -87,7 +96,7 @@ body {
 }
 
 .b-1 {
-  border: 1px solid
+  border: 1px solid;
 }
 
 .bc-transparent {
@@ -130,20 +139,13 @@ body {
   color: grey;
 }
 
-.extra-small {
-  margin: 0;
+.label {
   font-size: 14px;
   font-weight: 500;
-  color: #ebebeb
 }
 
 .small {
-  margin: 0;
   font-size: 15px;
-}
-
-.my-10 {
-  margin: 10px 0;
 }
 
 .medium {
@@ -154,7 +156,6 @@ body {
 .big {
   font-size: 80px;
   font-weight: 400;
-  margin: 0;
 }
 
 h1 {
@@ -171,27 +172,19 @@ input {
 }
 
 /* weather data display classes */
-p {
-  margin: 10px;
-}
-
-div > p.extra-small {
-  margin: 10px 13px;
-}
-
 hr {
-  margin: 0;
+  border: 0.5px solid;
 }
 
 #name-par {
   margin: 5px;
 }
 
-#weather-main-par {
-  margin: -8px 5px 5px 5px;
+#temp-scale-div {
+  row-gap: 10px;
 }
 
-.light-blue {
+.bg-transparent {
   background-color: #ffffff38;
 }
 
@@ -203,9 +196,23 @@ hr {
   width: 25%;
 }
 
+#position-details-par {
+  margin-bottom: 5px;
+}
+
 img {
   width: 120px;
   height: auto;
+}
+
+.icon {
+  height: 50px;
+  width: auto;
+}
+
+.small-icon {
+  height: 35px;
+  width: auto;
 }
 
 /* TODO: remove the classes used just once **/
