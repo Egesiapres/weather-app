@@ -1,3 +1,10 @@
+import {
+  tempPar,
+  perceivedTempPar,
+  minTempPar,
+  maxTempPar,
+} from './elements.js';
+
 export const API_KEY = 'd84df6a5359d1ca50cf0749743171b50';
 
 export const capitalizeFirstLetter = word =>
@@ -33,8 +40,21 @@ export const unixTStoHour = timestamp => {
   return `${addZero(hour)}:${addZero(minutes)}`;
 };
 
-export const msToKm = speed => {
-  return `${(speed * 3.6).toFixed(1)}km/h`;
+export const changeScale = (
+  { temp, feels_like, temp_max, temp_min },
+  value
+) => {
+  tempPar.innerHTML = kelvinToScale(temp, value);
+  perceivedTempPar.innerHTML = `Feels like: ${kelvinToScale(
+    feels_like,
+    value
+  )}`;
+  minTempPar.innerHTML = `Min: ${kelvinToScale(temp_min, value)}`;
+  maxTempPar.innerHTML = `Max: ${kelvinToScale(temp_max, value)}`;
+};
+
+export const msToKmh = speed => {
+  return (speed * 3.6).toFixed(1);
 };
 
 export const meteoDegToDirection = meteoDeg => {
@@ -99,4 +119,113 @@ export const getCustomIcon = weather => {
   }
 
   return icon;
+};
+
+export const getBftIcon = speed => {
+  const bftScale = [
+    {
+      bft: 0,
+      icon: '/img/wind-beaufort-0.svg',
+      description: 'Calm',
+      interval: '',
+    },
+    {
+      bft: 1,
+      icon: '/img/wind-beaufort-1.svg',
+      description: 'Light air',
+      interval: [1, 5],
+    },
+    {
+      bft: 2,
+      icon: '/img/wind-beaufort-2.svg',
+      description: 'Light breeze',
+      interval: [5, 11],
+    },
+    {
+      bft: 3,
+      icon: '/img/wind-beaufort-3.svg',
+      description: 'Gentle breeze',
+      interval: [11, 19],
+    },
+    {
+      bft: 4,
+      icon: '/img/wind-beaufort-4.svg',
+      description: 'Moderate breeze',
+      interval: [19, 28],
+    },
+    {
+      bft: 5,
+      icon: '/img/wind-beaufort-5.svg',
+      description: 'Fresh breeze',
+      interval: [28, 38],
+    },
+    {
+      bft: 6,
+      icon: '/img/wind-beaufort-6.svg',
+      description: 'Strong breeze',
+      interval: [38, 49],
+    },
+    {
+      bft: 7,
+      icon: '/img/wind-beaufort-7.svg',
+      description: 'High wind',
+      interval: [49, 61],
+    },
+    {
+      bft: 8,
+      icon: '/img/wind-beaufort-8.svg',
+      description: 'Gale',
+      interval: [61, 74],
+    },
+    {
+      bft: 9,
+      icon: '/img/wind-beaufort-9.svg',
+      description: 'Strong gale',
+      interval: [74, 88],
+    },
+    {
+      bft: 10,
+      icon: '/img/wind-beaufort-10.svg',
+      description: 'Storm',
+      interval: [88, 102],
+    },
+    {
+      bft: 11,
+      icon: '/img/wind-beaufort-11.svg',
+      description: 'Violent storm',
+      interval: [102, 118],
+    },
+    {
+      bft: 12,
+      icon: '/img/wind-beaufort-12.svg',
+      description: 'Hurricane-force',
+      interval: '',
+    },
+  ];
+
+  let bftIcon;
+
+  bftScale.forEach(el => {
+    if (speed >= el?.interval[0] && speed < el?.interval[1]) {
+      bftIcon = el.icon;
+    }
+
+    if (speed < 1) {
+      bftIcon = bftScale[0].icon;
+    }
+
+    if (speed >= 118) {
+      bftIcon = bftScale[12].icon;
+    }
+  });
+
+  return bftIcon;
+};
+
+export const hideElement = element => {
+  element.setAttribute('class', 'hidden');
+};
+
+export const showElement = (element, elClass) => {
+  element.setAttribute('class', elClass);
 };

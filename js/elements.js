@@ -16,7 +16,9 @@ export const weatherMainPar = document.querySelector('#weather-main-par');
 
 export const weatherMainImg = document.querySelector('img');
 
-export const tempDegPar = document.querySelector('#temp-deg-par');
+export const tempPar = document.querySelector('#temp-par');
+
+export const perceivedTempPar = document.querySelector('#perceived-temp-par');
 
 export const minTempPar = document.querySelector('#min-temp-par');
 
@@ -28,6 +30,16 @@ export const sunrisePar = document.querySelector('#sunrise-par');
 
 export const sunsetPar = document.querySelector('#sunset-par');
 
+export const windContentDiv = document.querySelector('#wind-content-div');
+
+export const windBftIcon = document.querySelector('#wind-bft-icon');
+
 export const windSpeedPar = document.querySelector('#wind-speed-par');
+
+export const gustSpeedDiv = document.querySelector('#gust-speed-div');
+
+export const gustBftIcon = document.querySelector('#gust-bft-icon');
+
+export const gustSpeedPar = document.querySelector('#gust-speed-par');
 
 export const windDegPar = document.querySelector('#wind-deg-par');
