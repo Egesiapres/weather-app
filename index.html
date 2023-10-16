@@ -9,17 +9,17 @@
 
     <link
       rel="stylesheet"
-      href="style.css"
+      href="style/style.css"
     />
 
     <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
+      rel="stylesheet"
+      href="/style/weather-icons.min.css"
     />
+
     <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin
+      rel="stylesheet"
+      href="/style/weather-icons-wind.min.css"
     />
 
     <link
@@ -33,44 +33,40 @@
   </head>
 
   <body class="container y-center x-center m-0">
-    <div
-      class="width-70 br-25 p-15"
+    <main
+      class="container col-direction rg-15 width-70 br-25 p-15"
       id="content"
     >
-      <!-- <header class="container x-center">
-        <h1>Let's weather 👅</h1>
-      </header> -->
+      <form class="container x-center">
+        <input
+          class="br-10 b-0 p-10 text-black"
+          type="text"
+          placeholder="Type your city name..."
+          value=""
+        />
 
-      <main class="container col-direction rg-15">
-        <form class="container x-center">
-          <input
-            class="br-10 b-0 p-10 text-black"
-            type="text"
-            placeholder="Type your city name..."
-            value=""
-          />
+        <button
+          class="br-10 b-0 p-10 text-black"
+          id="search-btn"
+          type="button"
+        >
+          🔎 Search
+        </button>
 
-          <button
-            class="br-10 b-0 p-10 text-black"
-            id="search-btn"
-            type="button"
-          >
-            🔎 Search
-          </button>
-
-          <!-- <button
+        <!-- <button
             class="p-10"
             type="button"
             disabled
           >
             Your location
           </button> -->
-        </form>
+      </form>
 
-        <div
-          id="weather-data-div"
-          class="container col-direction rg-15"
-        >
+      <div
+        id="weather-data-div"
+        class="hidden"
+      >
+        <div class="container col-direction rg-15">
           <!-- primary info -->
           <div
             id="city-main-info-div"
@@ -80,7 +76,7 @@
               id="name-par"
               class="container x-center medium"
             >
-              City name
+              City
             </p>
             <p
               id="position-details-par"
@@ -90,14 +86,17 @@
             </p>
 
             <div class="container x-center">
-              <img class="m-5" />
+              <img
+                class="m-5"
+                src="/img/partly-cloudy-day.svg"
+              />
             </div>
 
             <p
               id="weather-main-par"
               class="container x-center medium m-0"
             >
-              Weather main
+              Weather
             </p>
           </div>
 
@@ -107,12 +106,9 @@
             class="br-15 bg-transparent b-1 bc-transparent"
           >
             <div class="container y-center">
-              <!-- <img
-                src="/img/thermometer.svg"
-                class="icon"
-              /> -->
+              <i class="wi wi-thermometer text-transparent m-10"></i>
 
-              <p class="label m-10">TEMPERATURE</p>
+              <p class="label m-10 text-transparent">TEMPERATURE</p>
             </div>
 
             <hr class="m-0 bc-transparent" />
@@ -120,7 +116,14 @@
             <div class="container justify-evenly m-10">
               <div>
                 <p
-                  id="temp-deg-par"
+                  id="perceived-temp-par"
+                  class="container x-center small m-10"
+                >
+                  Feels like: XX°C
+                </p>
+
+                <p
+                  id="temp-par"
                   class="big cg-15 m-0"
                 >
                   XX°C
@@ -193,12 +196,9 @@
             >
               <div>
                 <div class="container y-center">
-                  <!-- <img
-                    src="img/horizon.svg"
-                    class="icon mx-7"
-                  /> -->
+                  <i class="wi wi-day-sunny m-10 text-transparent"></i>
 
-                  <p class="label m-10">SUN</p>
+                  <p class="label m-10 text-transparent">SUN</p>
                 </div>
 
                 <hr class="m-0 bc-transparent" />
@@ -240,19 +240,20 @@
             >
               <div>
                 <div class="container y-center">
-                  <!-- <img
-                    src="img/wind.svg"
-                    class="icon"
-                  /> -->
-                  <p class="label m-10">WIND</p>
+                  <i class="wi wi-strong-wind m-10 text-transparent"></i>
+                  <p class="label m-10 text-transparent">WIND</p>
                 </div>
 
                 <hr class="m-0 bc-transparent" />
 
-                <div class="p-10">
+                <div
+                  id="wind-content-div"
+                  class="p-10"
+                >
                   <div class="container y-center">
                     <img
-                      src="img/wind.svg"
+                      id="wind-bft-icon"
+                      src="/img/wind.svg"
                       class="small-icon mr-5"
                     />
                     <p
@@ -260,6 +261,23 @@
                       class="m-0"
                     >
                       Speed: XX km/h
+                    </p>
+                  </div>
+
+                  <div
+                    id="gust-speed-div"
+                    class="hidden"
+                  >
+                    <img
+                      id="gust-bft-icon"
+                      src="/img/wind.svg"
+                      class="small-icon mr-5"
+                    />
+                    <p
+                      id="gust-speed-par"
+                      class="m-0"
+                    >
+                      Gust: XX km/h
                     </p>
                   </div>
 
@@ -273,7 +291,7 @@
                       id="wind-deg-par"
                       class="m-0"
                     >
-                      Degrees: D (XX°)
+                      ↑ D
                     </p>
                   </div>
                 </div>
@@ -281,8 +299,8 @@
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
 
     <script
       type="module"

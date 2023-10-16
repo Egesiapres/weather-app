@@ -1,6 +1,26 @@
 @font-face {
   font-family: 'Apercu';
-  src: url('apercu-pro-regular.otf');
+  src: url('/font/apercu-pro-regular.otf');
+}
+
+@font-face {
+  font-family: 'weather-icons-eot';
+  src: url('font/weathericons-regular-webfont.woff');
+}
+
+@font-face {
+  font-family: 'weather-icons-ttf';
+  src: url('font/weathericons-regular-webfont.ttf');
+}
+
+@font-face {
+  font-family: 'weather-icons-woff';
+  src: url('font/weathericons-regular-webfont.woff');
+}
+
+@font-face {
+  font-family: 'weather-icons-woff2';
+  src: url('font/weathericons-regular-webfont.woff2');
 }
 
 * {
@@ -103,10 +123,6 @@ body {
   border-color: #ffffff51;
 }
 
-.text-transparent {
-  color: #ffffff51;
-}
-
 .bc-grey {
   border: 1px solid grey;
 }
@@ -139,13 +155,18 @@ body {
   color: grey;
 }
 
+.text-transparent {
+  color: #ffffff8c;
+}
+
 .label {
   font-size: 14px;
   font-weight: 500;
+  margin-left: 0;
 }
 
 .small {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .medium {
@@ -213,6 +234,10 @@ img {
 .small-icon {
   height: 35px;
   width: auto;
+}
+
+.wi {
+  margin-left: 12px;
 }
 
 /* TODO: remove the classes used just once **/
