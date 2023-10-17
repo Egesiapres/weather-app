@@ -16,13 +16,14 @@ import {
   scaleSelect,
   perceivedTempPar,
   windBftIcon,
-  weatherDataDiv,
+  primaryDiv,
   gustBftIcon,
   gustSpeedPar,
   gustSpeedDiv,
   humidityPar,
   pressurePar,
   visibilityPar,
+  secondaryDiv,
 } from './elements.js';
 import {
   kelvinToScale,
@@ -60,7 +61,8 @@ const displayWeatherData = async (location, event) => {
 
   // show data
   if (cityData) {
-    weatherDataDiv.removeAttribute('class');
+    primaryDiv.removeAttribute('class');
+    secondaryDiv.removeAttribute('class');
   }
 
   const { name, state, country } = cityData;
@@ -75,7 +77,7 @@ const displayWeatherData = async (location, event) => {
 
   const { main, sys, visibility, weather, wind } = weatherData;
 
-  namePar.innerHTML = `📍 ${name}`;
+  namePar.innerHTML = name;
   positionDetailsPar.innerHTML = `${state ? state : ''}${
     state && country ? ', ' : ''
   }${country ? `(${country})` : ''}`;
@@ -123,5 +125,3 @@ displayWeatherData();
 searchBtn.addEventListener('click', () => displayWeatherData(input.value));
 
 form.addEventListener('submit', e => displayWeatherData(input.value, e));
-
-// TODO: UI design with CSS

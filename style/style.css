@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Apercu';
-  src: url('/font/apercu-pro-regular.otf');
+  src: url('/font/apercu-regular.otf');
 }
 
 * {
@@ -10,15 +10,15 @@
 
 body {
   height: 100vh;
-  background-color: #d2d2d2;
+  background-color: #bdbdbd;
 }
 
 #content {
   width: fit-content;
   height: fit-content;
-  /* background-image: linear-gradient(to bottom, #4b7dbc, #ff2a00aa); */
-  background-image: linear-gradient(to bottom, #164a8b, #03a0e39d);
+  background-image: linear-gradient(to bottom, #164a8b, #03a0e390);
   box-shadow: 5px 5px 10px #4d4e51;
+  border-radius: 25px;
 }
 
 section {
@@ -32,6 +32,10 @@ section {
 
 .container {
   display: flex;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .x-center {
@@ -54,12 +58,12 @@ section {
   flex-direction: column;
 }
 
-.rg-15 {
-  row-gap: 15px;
-}
-
 .cg-15 {
   column-gap: 15px;
+}
+
+.rg-15 {
+  row-gap: 15px;
 }
 
 .m-10 {
@@ -74,12 +78,12 @@ section {
   margin: 0;
 }
 
-.mt-15 {
-  margin-top: 15px;
+.b-1 {
+  border: 1px solid;
 }
 
-.br-25 {
-  border-radius: 25px;
+.b-0 {
+  border: none;
 }
 
 .br-15 {
@@ -88,18 +92,6 @@ section {
 
 .br-10 {
   border-radius: 10px;
-}
-
-.br-5 {
-  border-radius: 5px;
-}
-
-.b-0 {
-  border: none;
-}
-
-.b-1 {
-  border: 1px solid;
 }
 
 .bc-transparent {
@@ -142,6 +134,10 @@ section {
   color: #ffffff8c;
 }
 
+.bg-transparent {
+  background-color: #ffffff28;
+}
+
 .label {
   font-size: 14px;
   font-weight: 500;
@@ -162,6 +158,28 @@ section {
   font-weight: 400;
 }
 
+.small-box {
+  width: 33%;
+}
+
+.medium-box {
+  width: 50%;
+}
+
+.small-icon {
+  height: 35px;
+  width: auto;
+}
+
+.icon {
+  height: 50px;
+  width: auto;
+}
+
+.wi {
+  margin-left: 12px;
+}
+
 h1 {
   font-weight: 400;
 }
@@ -179,8 +197,21 @@ hr {
   border: 0.5px solid;
 }
 
+img {
+  width: 120px;
+  height: auto;
+}
+
+select {
+  border-radius: 5px;
+}
+
 #name-par {
   margin: 5px;
+}
+
+#position-details-par {
+  margin-bottom: 5px;
 }
 
 #temp-scale-div {
@@ -188,53 +219,17 @@ hr {
   width: 25%;
 }
 
-.bg-transparent {
-  background-color: #ffffff28;
-}
-
-.small-box {
-  width: 50%;
-  /* backdrop-filter: blur(30px); */
-}
-
-.extra-small-box {
-  width: 33%;
-}
-
-#position-details-par {
-  margin-bottom: 5px;
-}
-
-img {
-  width: 120px;
-  height: auto;
-}
-
-.icon {
-  height: 50px;
-  width: auto;
-}
-
-.small-icon {
-  height: 35px;
-  width: auto;
-}
-
-.wi {
-  margin-left: 12px;
-}
-
-.text-center {
-  text-align: center;
+#scrollable-section {
+  padding-bottom: 0;
 }
 
 /* TODO: clear css **/
 /* TODO: animated icons copy */
-/* TODO: footer (⬇️ scroll down and transparency) */
-/* TODO: hide elements while fetching */
 /* TODO: search bar */
 
 /* data */
 /* TODO: pollution */
 /* TODO: hour/daily forecast */
 
+/* other */
+/* TODO: deployment problems */

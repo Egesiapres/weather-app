@@ -4,7 +4,9 @@ export const form = document.querySelector('form');
 
 export const searchBtn = document.querySelector('#search-btn');
 
-export const weatherDataDiv = document.querySelector('#weather-data-div');
+export const primaryDiv = document.querySelector('#primary-div');
+
+export const secondaryDiv = document.querySelector('#secondary-div');
 
 export const namePar = document.querySelector('#name-par');
 
