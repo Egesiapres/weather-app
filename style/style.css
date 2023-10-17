@@ -3,26 +3,6 @@
   src: url('/font/apercu-pro-regular.otf');
 }
 
-@font-face {
-  font-family: 'weather-icons-eot';
-  src: url('font/weathericons-regular-webfont.woff');
-}
-
-@font-face {
-  font-family: 'weather-icons-ttf';
-  src: url('font/weathericons-regular-webfont.ttf');
-}
-
-@font-face {
-  font-family: 'weather-icons-woff';
-  src: url('font/weathericons-regular-webfont.woff');
-}
-
-@font-face {
-  font-family: 'weather-icons-woff2';
-  src: url('font/weathericons-regular-webfont.woff2');
-}
-
 * {
   font-family: Apercu, serif;
   color: #ffffff;
@@ -34,13 +14,16 @@ body {
 }
 
 #content {
-  /* border: 2px solid #a1b2d67e ; */
-  /* background-color: #4b7dbc; */
-  background-image: linear-gradient(to bottom, #4b7dbc, #ff2a00aa);
-  box-shadow: 5px 5px 10px #4d4e51;
-  /* backdrop-filter: blur(30px); */
   width: fit-content;
   height: fit-content;
+  /* background-image: linear-gradient(to bottom, #4b7dbc, #ff2a00aa); */
+  background-image: linear-gradient(to bottom, #164a8b, #03a0e39d);
+  box-shadow: 5px 5px 10px #4d4e51;
+}
+
+section {
+  height: 245px;
+  overflow: scroll;
 }
 
 .hidden {
@@ -189,10 +172,9 @@ form {
 }
 
 input {
-  width: 200px;
+  width: 150px;
 }
 
-/* weather data display classes */
 hr {
   border: 0.5px solid;
 }
@@ -203,18 +185,20 @@ hr {
 
 #temp-scale-div {
   row-gap: 10px;
+  width: 25%;
 }
 
 .bg-transparent {
-  background-color: #ffffff38;
+  background-color: #ffffff28;
 }
 
 .small-box {
   width: 50%;
+  /* backdrop-filter: blur(30px); */
 }
 
-#temp-scale-div {
-  width: 25%;
+.extra-small-box {
+  width: 33%;
 }
 
 #position-details-par {
@@ -240,4 +224,17 @@ img {
   margin-left: 12px;
 }
 
-/* TODO: remove the classes used just once **/
+.text-center {
+  text-align: center;
+}
+
+/* TODO: clear css **/
+/* TODO: animated icons copy */
+/* TODO: footer (⬇️ scroll down and transparency) */
+/* TODO: hide elements while fetching */
+/* TODO: search bar */
+
+/* data */
+/* TODO: pollution */
+/* TODO: hour/daily forecast */
+

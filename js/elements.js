@@ -26,10 +26,6 @@ export const maxTempPar = document.querySelector('#max-temp-par');
 
 export const scaleSelect = document.querySelector('select');
 
-export const sunrisePar = document.querySelector('#sunrise-par');
-
-export const sunsetPar = document.querySelector('#sunset-par');
-
 export const windContentDiv = document.querySelector('#wind-content-div');
 
 export const windBftIcon = document.querySelector('#wind-bft-icon');
@@ -43,3 +39,13 @@ export const gustBftIcon = document.querySelector('#gust-bft-icon');
 export const gustSpeedPar = document.querySelector('#gust-speed-par');
 
 export const windDegPar = document.querySelector('#wind-deg-par');
+
+export const sunrisePar = document.querySelector('#sunrise-par');
+
+export const sunsetPar = document.querySelector('#sunset-par');
+
+export const humidityPar = document.querySelector('#humidity-par');
+
+export const pressurePar = document.querySelector('#pressure-par');
+
+export const visibilityPar = document.querySelector('#visibility-par');

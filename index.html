@@ -32,275 +32,355 @@
     <title>Weather app</title>
   </head>
 
-  <body class="container y-center x-center m-0">
-    <main
-      class="container col-direction rg-15 width-70 br-25 p-15"
+  <body class="container x-center y-center m-0">
+    <div
       id="content"
+      class="container col-direction br-25"
     >
-      <form class="container x-center">
-        <input
-          class="br-10 b-0 p-10 text-black"
-          type="text"
-          placeholder="Type your city name..."
-          value=""
-        />
+      <header class="container col-direction y-center rg-15 p-15">
+        <form class="container x-center">
+          <input
+            class="br-10 b-0 p-10 text-black"
+            type="text"
+            placeholder="Type your city name..."
+            value=""
+          />
 
-        <button
-          class="br-10 b-0 p-10 text-black"
-          id="search-btn"
-          type="button"
-        >
-          🔎 Search
-        </button>
+          <button
+            class="br-10 b-0 p-10 text-black"
+            id="search-btn"
+            type="button"
+          >
+            🔎 Search
+          </button>
 
-        <!-- <button
+          <!-- <button
             class="p-10"
             type="button"
             disabled
           >
             Your location
           </button> -->
-      </form>
+        </form>
 
-      <div
-        id="weather-data-div"
-        class="hidden"
-      >
-        <div class="container col-direction rg-15">
-          <!-- primary info -->
-          <div
-            id="city-main-info-div"
-            class="container col-direction"
-          >
-            <p
-              id="name-par"
-              class="container x-center medium"
+        <div
+          id="weather-data-div"
+          class="hidden"
+        >
+          <div class="container col-direction rg-15 relative">
+            <!-- primary info -->
+            <div
+              id="city-main-info-div"
+              class="container col-direction"
             >
-              City
-            </p>
-            <p
-              id="position-details-par"
-              class="container x-center small m-0"
-            >
-              State, (COUNTRY)
-            </p>
+              <p
+                id="name-par"
+                class="text-center medium"
+              >
+                City
+              </p>
+              <p
+                id="position-details-par"
+                class="text-center small m-0"
+              >
+                State, (COUNTRY)
+              </p>
 
-            <div class="container x-center">
-              <img
-                class="m-5"
-                src="/img/partly-cloudy-day.svg"
-              />
+              <div class="container x-center">
+                <img
+                  class="m-5"
+                  src="/img/partly-cloudy-day.svg"
+                />
+              </div>
+
+              <p
+                id="weather-main-par"
+                class="text-center medium m-0"
+              >
+                Weather
+              </p>
             </div>
+          </div>
+        </div>
+      </header>
 
-            <p
-              id="weather-main-par"
-              class="container x-center medium m-0"
-            >
-              Weather
-            </p>
+      <hr class="m-0 bc-transparent" />
+
+      <section
+        id=""
+        class="container col-direction rg-15 p-15"
+      >
+        <!-- secondary info -->
+        <div
+          id="city-secondary-info-div"
+          class="br-15 bg-transparent b-1 bc-transparent"
+        >
+          <div class="container y-center">
+            <i class="wi wi-thermometer text-transparent m-10"></i>
+
+            <p class="label m-10 text-transparent">TEMPERATURE</p>
           </div>
 
-          <!-- secondary info -->
-          <div
-            id="city-secondary-info-div"
-            class="br-15 bg-transparent b-1 bc-transparent"
-          >
-            <div class="container y-center">
-              <i class="wi wi-thermometer text-transparent m-10"></i>
+          <hr class="m-0 bc-transparent" />
 
-              <p class="label m-10 text-transparent">TEMPERATURE</p>
-            </div>
+          <div class="container justify-evenly m-10">
+            <div>
+              <p
+                id="perceived-temp-par"
+                class="container x-center small m-10"
+              >
+                Feels like: XX°C
+              </p>
 
-            <hr class="m-0 bc-transparent" />
-
-            <div class="container justify-evenly m-10">
-              <div>
-                <p
-                  id="perceived-temp-par"
-                  class="container x-center small m-10"
-                >
-                  Feels like: XX°C
-                </p>
-
-                <p
-                  id="temp-par"
-                  class="big cg-15 m-0"
-                >
-                  XX°C
-                </p>
-
-                <div
-                  id="temp-deg-div"
-                  class="container x-center"
-                >
-                  <div class="container y-center">
-                    <img
-                      src="img/thermometer-colder.svg"
-                      class="icon"
-                    />
-
-                    <p
-                      id="min-temp-par"
-                      class="m-0"
-                    >
-                      Min: XX°C
-                    </p>
-                  </div>
-
-                  <div class="container y-center">
-                    <img
-                      src="img/thermometer-warmer.svg"
-                      class="icon"
-                    />
-                    <p
-                      id="max-temp-par"
-                      class="m-0"
-                    >
-                      Max: XX°C
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <p
+                id="temp-par"
+                class="big cg-15 m-0"
+              >
+                XX°C
+              </p>
 
               <div
-                id="temp-scale-div"
-                class="container col-direction x-center p-10 rg-15"
+                id="temp-deg-div"
+                class="container x-center"
               >
-                <label
-                  for="scale-select"
-                  class="small m-0 my-10"
-                  >Select a temperature scale</label
-                >
+                <div class="container y-center">
+                  <img
+                    src="img/thermometer-colder.svg"
+                    class="icon"
+                  />
 
-                <select
-                  name="scales"
-                  id="scale-select"
-                  class="text-black br-5 p-2"
+                  <p
+                    id="min-temp-par"
+                    class="m-0"
+                  >
+                    Min: XX°C
+                  </p>
+                </div>
+
+                <div class="container y-center">
+                  <img
+                    src="img/thermometer-warmer.svg"
+                    class="icon"
+                  />
+                  <p
+                    id="max-temp-par"
+                    class="m-0"
+                  >
+                    Max: XX°C
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="temp-scale-div"
+              class="container col-direction x-center p-10 rg-15"
+            >
+              <label
+                for="scale-select"
+                class="small m-0 my-10"
+                >Select a temperature scale</label
+              >
+
+              <select
+                name="scales"
+                id="scale-select"
+                class="text-black br-5 p-2"
+              >
+                <option value="celsius">Celsius (°C)</option>
+                <option value="fahrenheit">Fahrenheit (°F)</option>
+                <option value="kelvin">Kelvin (K)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- tertiary info -->
+        <div
+          id="city-tertiary-info-div"
+          class="container cg-15 b-25"
+        >
+          <div
+            id="wind-div"
+            class="container col-direction br-15 bg-transparent small-box b-1 bc-transparent"
+          >
+            <div>
+              <div class="container y-center">
+                <i class="wi wi-strong-wind m-10 text-transparent"></i>
+                <p class="label m-10 text-transparent">WIND</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <div
+                id="wind-content-div"
+                class="p-10"
+              >
+                <div class="container y-center">
+                  <img
+                    id="wind-bft-icon"
+                    src="/img/wind.svg"
+                    class="small-icon mr-5"
+                  />
+                  <p
+                    id="wind-speed-par"
+                    class="m-0"
+                  >
+                    Speed: XX km/h
+                  </p>
+                </div>
+
+                <div
+                  id="gust-speed-div"
+                  class="hidden"
                 >
-                  <option value="celsius">Celsius (°C)</option>
-                  <option value="fahrenheit">Fahrenheit (°F)</option>
-                  <option value="kelvin">Kelvin (K)</option>
-                </select>
+                  <img
+                    id="gust-bft-icon"
+                    src="/img/wind.svg"
+                    class="small-icon mr-5"
+                  />
+                  <p
+                    id="gust-speed-par"
+                    class="m-0"
+                  >
+                    Gust: XX km/h
+                  </p>
+                </div>
+
+                <div class="container y-center">
+                  <img
+                    src="img/compass.svg"
+                    class="small-icon mr-5"
+                  />
+
+                  <p
+                    id="wind-deg-par"
+                    class="m-0"
+                  >
+                    ↑ D
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- tertiary info -->
           <div
-            id="city-tertiary-info-div"
-            class="container cg-15 b-25"
+            id="sys-div"
+            class="container flex col-direction br-15 bg-transparent small-box b-1 bc-transparent"
           >
-            <div
-              id="sys-div"
-              class="container flex col-direction br-15 bg-transparent small-box b-1 bc-transparent"
-            >
-              <div>
-                <div class="container y-center">
-                  <i class="wi wi-day-sunny m-10 text-transparent"></i>
+            <div>
+              <div class="container y-center">
+                <i class="wi wi-day-sunny m-10 text-transparent"></i>
 
-                  <p class="label m-10 text-transparent">SUN</p>
-                </div>
-
-                <hr class="m-0 bc-transparent" />
-
-                <div class="p-10">
-                  <div class="container y-center">
-                    <img
-                      src="img/sunrise.svg"
-                      class="small-icon mr-5"
-                    />
-                    <p
-                      id="sunrise-par"
-                      class="m-0"
-                    >
-                      Sunrise: hh:mm
-                    </p>
-                  </div>
-
-                  <div class="container y-center">
-                    <img
-                      src="img/sunset.svg"
-                      class="small-icon mr-5"
-                    />
-
-                    <p
-                      id="sunset-par"
-                      class="m-0"
-                    >
-                      Sunset: hh:mm
-                    </p>
-                  </div>
-                </div>
+                <p class="label m-10 text-transparent">SUN</p>
               </div>
-            </div>
 
-            <div
-              id="wind-div"
-              class="container col-direction br-15 bg-transparent small-box b-1 bc-transparent"
-            >
-              <div>
+              <hr class="m-0 bc-transparent" />
+
+              <div class="p-10">
                 <div class="container y-center">
-                  <i class="wi wi-strong-wind m-10 text-transparent"></i>
-                  <p class="label m-10 text-transparent">WIND</p>
+                  <img
+                    src="img/sunrise.svg"
+                    class="small-icon mr-5"
+                  />
+                  <p
+                    id="sunrise-par"
+                    class="m-0"
+                  >
+                    Sunrise: hh:mm
+                  </p>
                 </div>
 
-                <hr class="m-0 bc-transparent" />
+                <div class="container y-center">
+                  <img
+                    src="img/sunset.svg"
+                    class="small-icon mr-5"
+                  />
 
-                <div
-                  id="wind-content-div"
-                  class="p-10"
-                >
-                  <div class="container y-center">
-                    <img
-                      id="wind-bft-icon"
-                      src="/img/wind.svg"
-                      class="small-icon mr-5"
-                    />
-                    <p
-                      id="wind-speed-par"
-                      class="m-0"
-                    >
-                      Speed: XX km/h
-                    </p>
-                  </div>
-
-                  <div
-                    id="gust-speed-div"
-                    class="hidden"
+                  <p
+                    id="sunset-par"
+                    class="m-0"
                   >
-                    <img
-                      id="gust-bft-icon"
-                      src="/img/wind.svg"
-                      class="small-icon mr-5"
-                    />
-                    <p
-                      id="gust-speed-par"
-                      class="m-0"
-                    >
-                      Gust: XX km/h
-                    </p>
-                  </div>
-
-                  <div class="container y-center">
-                    <img
-                      src="img/compass.svg"
-                      class="small-icon mr-5"
-                    />
-
-                    <p
-                      id="wind-deg-par"
-                      class="m-0"
-                    >
-                      ↑ D
-                    </p>
-                  </div>
+                    Sunset: hh:mm
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </main>
+
+        <!-- quaternary info -->
+        <div
+          id="city-quaternary-info-div"
+          class="container cg-15 b-25"
+        >
+          <div
+            id="humidity-div"
+            class="container flex col-direction br-15 bg-transparent extra-small-box b-1 bc-transparent"
+          >
+            <div>
+              <div class="container y-center">
+                <i class="wi wi-humidity m-10 text-transparent"></i>
+
+                <p class="label m-10 text-transparent">HUMIDITY</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="humidity-par"
+                class="m-10 text-center"
+              >
+                XX %
+              </p>
+            </div>
+          </div>
+
+          <div
+            id="pressure-div"
+            class="container col-direction br-15 bg-transparent extra-small-box b-1 bc-transparent"
+          >
+            <div>
+              <div class="container y-center">
+                <i class="wi wi-barometer m-10 text-transparent"></i>
+                <p class="label m-10 text-transparent">PRESSURE</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="pressure-par"
+                class="m-10 text-center"
+              >
+                XX %
+              </p>
+            </div>
+          </div>
+
+          <div
+            id="visibility-div"
+            class="container flex col-direction br-15 bg-transparent extra-small-box b-1 bc-transparent"
+          >
+            <div>
+              <div class="container y-center">
+                <i class="wi wi-dust m-10 text-transparent"></i>
+
+                <p class="label m-10 text-transparent">VISIBILITY</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="visibility-par"
+                class="m-10 text-center"
+              >
+                XX km
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <script
       type="module"

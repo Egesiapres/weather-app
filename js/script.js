@@ -20,7 +20,9 @@ import {
   gustBftIcon,
   gustSpeedPar,
   gustSpeedDiv,
-  windContentDiv,
+  humidityPar,
+  pressurePar,
+  visibilityPar,
 } from './elements.js';
 import {
   kelvinToScale,
@@ -71,7 +73,7 @@ const displayWeatherData = async (location, event) => {
   const weatherData = await fetchData(cityCoordinates);
   console.log(weatherData);
 
-  const { main, sys, weather, wind } = weatherData;
+  const { main, sys, visibility, weather, wind } = weatherData;
 
   namePar.innerHTML = `📍 ${name}`;
   positionDetailsPar.innerHTML = `${state ? state : ''}${
@@ -94,8 +96,6 @@ const displayWeatherData = async (location, event) => {
   // weatherMainImg.setAttribute('src', getOriginalIcon(weather[0].icon));
   weatherMainImg.setAttribute('src', getCustomIcon(weather[0].main));
 
-  sunrisePar.innerHTML = `Sunrise: ${unixTStoHour(sys.sunrise)}`;
-  sunsetPar.innerHTML = `Sunset: ${unixTStoHour(sys.sunset)}`;
   windBftIcon.setAttribute('src', getBftIcon(msToKmh(wind.speed)));
   windSpeedPar.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
 
@@ -108,7 +108,14 @@ const displayWeatherData = async (location, event) => {
     hideElement(gustSpeedDiv);
   }
 
-  windDegPar.innerHTML = `${meteoDegToDirection(wind.deg)}`;
+  windDegPar.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
+
+  sunrisePar.innerHTML = `Sunrise: ${unixTStoHour(sys.sunrise)}`;
+  sunsetPar.innerHTML = `Sunset: ${unixTStoHour(sys.sunset)}`;
+
+  humidityPar.innerHTML = `${main.humidity}%`;
+  pressurePar.innerHTML = `${main.pressure} hPa`;
+  visibilityPar.innerHTML = `${(visibility / 1000).toFixed(1)} km`;
 };
 
 displayWeatherData();
