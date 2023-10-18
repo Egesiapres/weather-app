@@ -192,6 +192,27 @@ form {
 
 input {
   width: 150px;
+  background-image: url("/img/magnifyingglass.svg");
+  background-repeat: no-repeat;
+  background-position: 3px center;
+  background-size: 25px;
+}
+
+input.b-0.br-10.p-10.text-white.bg-transparent {
+  padding-left: 30px;
+}
+
+input::placeholder {
+  color: #ffffff8c;
+}
+
+input:focus {
+  outline: 3px solid #3baaf9a9;
+}
+
+button.b-0.br-10.p-10 {
+  background-color: #ffffff50;
+  /* background-image: url('/img/location.svg'); */
 }
 
 hr {
@@ -227,10 +248,8 @@ select {
 /* TODO: clear css **/
 /* TODO: animated icons copy */
 /* TODO: search bar */
+/* TODO: responsive */
 
 /* data */
 /* TODO: pollution */
 /* TODO: hour/daily forecast */
-
-/* other */
-/* TODO: deployment problems */
