@@ -192,7 +192,7 @@ form {
 
 input {
   width: 150px;
-  background-image: url("/img/magnifyingglass.svg");
+  background-image: url("https://egesiapres.github.io/weather-app/img/magnifyingglass.svg");
   background-repeat: no-repeat;
   background-position: 3px center;
   background-size: 25px;
