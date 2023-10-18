@@ -1,7 +1,7 @@
 import {
   input,
   form,
-  searchBtn,
+  // searchBtn,
   namePar,
   positionDetailsPar,
   weatherMainPar,
@@ -35,6 +35,7 @@ import {
   getBftIcon,
   hideElement,
   showElement,
+  formatInputValue,
 } from './utils.js';
 import fetchData from './fetchData.js';
 
@@ -52,7 +53,9 @@ const displayWeatherData = async (location, event) => {
   let cityData;
 
   if (location) {
-    cityData = await fetchData(location);
+    const locationParams = formatInputValue(location);
+
+    cityData = await fetchData(locationParams);
 
     clearInput();
   } else {
@@ -122,6 +125,6 @@ const displayWeatherData = async (location, event) => {
 
 displayWeatherData();
 
-searchBtn.addEventListener('click', () => displayWeatherData(input.value));
+// searchBtn.addEventListener('click', () => displayWeatherData(input.value));
 
 form.addEventListener('submit', e => displayWeatherData(input.value, e));

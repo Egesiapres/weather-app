@@ -6,13 +6,36 @@ const options = {
 };
 
 export default async function fetchData(location) {
+  let cityName;
+  let countryCode;
+  let limit;
+  let stateCode;
+
+  if (location && location.length > 0) {
+    cityName = location[0];
+    countryCode = location[1];
+    limit = location[2];
+    stateCode = location[3];
+  }
+
+  console.log(
+    'cityName',
+    cityName,
+    'countryCode',
+    countryCode,
+    'limit',
+    limit,
+    'stateCode',
+    stateCode
+  );
+
   try {
     let url;
     let response;
     let data;
 
-    if (!location || typeof location === 'string') {
-      url = getGeocoding(location);
+    if (!location || (location && location.length > 0)) {
+      url = getGeocoding(cityName, countryCode, limit, stateCode);
     } else if (typeof location === 'object') {
       url = getCurrentWeather(location.lat, location.lon);
     }

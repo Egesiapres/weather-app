@@ -7,8 +7,15 @@ import {
 
 export const API_KEY = 'd84df6a5359d1ca50cf0749743171b50';
 
-export const capitalizeFirstLetter = word =>
-  `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+export const formatInputValue = location => {
+  let formattedLocation;
+  
+  formattedLocation = location.toLowerCase().trim();
+  formattedLocation = formattedLocation.split(',' || ', ');
+  formattedLocation = formattedLocation.map(el => el.trim());
+
+  return formattedLocation;
+};
 
 export const kelvinToScale = (temperature, scale) => {
   if (scale === 'celsius') {
@@ -109,6 +116,10 @@ export const getCustomIcon = weather => {
 
     case 'Mist':
       icon = `${baseUrl}/img/mist.svg`;
+      break;
+
+    case 'Drizzle':
+      icon = `${baseUrl}/img/drizzle.svg`;
       break;
 
     case 'Rain':
