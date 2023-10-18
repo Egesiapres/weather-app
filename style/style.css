@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'Apercu';
-  src: url('https://github.com/Egesiapres/weather-app/blob/master/font/apercu-regular.otf');
+  src: url('https://egesiapres.github.io/weather-app/font/apercu-regular.otf')
+    format('opentype');
 }
 
 * {
