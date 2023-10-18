@@ -15,6 +15,7 @@ body {
 }
 
 #content {
+  position: fixed;
   width: fit-content;
   height: fit-content;
   background-image: linear-gradient(to bottom, #164a8b, #03a0e390);
