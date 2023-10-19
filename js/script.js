@@ -125,3 +125,7 @@ const displayWeatherData = async (location, event) => {
 displayWeatherData();
 
 form.addEventListener('submit', e => displayWeatherData(input.value, e));
+
+// TODO: current location
+// TODO: air pollution
+// TODO: hour/daily forecast

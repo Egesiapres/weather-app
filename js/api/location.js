@@ -14,7 +14,7 @@ import { API_KEY } from '../utils.js';
 export const getGeocoding = (
   cityName = 'milan',
   countryCode = '',
-  limit = '',
+  limit = '5',
   stateCode = '',
   APIkey = API_KEY
 ) =>

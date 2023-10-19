@@ -66,7 +66,7 @@ export const msToKmh = speed => {
 
 export const meteoDegToDirection = meteoDeg => {
   const directions = [
-    { direction: 'N', arrow: '↓', interval: [0, 11.25] },
+    { direction: 'N', arrow: <i class="wi wi-wind"></i>, interval: [0, 11.25] },
     { direction: 'N', arrow: '↓', interval: [348.75, 360] },
     { direction: 'NNE', arrow: '↙', interval: [11.25, 33.75] },
     { direction: 'NE', arrow: '↙', interval: [33.75, 56.25] },
