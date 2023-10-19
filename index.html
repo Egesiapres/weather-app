@@ -40,25 +40,19 @@
       <header class="container col-direction y-center rg-15 p-15">
         <form class="container x-center">
           <input
-            class="b-0 br-10 p-10 text-white bg-transparent"
+            class="b-0 br-10 p-10 bg-transparent text-white"
             type="text"
             placeholder="Search a city..."
             value=""
           />
 
           <button
-            class="b-0 br-10 p-10 text-black hidden"
-            id="search-btn"
-            type="submit"
-          >
-            🔎 Search
-          </button>
-
-          <button
-            class="b-0 br-10 p-10 hidden"
+            id="current-location-btn"
+            class="b-0 br-10"
             type="button"
           >
-            My location            
+            <img src="img/location.svg" />
+            <!-- My location             -->
           </button>
         </form>
 
@@ -74,19 +68,20 @@
             >
               <p
                 id="name-par"
-                class="medium text-center"
+                class="text-medium text-center"
               >
                 City
               </p>
               <p
                 id="position-details-par"
-                class="small text-center m-0"
+                class="m-0 text-small text-center"
               >
                 State, (COUNTRY)
               </p>
 
               <div class="container x-center">
                 <img
+                  id="weather-main-img"
                   class="m-5"
                   src="https://egesiapres.github.io/weather-app/img/partly-cloudy-day.svg"
                 />
@@ -94,7 +89,7 @@
 
               <p
                 id="weather-main-par"
-                class="medium text-center m-0"
+                class="m-0 text-medium text-center"
               >
                 Weather
               </p>
@@ -116,12 +111,12 @@
           <!-- secondary info -->
           <div
             id="city-secondary-info-div"
-            class="b-1 bg-transparent br-15 bc-transparent"
+            class="b-1 br-15 bc-transparent bg-transparent"
           >
             <div class="container y-center">
-              <i class="wi wi-thermometer text-transparent m-10"></i>
+              <i class="wi wi-thermometer m-10 text-transparent"></i>
 
-              <p class="label text-transparent m-10">TEMPERATURE</p>
+              <p class="m-10 label text-transparent">TEMPERATURE</p>
             </div>
 
             <hr class="m-0 bc-transparent" />
@@ -130,14 +125,14 @@
               <div>
                 <p
                   id="perceived-temp-par"
-                  class="container x-center small m-10"
+                  class="container x-center m-10 text-small"
                 >
                   Feels like: XX°C
                 </p>
 
                 <p
                   id="temp-par"
-                  class="big cg-15 m-0"
+                  class="cg-15 m-0 text-big"
                 >
                   XX°C
                 </p>
@@ -177,18 +172,18 @@
 
               <div
                 id="temp-scale-div"
-                class="container col-direction x-center p-10 rg-15"
+                class="container col-direction x-center rg-15 p-10"
               >
                 <label
                   for="scale-select"
-                  class="small m-0 my-10"
+                  class="m-0 text-small"
                   >Select a temperature scale</label
                 >
 
                 <select
                   name="scales"
                   id="scale-select"
-                  class="text-black br-5 p-2"
+                  class="br-5 p-2 text-black"
                 >
                   <option value="celsius">Celsius (°C)</option>
                   <option value="fahrenheit">Fahrenheit (°F)</option>
@@ -205,12 +200,12 @@
           >
             <div
               id="wind-div"
-              class="container col-direction br-15 bg-transparent medium-box b-1 bc-transparent"
+              class="container col-direction b-1 br-15 bc-transparent box-medium bg-transparent"
             >
               <div>
                 <div class="container y-center">
                   <i class="wi wi-strong-wind m-10 text-transparent"></i>
-                  <p class="label m-10 text-transparent">WIND</p>
+                  <p class="m-10 label text-transparent">WIND</p>
                 </div>
 
                 <hr class="m-0 bc-transparent" />
@@ -223,7 +218,7 @@
                     <img
                       id="wind-bft-icon"
                       src="https://egesiapres.github.io/weather-app/img/wind.svg"
-                      class="small-icon mr-5"
+                      class="mr-5 icon-small"
                     />
                     <p
                       id="wind-speed-par"
@@ -240,7 +235,7 @@
                     <img
                       id="gust-bft-icon"
                       src="https://egesiapres.github.io/weather-app/img/wind.svg"
-                      class="small-icon mr-5"
+                      class="mr-5 icon-small"
                     />
                     <p
                       id="gust-speed-par"
@@ -253,7 +248,7 @@
                   <div class="container y-center">
                     <img
                       src="https://egesiapres.github.io/weather-app/img/compass.svg"
-                      class="small-icon mr-5"
+                      class="mr-5 icon-small"
                     />
 
                     <p
@@ -269,13 +264,13 @@
 
             <div
               id="sys-div"
-              class="container flex col-direction br-15 bg-transparent medium-box b-1 bc-transparent"
+              class="container col-direction b-1 br-15 bc-transparent box-medium bg-transparent"
             >
               <div>
                 <div class="container y-center">
                   <i class="wi wi-day-sunny m-10 text-transparent"></i>
 
-                  <p class="label m-10 text-transparent">SUN</p>
+                  <p class="m-10 label text-transparent">SUN</p>
                 </div>
 
                 <hr class="m-0 bc-transparent" />
@@ -284,7 +279,7 @@
                   <div class="container y-center">
                     <img
                       src="https://egesiapres.github.io/weather-app/img/sunrise.svg"
-                      class="small-icon mr-5"
+                      class="mr-5 icon-small"
                     />
                     <p
                       id="sunrise-par"
@@ -297,7 +292,7 @@
                   <div class="container y-center">
                     <img
                       src="https://egesiapres.github.io/weather-app/img/sunset.svg"
-                      class="small-icon mr-5"
+                      class="mr-5 icon-small"
                     />
 
                     <p
@@ -319,13 +314,13 @@
           >
             <div
               id="humidity-div"
-              class="container flex col-direction br-15 bg-transparent small-box b-1 bc-transparent"
+              class="container col-direction b-1 br-15 bc-transparent box-small bg-transparent"
             >
               <div>
                 <div class="container y-center">
                   <i class="wi wi-humidity m-10 text-transparent"></i>
 
-                  <p class="label m-10 text-transparent">HUMIDITY</p>
+                  <p class="m-10 label text-transparent">HUMIDITY</p>
                 </div>
 
                 <hr class="m-0 bc-transparent" />
@@ -341,12 +336,12 @@
 
             <div
               id="pressure-div"
-              class="container col-direction br-15 bg-transparent small-box b-1 bc-transparent"
+              class="container col-direction b-1 br-15 bc-transparent box-small bg-transparent"
             >
               <div>
                 <div class="container y-center">
                   <i class="wi wi-barometer m-10 text-transparent"></i>
-                  <p class="label m-10 text-transparent">PRESSURE</p>
+                  <p class="m-10 label text-transparent">PRESSURE</p>
                 </div>
 
                 <hr class="m-0 bc-transparent" />
@@ -362,13 +357,13 @@
 
             <div
               id="visibility-div"
-              class="container flex col-direction br-15 bg-transparent small-box b-1 bc-transparent"
+              class="container flex col-direction b-1 br-15 bc-transparent box-small bg-transparent"
             >
               <div>
                 <div class="container y-center">
                   <i class="wi wi-dust m-10 text-transparent"></i>
 
-                  <p class="label m-10 text-transparent">VISIBILITY</p>
+                  <p class="m-10 label text-transparent">VISIBILITY</p>
                 </div>
 
                 <hr class="m-0 bc-transparent" />
@@ -388,7 +383,7 @@
           <div class="container y-center">
             <i class="wi wi-direction-down text-transparent m-10"></i>
 
-            <p class="small m-0 text-transparent">Scroll</p>
+            <p class="m-0 text-small text-transparent">Scroll</p>
           </div>
         </footer>
       </div>

@@ -2,8 +2,6 @@ export const input = document.querySelector('input');
 
 export const form = document.querySelector('form');
 
-export const searchBtn = document.querySelector('#search-btn');
-
 export const primaryDiv = document.querySelector('#primary-div');
 
 export const secondaryDiv = document.querySelector('#secondary-div');
@@ -16,7 +14,7 @@ export const positionDetailsPar = document.querySelector(
 
 export const weatherMainPar = document.querySelector('#weather-main-par');
 
-export const weatherMainImg = document.querySelector('img');
+export const weatherMainImg = document.querySelector('#weather-main-img');
 
 export const tempPar = document.querySelector('#temp-par');
 

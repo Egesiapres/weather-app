@@ -36,10 +36,6 @@ section {
   display: flex;
 }
 
-.text-center {
-  text-align: center;
-}
-
 .x-center {
   justify-content: center;
 }
@@ -146,29 +142,33 @@ section {
   margin-left: 0;
 }
 
-.small {
+.text-center {
+  text-align: center;
+}
+
+.text-small {
   font-size: 14px;
 }
 
-.medium {
+.text-medium {
   font-size: 30px;
   font-weight: 300;
 }
 
-.big {
+.text-big {
   font-size: 80px;
   font-weight: 400;
 }
 
-.small-box {
+.box-small {
   width: 33%;
 }
 
-.medium-box {
+.box-medium {
   width: 50%;
 }
 
-.small-icon {
+.icon-small {
   height: 35px;
   width: auto;
 }
@@ -222,7 +222,15 @@ hr {
 
 img {
   width: 120px;
-  height: auto;
+}
+
+#current-location-btn {
+  background-color: #ffffff64;
+}
+
+button img {
+  width: 25px;
+  margin-top: 3px;
 }
 
 select {
@@ -248,9 +256,9 @@ select {
 
 /* TODO: clear css **/
 /* TODO: animated icons copy */
-/* TODO: search bar */
+/* TODO: current location */
 /* TODO: responsive */
 
 /* data */
-/* TODO: pollution */
+/* TODO: air pollution */
 /* TODO: hour/daily forecast */

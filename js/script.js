@@ -1,7 +1,6 @@
 import {
   input,
   form,
-  // searchBtn,
   namePar,
   positionDetailsPar,
   weatherMainPar,
@@ -124,7 +123,5 @@ const displayWeatherData = async (location, event) => {
 };
 
 displayWeatherData();
-
-// searchBtn.addEventListener('click', () => displayWeatherData(input.value));
 
 form.addEventListener('submit', e => displayWeatherData(input.value, e));

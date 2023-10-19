@@ -9,7 +9,7 @@ export const API_KEY = 'd84df6a5359d1ca50cf0749743171b50';
 
 export const formatInputValue = location => {
   let formattedLocation;
-  
+
   formattedLocation = location.toLowerCase().trim();
   formattedLocation = formattedLocation.split(',' || ', ');
   formattedLocation = formattedLocation.map(el => el.trim());
@@ -112,6 +112,10 @@ export const getCustomIcon = weather => {
 
     case 'Clouds':
       icon = `${baseUrl}/img/cloudy.svg`;
+      break;
+
+    case 'Fog':
+      icon = `${baseUrl}/img/fog.svg`;
       break;
 
     case 'Mist':
