@@ -3,9 +3,13 @@ import {
   perceivedTempPar,
   minTempPar,
   maxTempPar,
+  currentLocationBtn,
 } from './elements.js';
+import { displayWeatherData } from './script.js';
 
 export const API_KEY = 'd84df6a5359d1ca50cf0749743171b50';
+
+// export const get = async (url, options) => fetch(url, options);
 
 export const formatInputValue = location => {
   let formattedLocation;
@@ -66,7 +70,7 @@ export const msToKmh = speed => {
 
 export const meteoDegToDirection = meteoDeg => {
   const directions = [
-    { direction: 'N', arrow: <i class="wi wi-wind"></i>, interval: [0, 11.25] },
+    { direction: 'N', arrow: '↓', interval: [0, 11.25] },
     { direction: 'N', arrow: '↓', interval: [348.75, 360] },
     { direction: 'NNE', arrow: '↙', interval: [11.25, 33.75] },
     { direction: 'NE', arrow: '↙', interval: [33.75, 56.25] },
@@ -99,7 +103,6 @@ export const meteoDegToDirection = meteoDeg => {
 export const getOriginalIcon = code =>
   `https://openweathermap.org/img/wn/${code}@2x.png`;
 
-// TODO: hour based img
 const baseUrl = 'https://egesiapres.github.io/weather-app';
 
 export const getCustomIcon = weather => {
@@ -246,3 +249,30 @@ export const hideElement = element => {
 export const showElement = (element, elClass) => {
   element.setAttribute('class', elClass);
 };
+
+let currentLocationCoord;
+
+const successCallback = position => {
+  currentLocationCoord = {
+    lat: position.coords.latitude,
+    lon: position.coords.longitude,
+  };
+
+  displayWeatherData(currentLocationCoord);
+};
+
+const errorCallback = error => {
+  console.log(error);
+};
+
+const options = {
+  enableHighAccuracy: true,
+  timeout: 10000,
+};
+
+export const getCurrentLocation = () =>
+  navigator.geolocation.getCurrentPosition(
+    successCallback,
+    errorCallback,
+    options
+  );

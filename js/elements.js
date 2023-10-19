@@ -2,6 +2,10 @@ export const input = document.querySelector('input');
 
 export const form = document.querySelector('form');
 
+export const currentLocationBtn = document.querySelector(
+  '#current-location-btn'
+);
+
 export const primaryDiv = document.querySelector('#primary-div');
 
 export const secondaryDiv = document.querySelector('#secondary-div');
