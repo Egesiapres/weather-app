@@ -250,15 +250,15 @@ export const showElement = (element, elClass) => {
   element.setAttribute('class', elClass);
 };
 
-let currentLocationCoord;
+let coordParams;
 
 const successCallback = position => {
-  currentLocationCoord = {
+  coordParams = {
     lat: position.coords.latitude,
     lon: position.coords.longitude,
   };
 
-  displayWeatherData(currentLocationCoord);
+  displayWeatherData(coordParams);
 };
 
 const errorCallback = error => {

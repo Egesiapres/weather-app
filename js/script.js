@@ -49,7 +49,7 @@ const clearInput = () => {
 
 // f that displays the data retrieved
 export const displayWeatherData = async (location, event) => {
-  // avoid the automatic form submit
+  // no automatic form submit
   if (event) {
     event.preventDefault();
   }
@@ -58,7 +58,7 @@ export const displayWeatherData = async (location, event) => {
   let coordParams;
 
   if (!location) {
-    // if no location has been inputted
+    // no location inputted
     cityData = await fetchData(getGeocoding);
 
     coordParams = [cityData.lat, cityData.lon];
@@ -67,14 +67,14 @@ export const displayWeatherData = async (location, event) => {
   if (location) {
     let locationParams;
 
-    // if location is inputted manually
+    // location inputted manually
     if (typeof location === 'string') {
       locationParams = formatInputValue(location);
 
-      const cityName = locationParams[0];
-      const countryCode = locationParams[1];
-      const limit = locationParams[2];
-      const stateCode = locationParams[3];
+      const cityName = locationParams[0] || '';
+      const countryCode = locationParams[1] || '';
+      const limit = locationParams[2] || '';
+      const stateCode = locationParams[3] || '';
 
       console.log(
         'cityName:',
@@ -88,30 +88,31 @@ export const displayWeatherData = async (location, event) => {
       );
 
       locationParams = [cityName, countryCode, limit, stateCode];
+    } else {
+      const { name, sys } = await fetchData(getCurrentWeather, [
+        location.lat,
+        location.lon,
+      ]);
 
-      cityData = await fetchData(getGeocoding, locationParams);
+      locationParams = [name, sys.country];
     }
 
-    // if the location is not necessary a string
-    coordParams = [location.lat || cityData.lat, location.lon || cityData.lon];
+    cityData = await fetchData(getGeocoding, locationParams);
+
+    // location not necessary a string
+    // coordParams = [location.lat || cityData.lat, location.lon || cityData.lon];
+    coordParams = [cityData.lat, cityData.lon];
 
     clearInput();
   }
 
-  // show data unhiding elements
-
-  if (cityData) {
-    console.log(cityData);
-  }
-
-  // const { name: nameCD, state, country } = cityData;
+  const { name, state, country } = cityData;
 
   const weatherData = await fetchData(getCurrentWeather, coordParams);
-  console.log(weatherData);
 
   const pollutionData = await fetchData(getAirPollution, coordParams);
-  console.log(pollutionData);
 
+  // show data unhidind elements
   if (cityData || weatherData) {
     primaryDiv.removeAttribute('class');
     secondaryDiv.removeAttribute('class');
@@ -119,11 +120,11 @@ export const displayWeatherData = async (location, event) => {
 
   const { main, sys, visibility, weather, wind } = weatherData;
 
-  namePar.innerHTML = cityData?.name || weatherData?.name;
+  namePar.innerHTML = name;
 
-  positionDetailsPar.innerHTML = `${cityData?.state ? cityData?.state : ''}${
-    cityData?.state && cityData?.country ? ', ' : ''
-  }${cityData?.country ? `(${cityData?.country})` : ''}`;
+  positionDetailsPar.innerHTML = `${state ? state : ''}${
+    state && country ? ', ' : ''
+  }${country ? `(${country})` : ''}`;
 
   weatherMainPar.innerHTML = weather[0].main;
 
@@ -171,9 +172,7 @@ displayWeatherData();
 
 form.addEventListener('submit', e => displayWeatherData(input.value, e));
 
-// currentLocationBtn.addEventListener('click', getCurrentLocation);
-
-currentLocationBtn.addEventListener('click', () => getCurrentLocation());
+currentLocationBtn.addEventListener('click', getCurrentLocation);
 
 // TODO: current location
 // TODO: air pollution
