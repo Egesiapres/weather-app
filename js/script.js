@@ -38,10 +38,10 @@ import {
   formatInputValue,
   getCurrentLocation,
 } from './utils.js';
-import fetchData from './fetchData.js';
 import { getCurrentWeather } from './api/weather.js';
 import { getGeocoding } from './api/location.js';
 import { getAirPollution } from './api/pollution.js';
+import { fetchData } from './api/api.js';
 
 const clearInput = () => {
   input.value = '';

@@ -3,13 +3,8 @@ import {
   perceivedTempPar,
   minTempPar,
   maxTempPar,
-  currentLocationBtn,
 } from './elements.js';
 import { displayWeatherData } from './script.js';
-
-export const API_KEY = 'd84df6a5359d1ca50cf0749743171b50';
-
-// export const get = async (url, options) => fetch(url, options);
 
 export const formatInputValue = location => {
   let formattedLocation;

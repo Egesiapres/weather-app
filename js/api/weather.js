@@ -1,4 +1,4 @@
-import { API_KEY } from '../utils.js';
+import { get, dataUrl, API_KEY } from './api.js';
 
 /**
  * Generate the url to obtain the current weather data of a city
@@ -10,4 +10,4 @@ import { API_KEY } from '../utils.js';
  */
 
 export const getCurrentWeather = (lat, lon, APIkey = API_KEY) =>
-  `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`;
+  get(dataUrl, `/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`);

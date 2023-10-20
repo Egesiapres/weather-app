@@ -1,4 +1,4 @@
-import { API_KEY } from '../utils.js';
+import { get, dataUrl, API_KEY } from './api.js';
 
 /**
  * Generate the url to obtain the air pollution data of a city
@@ -10,4 +10,4 @@ import { API_KEY } from '../utils.js';
  */
 
 export const getAirPollution = (lat, lon, APIkey = API_KEY) =>
-  `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${APIkey}`;
+  get(dataUrl, `/air_pollution?lat=${lat}&lon=${lon}&appid=${APIkey}`);

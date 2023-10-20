@@ -1,4 +1,4 @@
-import { API_KEY } from '../utils.js';
+import { get, geolocationUrl, API_KEY } from './api.js';
 
 /**
  * Generate the url to obtain the location data of a city
@@ -18,4 +18,9 @@ export const getGeocoding = (
   stateCode = '',
   APIkey = API_KEY
 ) =>
-  `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}${(stateCode || countryCode) && ','}${stateCode}${countryCode && ','}${countryCode}&limit=${limit}&appid=${APIkey}`;
+  get(
+    geolocationUrl,
+    `/direct?q=${cityName}${(stateCode || countryCode) && ','}${stateCode}${
+      countryCode && ','
+    }${countryCode}&limit=${limit}&appid=${APIkey}`
+  );
