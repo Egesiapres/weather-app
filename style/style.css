@@ -5,7 +5,7 @@
 }
 
 * {
-  font-family: Apercu, serif;
+  font-family: Apercu, Arial, Helvetica, sans-serif, sans-serif;
   color: #ffffff;
 }
 
@@ -25,11 +25,29 @@ body {
 
 section {
   height: 245px;
+  /* height: 455px; */
+}
+
+#forecast-div {
+  width: 530px;
+  column-gap: 10px;
+  padding: 15px;
+}
+
+.scrollable {
   overflow: scroll;
 }
 
 .hidden {
   display: none;
+}
+
+.x-fit-content {
+  width: fit-content;
+}
+
+.x-max-content {
+  width: max-content;
 }
 
 .container {
@@ -66,6 +84,10 @@ section {
 
 .m-10 {
   margin: 10px;
+}
+
+.m-5 {
+  margin: 5px;
 }
 
 .mr-5 {
@@ -146,6 +168,10 @@ section {
   text-align: center;
 }
 
+.text-extra-small {
+  font-size: 12px;
+}
+
 .text-small {
   font-size: 14px;
 }
@@ -193,7 +219,7 @@ form {
 
 input {
   width: 150px;
-  background-image: url("https://egesiapres.github.io/weather-app/img/magnifyingglass.svg");
+  background-image: url('https://egesiapres.github.io/weather-app/img/magnifyingglass.svg');
   background-repeat: no-repeat;
   background-position: 3px center;
   background-size: 25px;
@@ -213,7 +239,6 @@ input:focus {
 
 button.b-0.br-10.p-10 {
   background-color: #ffffff50;
-  /* background-image: url('/img/location.svg'); */
 }
 
 hr {
@@ -222,6 +247,10 @@ hr {
 
 img {
   width: 120px;
+}
+
+.small-img {
+  width: 50px;
 }
 
 #current-location-btn {
@@ -235,6 +264,15 @@ button img {
 
 select {
   border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover i.wi, a:hover {
+  color: #ffffff;
+  transition: 500ms;
 }
 
 #name-par {
