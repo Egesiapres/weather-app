@@ -107,7 +107,7 @@
 
         <section
           id="scrollable-section"
-          class="container col-direction rg-15 p-15"
+          class="container col-direction scrollable rg-15 p-15"
         >
           <!-- secondary info -->
           <div
@@ -122,7 +122,7 @@
 
             <hr class="m-0 bc-transparent" />
 
-            <div class="container justify-evenly m-10">
+            <div class="container x-center cg-15 m-10">
               <div>
                 <p
                   id="perceived-temp-par"
@@ -190,6 +190,213 @@
                   <option value="fahrenheit">Fahrenheit (°F)</option>
                   <option value="kelvin">Kelvin (K)</option>
                 </select>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="five-day-forecast-div"
+            class="hidden"
+          >
+            <div class="container y-center">
+              <i
+                class="wi wi-forecast-io-partly-cloudy-day m-10 text-transparent"
+              ></i>
+
+              <p class="m-10 label text-transparent">5-DAY FORECAST</p>
+            </div>
+
+            <hr class="m-0 bc-transparent" />
+
+            <div
+              id="forecast-div"
+              class="container scrollable"
+            >
+              <div class="container col-direction x-fit-content">
+                <p class="m-5 text-center">Today</p>
+
+                <div class="container x-center">
+                  <img
+                    id="today-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="small-img"
+                  />
+                </div>
+
+                <div class="container x-max-content">
+                  <p
+                    id="today-min-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    L: XX°C
+                  </p>
+                  <p
+                    id="today-max-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    M: XX°C
+                  </p>
+                </div>
+              </div>
+
+              <div class="container col-direction x-fit-content">
+                <p
+                  id="day-one-name-par"
+                  class="m-5 text-center"
+                >
+                  Day 1
+                </p>
+
+                <div class="container x-center">
+                  <img
+                    id="day-one-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="small-img"
+                  />
+                </div>
+
+                <div class="container x-max-content">
+                  <p
+                    id="day-one-min-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    L: XX°C
+                  </p>
+                  <p
+                    id="day-one-max-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    H: XX°C
+                  </p>
+                </div>
+              </div>
+
+              <div class="container col-direction x-fit-content">
+                <p
+                  id="day-two-name-par"
+                  class="m-5 text-center"
+                >
+                  Day 2
+                </p>
+
+                <div class="container x-center">
+                  <img
+                    id="day-two-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="small-img"
+                  />
+                </div>
+
+                <div class="container x-max-content">
+                  <p
+                    id="day-two-min-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    L: XX°C
+                  </p>
+                  <p
+                    id="day-two-max-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    H: XX°C
+                  </p>
+                </div>
+              </div>
+
+              <div class="container col-direction x-fit-content">
+                <p
+                  id="day-three-name-par"
+                  class="m-5 text-center"
+                >
+                  Day 3
+                </p>
+
+                <div class="container x-center">
+                  <img
+                    id="day-three-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="small-img"
+                  />
+                </div>
+
+                <div class="container x-max-content">
+                  <p
+                    id="day-three-min-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    L: XX°C
+                  </p>
+                  <p
+                    id="day-three-max-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    H: XX°C
+                  </p>
+                </div>
+              </div>
+
+              <div class="container col-direction x-fit-content">
+                <p
+                  id="day-four-name-par"
+                  class="m-5 text-center"
+                >
+                  Day 4
+                </p>
+
+                <div class="container x-center">
+                  <img
+                    id="day-four-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="small-img"
+                  />
+                </div>
+
+                <div class="container x-max-content">
+                  <p
+                    id="day-four-min-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    L: XX°C
+                  </p>
+                  <p
+                    id="day-four-max-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    H: XX°C
+                  </p>
+                </div>
+              </div>
+
+              <div class="container col-direction x-fit-content">
+                <p
+                  id="day-five-name-par"
+                  class="m-5 text-center"
+                >
+                  Day 5
+                </p>
+
+                <div class="container x-center">
+                  <img
+                    id="day-five-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="small-img"
+                  />
+                </div>
+
+                <div class="container x-max-content">
+                  <p
+                    id="day-five-min-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    L: XX°C
+                  </p>
+                  <p
+                    id="day-five-max-temp-par"
+                    class="m-5 text-extra-small"
+                  >
+                    H: XX°C
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -269,7 +476,7 @@
             >
               <div>
                 <div class="container y-center">
-                  <i class="wi wi-day-sunny m-10 text-transparent"></i>
+                  <i class="wi wi-horizon m-10 text-transparent"></i>
 
                   <p class="m-10 label text-transparent">SUN</p>
                 </div>
@@ -317,75 +524,89 @@
               id="humidity-div"
               class="container col-direction b-1 br-15 bc-transparent box-small bg-transparent"
             >
-              <div>
-                <div class="container y-center">
-                  <i class="wi wi-humidity m-10 text-transparent"></i>
+              <div class="container y-center">
+                <i class="wi wi-humidity m-10 text-transparent"></i>
 
-                  <p class="m-10 label text-transparent">HUMIDITY</p>
-                </div>
-
-                <hr class="m-0 bc-transparent" />
-
-                <p
-                  id="humidity-par"
-                  class="m-10 text-center"
-                >
-                  XX %
-                </p>
+                <p class="m-10 label text-transparent">HUMIDITY</p>
               </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="humidity-par"
+                class="m-10 text-center"
+              >
+                XX %
+              </p>
+            </div>
+
+            <div
+              id="air-div"
+              class="hidden"
+            >
+              <div class="container y-center">
+                <i class="wi wi-smog m-10 text-transparent"></i>
+
+                <p class="m-10 label text-transparent">AIR</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="air-aqi-par"
+                class="m-10 text-center"
+              >
+                AQI: XX
+              </p>
             </div>
 
             <div
               id="pressure-div"
               class="container col-direction b-1 br-15 bc-transparent box-small bg-transparent"
             >
-              <div>
-                <div class="container y-center">
-                  <i class="wi wi-barometer m-10 text-transparent"></i>
-                  <p class="m-10 label text-transparent">PRESSURE</p>
-                </div>
-
-                <hr class="m-0 bc-transparent" />
-
-                <p
-                  id="pressure-par"
-                  class="m-10 text-center"
-                >
-                  XX %
-                </p>
+              <div class="container y-center">
+                <i class="wi wi-barometer m-10 text-transparent"></i>
+                <p class="m-10 label text-transparent">PRESSURE</p>
               </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="pressure-par"
+                class="m-10 text-center"
+              >
+                XX %
+              </p>
             </div>
 
             <div
               id="visibility-div"
               class="container flex col-direction b-1 br-15 bc-transparent box-small bg-transparent"
             >
-              <div>
-                <div class="container y-center">
-                  <i class="wi wi-dust m-10 text-transparent"></i>
+              <div class="container y-center">
+                <i class="wi wi-dust m-10 text-transparent"></i>
 
-                  <p class="m-10 label text-transparent">VISIBILITY</p>
-                </div>
-
-                <hr class="m-0 bc-transparent" />
-
-                <p
-                  id="visibility-par"
-                  class="m-10 text-center"
-                >
-                  XX km
-                </p>
+                <p class="m-10 label text-transparent">VISIBILITY</p>
               </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="visibility-par"
+                class="m-10 text-center"
+              >
+                XX km
+              </p>
             </div>
           </div>
         </section>
 
         <footer class="container x-center">
-          <div class="container y-center">
-            <i class="wi wi-direction-down text-transparent m-10"></i>
-
-            <p class="m-0 text-small text-transparent">Scroll</p>
-          </div>
+          <a
+            href="#air-div"
+            class="m-0 text-small text-transparent"
+            ><i class="wi wi-direction-down m-10 text-transparent"></i>Scroll</a
+          >
         </footer>
       </div>
     </div>
