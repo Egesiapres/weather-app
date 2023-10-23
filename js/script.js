@@ -24,6 +24,32 @@ import {
   visibilityPar,
   secondaryDiv,
   currentLocationBtn,
+  airDiv,
+  airAqiPar,
+  todayMinTempPar,
+  todayMaxTempPar,
+  todayWeatherImg,
+  dayOneWeatherImg,
+  dayOneNamePar,
+  dayOneMinTempPar,
+  dayOneMaxTempPar,
+  dayTwoNamePar,
+  dayTwoWeatherImg,
+  dayTwoMinTempPar,
+  dayTwoMaxTempPar,
+  dayThreeNamePar,
+  dayThreeWeatherImg,
+  dayThreeMinTempPar,
+  dayThreeMaxTempPar,
+  dayFourNamePar,
+  dayFourWeatherImg,
+  dayFourMinTempPar,
+  dayFourMaxTempPar,
+  dayFiveNamePar,
+  dayFiveWeatherImg,
+  dayFiveMinTempPar,
+  dayFiveMaxTempPar,
+  fiveDayForecastDiv,
 } from './elements.js';
 import {
   kelvinToScale,
@@ -37,8 +63,10 @@ import {
   showElement,
   formatInputValue,
   getCurrentLocation,
+  dtToDate,
+  fillFcDayElements,
 } from './utils.js';
-import { getCurrentWeather } from './api/weather.js';
+import { getCurrentWeather, getFiveDayForecast } from './api/weather.js';
 import { getGeocoding } from './api/location.js';
 import { getAirPollution } from './api/pollution.js';
 import { fetchData } from './api/api.js';
@@ -57,9 +85,13 @@ export const displayWeatherData = async (location, event) => {
   let cityData;
   let coordParams;
 
+  let fiveDayForecast;
+  let weatherData;
+  let pollutionData;
+
   if (!location) {
     // no location inputted
-    cityData = await fetchData(getGeocoding);
+    cityData = await fetchData(getGeocoding, ['barcelona']);
 
     coordParams = [cityData.lat, cityData.lon];
   }
@@ -106,66 +138,174 @@ export const displayWeatherData = async (location, event) => {
     clearInput();
   }
 
-  const { name, state, country } = cityData;
+  // div unhided after its population
+  if (cityData) {
+    // api calls
+    fiveDayForecast = await fetchData(getFiveDayForecast, coordParams);
 
-  const weatherData = await fetchData(getCurrentWeather, coordParams);
+    weatherData = await fetchData(getCurrentWeather, coordParams);
+    pollutionData = await fetchData(getAirPollution, coordParams);
 
-  const pollutionData = await fetchData(getAirPollution, coordParams);
+    const { name, state, country } = cityData;
 
-  // show data unhidind elements
-  if (cityData || weatherData) {
+    namePar.innerHTML = name;
+
+    positionDetailsPar.innerHTML = `${state ? state : ''}${
+      state && country ? ', ' : ''
+    }${country ? `(${country})` : ''}`;
+
+    // show data unhiding elements
     primaryDiv.removeAttribute('class');
+  }
+
+  if (weatherData) {
+    const { main, sys, visibility, weather, wind } = weatherData;
+
+    weatherMainPar.innerHTML = weather[0].main;
+
+    tempPar.innerHTML = kelvinToScale(main.temp, 'celsius');
+
+    perceivedTempPar.innerHTML = `Feels like: ${kelvinToScale(
+      main.feels_like,
+      'celsius'
+    )}`;
+
+    minTempPar.innerHTML = `Min: ${kelvinToScale(main.temp_min, 'celsius')}`;
+
+    maxTempPar.innerHTML = `Max: ${kelvinToScale(main.temp_max, 'celsius')}`;
+
+    scaleSelect.addEventListener('change', e =>
+      changeScale(main, e.target.value)
+    );
+
+    weatherMainImg.setAttribute('src', getCustomIcon(weather[0].main));
+
+    windBftIcon.setAttribute('src', getBftIcon(msToKmh(wind.speed)));
+    windSpeedPar.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
+
+    if (wind.gust) {
+      showElement(gustSpeedDiv, 'container y-center');
+
+      gustBftIcon.setAttribute('src', getBftIcon(msToKmh(wind.gust)));
+      gustSpeedPar.innerHTML = `Gust: ${msToKmh(wind.gust)} km/h`;
+    } else {
+      hideElement(gustSpeedDiv);
+    }
+
+    windDegPar.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
+
+    sunrisePar.innerHTML = `Sunrise: ${unixTStoHour(sys.sunrise)}`;
+    sunsetPar.innerHTML = `Sunset: ${unixTStoHour(sys.sunset)}`;
+
+    humidityPar.innerHTML = `${main.humidity}%`;
+    pressurePar.innerHTML = `${main.pressure} hPa`;
+    visibilityPar.innerHTML = `${(visibility / 1000).toFixed(1)} km`;
+
+    // show data unhiding elements
     secondaryDiv.removeAttribute('class');
   }
 
-  const { main, sys, visibility, weather, wind } = weatherData;
+  if (fiveDayForecast) {
+    const { list } = fiveDayForecast;
 
-  namePar.innerHTML = name;
+    const todayDate = new Date().getDate();
 
-  positionDetailsPar.innerHTML = `${state ? state : ''}${
-    state && country ? ', ' : ''
-  }${country ? `(${country})` : ''}`;
+    const todayFc = list.filter(el => dtToDate(el.dt).getDate() === todayDate);
+    console.log('Today fc', todayFc);
 
-  weatherMainPar.innerHTML = weather[0].main;
+    const dayOneFc = list.filter(
+      el => dtToDate(el.dt).getDate() === todayDate + 1
+    );
+    console.log('Day 1 fc:', dayOneFc);
+    console.log('Img 1:', dayOneFc.map(el => el.weather[0].description));
 
-  tempPar.innerHTML = kelvinToScale(main.temp, 'celsius');
+    const dayTwoFc = list.filter(
+      el => dtToDate(el.dt).getDate() === todayDate + 2
+    );
+    console.log('Day 2 fc:', dayTwoFc);
+    console.log('Img 2:', dayTwoFc.map(el => el.weather[0].description));
 
-  perceivedTempPar.innerHTML = `Feels like: ${kelvinToScale(
-    main.feels_like,
-    'celsius'
-  )}`;
+    const dayThreeFc = list.filter(
+      el => dtToDate(el.dt).getDate() === todayDate + 3
+    );
+    console.log('Day 3 fc:', dayThreeFc);
+    console.log('Img 3:', dayThreeFc.map(el => el.weather[0].description));
 
-  minTempPar.innerHTML = `Min: ${kelvinToScale(main.temp_min, 'celsius')}`;
+    const dayFourFc = list.filter(
+      el => dtToDate(el.dt).getDate() === todayDate + 4
+    );
+    console.log('Day 4 fc:', dayFourFc);
+    console.log('Img 4:', dayOneFc.map(el => el.weather[0].description));
 
-  maxTempPar.innerHTML = `Max: ${kelvinToScale(main.temp_max, 'celsius')}`;
+    const dayFiveFc = list.filter(
+      el => dtToDate(el.dt).getDate() === todayDate + 5
+    );
+    console.log('Day 5 fc:', dayFiveFc);
+    console.log('Img 5:', dayFiveFc.map(el => el.weather[0].main));
 
-  scaleSelect.addEventListener('change', e =>
-    changeScale(main, e.target.value)
-  );
+    // today
+    fillFcDayElements(
+      todayFc,
+      null,
+      todayWeatherImg,
+      todayMinTempPar,
+      todayMaxTempPar
+    );
 
-  // weatherMainImg.setAttribute('src', getOriginalIcon(weather[0].icon));
-  weatherMainImg.setAttribute('src', getCustomIcon(weather[0].main));
+    fillFcDayElements(
+      dayOneFc,
+      dayOneNamePar,
+      dayOneWeatherImg,
+      dayOneMinTempPar,
+      dayOneMaxTempPar
+    );
 
-  windBftIcon.setAttribute('src', getBftIcon(msToKmh(wind.speed)));
-  windSpeedPar.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
+    fillFcDayElements(
+      dayTwoFc,
+      dayTwoNamePar,
+      dayTwoWeatherImg,
+      dayTwoMinTempPar,
+      dayTwoMaxTempPar
+    );
 
-  if (wind.gust) {
-    showElement(gustSpeedDiv, 'container y-center');
+    fillFcDayElements(
+      dayThreeFc,
+      dayThreeNamePar,
+      dayThreeWeatherImg,
+      dayThreeMinTempPar,
+      dayThreeMaxTempPar
+    );
 
-    gustBftIcon.setAttribute('src', getBftIcon(msToKmh(wind.gust)));
-    gustSpeedPar.innerHTML = `Gust: ${msToKmh(wind.gust)} km/h`;
-  } else {
-    hideElement(gustSpeedDiv);
+    fillFcDayElements(
+      dayFourFc,
+      dayFourNamePar,
+      dayFourWeatherImg,
+      dayFourMinTempPar,
+      dayFourMaxTempPar
+    );
+
+    fillFcDayElements(
+      dayFiveFc,
+      dayFiveNamePar,
+      dayFiveWeatherImg,
+      dayFiveMinTempPar,
+      dayFiveMaxTempPar
+    );
+
+    showElement(fiveDayForecastDiv, 'b-1 br-15 bc-transparent bg-transparent');
   }
 
-  windDegPar.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
+  if (pollutionData) {
+    const { list } = pollutionData;
 
-  sunrisePar.innerHTML = `Sunrise: ${unixTStoHour(sys.sunrise)}`;
-  sunsetPar.innerHTML = `Sunset: ${unixTStoHour(sys.sunset)}`;
+    airAqiPar.innerHTML = `AQI: ${list[0].main.aqi}`;
 
-  humidityPar.innerHTML = `${main.humidity}%`;
-  pressurePar.innerHTML = `${main.pressure} hPa`;
-  visibilityPar.innerHTML = `${(visibility / 1000).toFixed(1)} km`;
+    // show data unhiding elements
+    showElement(
+      airDiv,
+      'container col-direction b-1 br-15 bc-transparent box-small bg-transparent'
+    );
+  }
 };
 
 displayWeatherData();

@@ -16,13 +16,13 @@ export const formatInputValue = location => {
   return formattedLocation;
 };
 
-export const kelvinToScale = (temperature, scale) => {
+export const kelvinToScale = (temperature, scale, decimals = 1) => {
   if (scale === 'celsius') {
     return `${(temperature - 273.15).toFixed(1)}°C`;
   }
 
   if (scale === 'fahrenheit') {
-    return `${(((temperature - 273.15) * 9) / 5 + 32).toFixed(1)}°F`;
+    return `${(((temperature - 273.15) * 9) / 5 + 32).toFixed(decimals)}°F`;
   }
 
   if (scale === 'kelvin') {
@@ -271,3 +271,39 @@ export const getCurrentLocation = () =>
     errorCallback,
     options
   );
+
+export const dtToDate = dt => new Date(dt * 1000);
+
+export const fillFcDayElements = (
+  dayFc,
+  nameId = null,
+  imgId,
+  minTempId,
+  maxTempId
+) => {
+  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  if (nameId) {
+    const dayName = weekDays[dtToDate(dayFc[0].dt).getDay()];
+
+    nameId.innerHTML = dayName;
+  }
+
+  const allHoursTemps = dayFc.map(el => el.main.temp).sort();
+  console.log(allHoursTemps);
+  
+  const minTemp = allHoursTemps[0];
+  const maxTemp = allHoursTemps[allHoursTemps.length - 1];
+  console.log(minTemp);
+  console.log(maxTemp);
+
+  if (dayFc.length <= 2) {
+    imgId.setAttribute('src', getCustomIcon(dayFc[0].weather[0].main));
+  } else {
+    imgId.setAttribute('src', getCustomIcon(dayFc[2].weather[0].main));
+  }
+
+  minTempId.innerHTML = `L: ${kelvinToScale(minTemp, 'celsius')}`;
+
+  maxTempId.innerHTML = `H: ${kelvinToScale(maxTemp, 'celsius')}`;
+};
