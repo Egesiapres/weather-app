@@ -12,7 +12,7 @@ import { get, geolocationUrl, API_KEY } from './api.js';
  */
 
 export const getGeocoding = (
-  cityName = 'milan',
+  cityName = '',
   countryCode = '',
   limit = '5',
   stateCode = '',
