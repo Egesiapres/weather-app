@@ -294,7 +294,7 @@ a:hover {
 #current-location-btn:hover {
   transition: 500ms;
   background-color: #ffffffb6;
-  background-image: url('https://egesiapres.github.io/weather-app/img/location-dark.svg');
+  background-image: url('https://egesiapres.github.io/weather-app/img/location-dark.fill.svg');
   width: 36px;
   background-repeat: no-repeat;
   background-position: 5.5px center;
