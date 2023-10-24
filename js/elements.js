@@ -29,31 +29,21 @@ export const minTempPar = document.querySelector('#min-temp-par');
 export const maxTempPar = document.querySelector('#max-temp-par');
 
 // forecast days
-export const fiveDayForecastDiv = document.querySelector('#five-day-forecast-div') 
+export const fiveDayForecastDiv = document.querySelector(
+  '#five-day-forecast-div'
+);
 
-// today
-export const todayWeatherImg = document.querySelector('#today-weather-img');
-
-export const todayMinTempPar = document.querySelector('#today-min-temp-par');
-
-export const todayMaxTempPar = document.querySelector('#today-max-temp-par');
-
-export const dayOneNamePar = document.querySelector('#day-one-name-par');
-
+// tomorrow
 export const dayOneWeatherImg = document.querySelector('#day-one-weather-img');
 
-export const dayOneMinTempPar = document.querySelector('#day-one-min-temp-par');
-
-export const dayOneMaxTempPar = document.querySelector('#day-one-max-temp-par');
+export const dayOneLhTempsPar = document.querySelector('#day-one-lh-temps-par');
 
 // two
 export const dayTwoNamePar = document.querySelector('#day-two-name-par');
 
 export const dayTwoWeatherImg = document.querySelector('#day-two-weather-img');
 
-export const dayTwoMinTempPar = document.querySelector('#day-two-min-temp-par');
-
-export const dayTwoMaxTempPar = document.querySelector('#day-two-max-temp-par');
+export const dayTwoLhTempsPar = document.querySelector('#day-two-lh-temps-par');
 
 // three
 export const dayThreeNamePar = document.querySelector('#day-three-name-par');
@@ -62,12 +52,8 @@ export const dayThreeWeatherImg = document.querySelector(
   '#day-three-weather-img'
 );
 
-export const dayThreeMinTempPar = document.querySelector(
-  '#day-three-min-temp-par'
-);
-
-export const dayThreeMaxTempPar = document.querySelector(
-  '#day-three-max-temp-par'
+export const dayThreeLhTempsPar = document.querySelector(
+  '#day-three-lh-temps-par'
 );
 
 // four
@@ -77,13 +63,7 @@ export const dayFourWeatherImg = document.querySelector(
   '#day-four-weather-img'
 );
 
-export const dayFourMinTempPar = document.querySelector(
-  '#day-four-min-temp-par'
-);
-
-export const dayFourMaxTempPar = document.querySelector(
-  '#day-four-max-temp-par'
-);
+export const dayFourLhTempsPar = document.querySelector('#day-four-lh-temps-par');
 
 // five
 export const dayFiveNamePar = document.querySelector('#day-five-name-par');
@@ -92,13 +72,7 @@ export const dayFiveWeatherImg = document.querySelector(
   '#day-five-weather-img'
 );
 
-export const dayFiveMinTempPar = document.querySelector(
-  '#day-five-min-temp-par'
-);
-
-export const dayFiveMaxTempPar = document.querySelector(
-  '#day-five-max-temp-par'
-);
+export const dayFiveLhTempsPar = document.querySelector('#day-five-lh-temps-par');
 //
 
 export const scaleSelect = document.querySelector('select');

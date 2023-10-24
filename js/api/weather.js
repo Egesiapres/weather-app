@@ -9,6 +9,7 @@ import { get, dataUrl, API_KEY } from './api.js';
  * @returns {string} - The URL for the API request
  */
 
+// TODO: check async
 export const getCurrentWeather = (lat, lon, APIkey = API_KEY) =>
   get(dataUrl, `/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`);
 

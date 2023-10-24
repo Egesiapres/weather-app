@@ -3,6 +3,11 @@ import {
   perceivedTempPar,
   minTempPar,
   maxTempPar,
+  dayOneLhTempsPar,
+  dayTwoLhTempsPar,
+  dayThreeLhTempsPar,
+  dayFourLhTempsPar,
+  dayFiveLhTempsPar,
 } from './elements.js';
 import { displayWeatherData } from './script.js';
 
@@ -16,17 +21,26 @@ export const formatInputValue = location => {
   return formattedLocation;
 };
 
-export const kelvinToScale = (temperature, scale, decimals = 1) => {
+export const kelvinToScale = (
+  temperature,
+  scale,
+  decimals = 0,
+  showScale = true
+) => {
   if (scale === 'celsius') {
-    return `${(temperature - 273.15).toFixed(1)}°C`;
+    return `${(temperature - 273.15).toFixed(decimals)}${
+      showScale ? '°C' : ''
+    }`;
   }
 
   if (scale === 'fahrenheit') {
-    return `${(((temperature - 273.15) * 9) / 5 + 32).toFixed(decimals)}°F`;
+    return `${(((temperature - 273.15) * 9) / 5 + 32).toFixed(decimals)}${
+      showScale ? '°F' : ''
+    }`;
   }
 
   if (scale === 'kelvin') {
-    return `${temperature} K`;
+    return `${temperature.toFixed(decimals)}${showScale ? ' K' : ''}`;
   }
 };
 
@@ -47,22 +61,30 @@ export const unixTStoHour = timestamp => {
 };
 
 export const changeScale = (
-  { temp, feels_like, temp_max, temp_min },
+  { main, dayOneLh, dayTwoLh, dayThreeLh, dayFourLh, dayFiveLh },
   value
 ) => {
-  tempPar.innerHTML = kelvinToScale(temp, value);
+  tempPar.innerHTML = kelvinToScale(main.temp, value);
   perceivedTempPar.innerHTML = `Feels like: ${kelvinToScale(
-    feels_like,
+    main.feels_like,
     value
   )}`;
-  minTempPar.innerHTML = `Min: ${kelvinToScale(temp_min, value)}`;
-  maxTempPar.innerHTML = `Max: ${kelvinToScale(temp_max, value)}`;
+  minTempPar.innerHTML = `Min: ${kelvinToScale(main.temp_min, value)}`;
+  maxTempPar.innerHTML = `Max: ${kelvinToScale(main.temp_max, value)}`;
+
+  // forecast
+  displayLhTemps(dayOneLh, dayOneLhTempsPar, value);
+  displayLhTemps(dayTwoLh, dayTwoLhTempsPar, value);
+  displayLhTemps(dayThreeLh, dayThreeLhTempsPar, value);
+  displayLhTemps(dayFourLh, dayFourLhTempsPar, value);
+  displayLhTemps(dayFiveLh, dayFiveLhTempsPar, value);
 };
 
 export const msToKmh = speed => {
   return (speed * 3.6).toFixed(1);
 };
 
+// TODO: icons instead of arrows
 export const meteoDegToDirection = meteoDeg => {
   const directions = [
     { direction: 'N', arrow: '↓', interval: [0, 11.25] },
@@ -274,36 +296,59 @@ export const getCurrentLocation = () =>
 
 export const dtToDate = dt => new Date(dt * 1000);
 
-export const fillFcDayElements = (
+export const getLhTemps = dayFc => {
+  const allHoursTemps = dayFc.map(el => el.main.temp).sort();
+
+  const minTemp = allHoursTemps[0];
+  const maxTemp = allHoursTemps[allHoursTemps.length - 1];
+
+  // console.log(`${new Date(dayFc[0].dt * 1000).toDateString()} min`, minTemp);
+  // console.log(`${new Date(dayFc[0].dt * 1000).toDateString()} max`, maxTemp);
+
+  return { minTemp: minTemp, maxTemp: maxTemp };
+};
+
+const displayLhTemps = (dayFc, lhTempsId, scale) => {
+  let lowTemp;
+  let highTemp;
+
+  if (dayFc && dayFc.length > 0) {
+    const { minTemp, maxTemp } = getLhTemps(dayFc);
+    lowTemp = minTemp;
+    highTemp = maxTemp;
+  } else {
+    const { minTemp, maxTemp } = dayFc;
+    lowTemp = minTemp;
+    highTemp = maxTemp;
+  }
+
+  lhTempsId.innerHTML = `${kelvinToScale(
+    lowTemp,
+    scale,
+    null,
+    false
+  )} - ${kelvinToScale(highTemp, scale)}`;
+};
+
+export const displayFcDayElements = (
   dayFc,
   nameId = null,
   imgId,
-  minTempId,
-  maxTempId
+  lhTempsId
 ) => {
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+  // day 1 is just 'Tomorrow'
+  // TODO: add date
   if (nameId) {
     const dayName = weekDays[dtToDate(dayFc[0].dt).getDay()];
 
     nameId.innerHTML = dayName;
   }
 
-  const allHoursTemps = dayFc.map(el => el.main.temp).sort();
-  console.log(allHoursTemps);
-  
-  const minTemp = allHoursTemps[0];
-  const maxTemp = allHoursTemps[allHoursTemps.length - 1];
-  console.log(minTemp);
-  console.log(maxTemp);
+  imgId.setAttribute('src', getCustomIcon(dayFc[3].weather[0].main));
 
-  if (dayFc.length <= 2) {
-    imgId.setAttribute('src', getCustomIcon(dayFc[0].weather[0].main));
-  } else {
-    imgId.setAttribute('src', getCustomIcon(dayFc[2].weather[0].main));
-  }
-
-  minTempId.innerHTML = `L: ${kelvinToScale(minTemp, 'celsius')}`;
-
-  maxTempId.innerHTML = `H: ${kelvinToScale(maxTemp, 'celsius')}`;
+  displayLhTemps(dayFc, lhTempsId, 'celsius');
 };
+
+// TODO: check code

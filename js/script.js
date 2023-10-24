@@ -26,29 +26,20 @@ import {
   currentLocationBtn,
   airDiv,
   airAqiPar,
-  todayMinTempPar,
-  todayMaxTempPar,
-  todayWeatherImg,
   dayOneWeatherImg,
-  dayOneNamePar,
-  dayOneMinTempPar,
-  dayOneMaxTempPar,
+  dayOneLhTempsPar,
   dayTwoNamePar,
   dayTwoWeatherImg,
-  dayTwoMinTempPar,
-  dayTwoMaxTempPar,
+  dayTwoLhTempsPar,
   dayThreeNamePar,
   dayThreeWeatherImg,
-  dayThreeMinTempPar,
-  dayThreeMaxTempPar,
+  dayThreeLhTempsPar,
   dayFourNamePar,
   dayFourWeatherImg,
-  dayFourMinTempPar,
-  dayFourMaxTempPar,
+  dayFourLhTempsPar,
   dayFiveNamePar,
   dayFiveWeatherImg,
-  dayFiveMinTempPar,
-  dayFiveMaxTempPar,
+  dayFiveLhTempsPar,
   fiveDayForecastDiv,
 } from './elements.js';
 import {
@@ -64,7 +55,8 @@ import {
   formatInputValue,
   getCurrentLocation,
   dtToDate,
-  fillFcDayElements,
+  displayFcDayElements,
+  getLhTemps,
 } from './utils.js';
 import { getCurrentWeather, getFiveDayForecast } from './api/weather.js';
 import { getGeocoding } from './api/location.js';
@@ -88,6 +80,8 @@ export const displayWeatherData = async (location, event) => {
   let fiveDayForecast;
   let weatherData;
   let pollutionData;
+
+  let convertionTemps;
 
   if (!location) {
     // no location inputted
@@ -174,9 +168,7 @@ export const displayWeatherData = async (location, event) => {
 
     maxTempPar.innerHTML = `Max: ${kelvinToScale(main.temp_max, 'celsius')}`;
 
-    scaleSelect.addEventListener('change', e =>
-      changeScale(main, e.target.value)
-    );
+    convertionTemps = { main: main };
 
     weatherMainImg.setAttribute('src', getCustomIcon(weather[0].main));
 
@@ -210,90 +202,72 @@ export const displayWeatherData = async (location, event) => {
 
     const todayDate = new Date().getDate();
 
-    const todayFc = list.filter(el => dtToDate(el.dt).getDate() === todayDate);
-    console.log('Today fc', todayFc);
-
     const dayOneFc = list.filter(
       el => dtToDate(el.dt).getDate() === todayDate + 1
     );
-    console.log('Day 1 fc:', dayOneFc);
-    console.log('Img 1:', dayOneFc.map(el => el.weather[0].description));
 
     const dayTwoFc = list.filter(
       el => dtToDate(el.dt).getDate() === todayDate + 2
     );
-    console.log('Day 2 fc:', dayTwoFc);
-    console.log('Img 2:', dayTwoFc.map(el => el.weather[0].description));
 
     const dayThreeFc = list.filter(
       el => dtToDate(el.dt).getDate() === todayDate + 3
     );
-    console.log('Day 3 fc:', dayThreeFc);
-    console.log('Img 3:', dayThreeFc.map(el => el.weather[0].description));
 
     const dayFourFc = list.filter(
       el => dtToDate(el.dt).getDate() === todayDate + 4
     );
-    console.log('Day 4 fc:', dayFourFc);
-    console.log('Img 4:', dayOneFc.map(el => el.weather[0].description));
 
     const dayFiveFc = list.filter(
       el => dtToDate(el.dt).getDate() === todayDate + 5
     );
-    console.log('Day 5 fc:', dayFiveFc);
-    console.log('Img 5:', dayFiveFc.map(el => el.weather[0].main));
 
-    // today
-    fillFcDayElements(
-      todayFc,
-      null,
-      todayWeatherImg,
-      todayMinTempPar,
-      todayMaxTempPar
-    );
+    convertionTemps = {
+      ...convertionTemps,
+      dayOneLh: getLhTemps(dayOneFc),
+      dayTwoLh: getLhTemps(dayTwoFc),
+      dayThreeLh: getLhTemps(dayThreeFc),
+      dayFourLh: getLhTemps(dayFourFc),
+      dayFiveLh: getLhTemps(dayFiveFc),
+    };
 
-    fillFcDayElements(
-      dayOneFc,
-      dayOneNamePar,
-      dayOneWeatherImg,
-      dayOneMinTempPar,
-      dayOneMaxTempPar
-    );
+    displayFcDayElements(dayOneFc, null, dayOneWeatherImg, dayOneLhTempsPar);
 
-    fillFcDayElements(
+    displayFcDayElements(
       dayTwoFc,
       dayTwoNamePar,
       dayTwoWeatherImg,
-      dayTwoMinTempPar,
-      dayTwoMaxTempPar
+      dayTwoLhTempsPar
     );
 
-    fillFcDayElements(
+    displayFcDayElements(
       dayThreeFc,
       dayThreeNamePar,
       dayThreeWeatherImg,
-      dayThreeMinTempPar,
-      dayThreeMaxTempPar
+      dayThreeLhTempsPar
     );
 
-    fillFcDayElements(
+    displayFcDayElements(
       dayFourFc,
       dayFourNamePar,
       dayFourWeatherImg,
-      dayFourMinTempPar,
-      dayFourMaxTempPar
+      dayFourLhTempsPar
     );
 
-    fillFcDayElements(
+    displayFcDayElements(
       dayFiveFc,
       dayFiveNamePar,
       dayFiveWeatherImg,
-      dayFiveMinTempPar,
-      dayFiveMaxTempPar
+      dayFiveLhTempsPar
     );
 
+    // show data unhiding elements
     showElement(fiveDayForecastDiv, 'b-1 br-15 bc-transparent bg-transparent');
   }
+
+  scaleSelect.addEventListener('change', e => {
+    changeScale(convertionTemps, e.target.value);
+  });
 
   if (pollutionData) {
     const { list } = pollutionData;
@@ -314,6 +288,5 @@ form.addEventListener('submit', e => displayWeatherData(input.value, e));
 
 currentLocationBtn.addEventListener('click', getCurrentLocation);
 
-// TODO: current location
-// TODO: air pollution
-// TODO: hour/daily forecast
+// TODO: check code
+// TODO: hour forecast

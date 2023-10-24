@@ -29,9 +29,13 @@ section {
 }
 
 #forecast-div {
-  width: 530px;
+  width: 475.859px;
   column-gap: 10px;
   padding: 15px;
+}
+
+#forecast-div div {
+  width: 100px;
 }
 
 .scrollable {
@@ -143,7 +147,7 @@ section {
 }
 
 .text-black {
-  color: #000000;
+  color: #212427;
 }
 
 .text-dark {
@@ -169,7 +173,7 @@ section {
 }
 
 .text-extra-small {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .text-small {
@@ -295,3 +299,4 @@ a:hover i.wi, a:hover {
 /* TODO: clear css **/
 /* TODO: animated icons copy */
 /* TODO: responsive */
+/* TODO: current location effects */
