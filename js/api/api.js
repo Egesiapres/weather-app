@@ -24,7 +24,6 @@ export const fetchData = async (api, params) => {
     const response = await api.apply(null, params);
 
     const data = await response.json();
-    console.log(data[0] || data);
 
     return data[0] || data;
   } catch (error) {
