@@ -8,8 +8,21 @@ import {
   dayThreeLhTempsPar,
   dayFourLhTempsPar,
   dayFiveLhTempsPar,
+  todayDatePar,
 } from './elements.js';
 import { displayWeatherData } from './script.js';
+
+export const addZero = number => {
+  return number < 10 ? `0${number}` : number;
+};
+
+export const getTime = (date = new Date()) => {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  return { hours, minutes, seconds };
+};
 
 export const formatInputValue = location => {
   let formattedLocation;
@@ -50,14 +63,9 @@ export const unixTStoHour = timestamp => {
   // Date object accepts ms as input
   const date = new Date(msTimestamp);
 
-  const hour = date.getHours();
-  const minutes = date.getMinutes();
+  const { hours, minutes } = getTime(date);
 
-  const addZero = number => {
-    return number < 10 ? `0${number}` : number;
-  };
-
-  return `${addZero(hour)}:${addZero(minutes)}`;
+  return `${addZero(hours)}:${addZero(minutes)}`;
 };
 
 export const changeScale = (

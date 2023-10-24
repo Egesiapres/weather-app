@@ -46,6 +46,7 @@ import {
   dayThreeDatePar,
   dayFourDatePar,
   dayFiveDatePar,
+  todayDatePar,
 } from './elements.js';
 import {
   kelvinToScale,
@@ -62,6 +63,8 @@ import {
   dtToDate,
   displayFcDayElements,
   getLhTemps,
+  getTime,
+  addZero,
 } from './utils.js';
 import { getCurrentWeather, getFiveDayForecast } from './api/weather.js';
 import { getGeocoding } from './api/location.js';
@@ -78,6 +81,17 @@ export const displayWeatherData = async (location, event) => {
   if (event) {
     event.preventDefault();
   }
+
+  const todayMonth = new Date().toLocaleDateString('en-US', { month: 'short' });
+  const todayDate = new Date().getDate();
+
+  setInterval(() => {
+    const { hours, minutes, seconds } = getTime();
+
+    todayDatePar.innerHTML = `${todayMonth} ${todayDate}, ${addZero(
+      hours
+    )}:${addZero(minutes)}`;
+  }, 1000);
 
   let cityData;
   let coordParams;
@@ -128,9 +142,8 @@ export const displayWeatherData = async (location, event) => {
   // div unhided after its population
   if (cityData) {
     // api calls
-    fiveDayForecast = await fetchData(getFiveDayForecast, coordParams);
-
     weatherData = await fetchData(getCurrentWeather, coordParams);
+    fiveDayForecast = await fetchData(getFiveDayForecast, coordParams);
     pollutionData = await fetchData(getAirPollution, coordParams);
 
     const { name, state, country } = cityData;
@@ -192,8 +205,6 @@ export const displayWeatherData = async (location, event) => {
 
   if (fiveDayForecast) {
     const { list } = fiveDayForecast;
-
-    const todayDate = new Date().getDate();
 
     const dayOneFc = list.filter(
       el => dtToDate(el.dt).getDate() === todayDate + 1
@@ -297,6 +308,10 @@ currentLocationBtn.addEventListener('click', () => {
   currentLocationBtn.setAttribute('class', 'b-0 br-10 active');
 });
 
-// TODO: check code
-// TODO: hour forecast
 // TODO: manage search result = undefined
+// TODO: improve API results conditional display
+// TODO: check code
+
+// in future
+// TODO: hour forecast
+// TODO: modals containing scales info (beaufort, air pollution params...)

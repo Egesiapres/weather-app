@@ -2,6 +2,10 @@ export const input = document.querySelector('input');
 
 export const form = document.querySelector('form');
 
+export const todayDatePar = document.querySelector('#today-date-par');
+
+export const todayHourPar = document.querySelector('#today-hour-par');
+
 export const currentLocationBtn = document.querySelector(
   '#current-location-btn'
 );
