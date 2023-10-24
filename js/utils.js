@@ -80,8 +80,8 @@ export const changeScale = (
   displayLhTemps(dayFiveLh, dayFiveLhTempsPar, value);
 };
 
-export const msToKmh = speed => {
-  return (speed * 3.6).toFixed(1);
+export const msToKmh = (speed, decimals = 0) => {
+  return (speed * 3.6).toFixed(decimals);
 };
 
 // TODO: icons instead of arrows
@@ -333,18 +333,22 @@ const displayLhTemps = (dayFc, lhTempsId, scale) => {
 export const displayFcDayElements = (
   dayFc,
   nameId = null,
+  dateId,
   imgId,
   lhTempsId
 ) => {
-  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
   // day 1 is just 'Tomorrow'
-  // TODO: add date
   if (nameId) {
-    const dayName = weekDays[dtToDate(dayFc[0].dt).getDay()];
+    const dayName = dtToDate(dayFc[0].dt).toLocaleString('en-US', {
+      weekday: 'short',
+    });
 
     nameId.innerHTML = dayName;
   }
+
+  dateId.innerHTML = `${dtToDate(dayFc[0].dt).getDate()}, ${dtToDate(
+    dayFc[0].dt
+  ).toLocaleString('en-US', { month: 'short' })}`;
 
   imgId.setAttribute('src', getCustomIcon(dayFc[3].weather[0].main));
 

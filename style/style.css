@@ -86,6 +86,10 @@ section {
   row-gap: 15px;
 }
 
+.rg-5 {
+  row-gap: 5px;
+}
+
 .m-10 {
   margin: 10px;
 }
@@ -198,6 +202,10 @@ section {
   width: 50%;
 }
 
+.img-small {
+  width: 70px;
+}
+
 .icon-small {
   height: 35px;
   width: auto;
@@ -253,14 +261,6 @@ img {
   width: 120px;
 }
 
-.small-img {
-  width: 50px;
-}
-
-#current-location-btn {
-  background-color: #ffffff64;
-}
-
 button img {
   width: 25px;
   margin-top: 3px;
@@ -277,6 +277,10 @@ a {
 a:hover i.wi, a:hover {
   color: #ffffff;
   transition: 500ms;
+}
+
+#current-location-btn {
+  background-color: #ffffff64;
 }
 
 #name-par {

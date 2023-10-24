@@ -41,6 +41,11 @@ import {
   dayFiveWeatherImg,
   dayFiveLhTempsPar,
   fiveDayForecastDiv,
+  dayOneDatePar,
+  dayTwoDatePar,
+  dayThreeDatePar,
+  dayFourDatePar,
+  dayFiveDatePar,
 } from './elements.js';
 import {
   kelvinToScale,
@@ -191,7 +196,7 @@ export const displayWeatherData = async (location, event) => {
 
     humidityPar.innerHTML = `${main.humidity}%`;
     pressurePar.innerHTML = `${main.pressure} hPa`;
-    visibilityPar.innerHTML = `${(visibility / 1000).toFixed(1)} km`;
+    visibilityPar.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
 
     // show data unhiding elements
     secondaryDiv.removeAttribute('class');
@@ -231,11 +236,18 @@ export const displayWeatherData = async (location, event) => {
       dayFiveLh: getLhTemps(dayFiveFc),
     };
 
-    displayFcDayElements(dayOneFc, null, dayOneWeatherImg, dayOneLhTempsPar);
+    displayFcDayElements(
+      dayOneFc,
+      null,
+      dayOneDatePar,
+      dayOneWeatherImg,
+      dayOneLhTempsPar
+    );
 
     displayFcDayElements(
       dayTwoFc,
       dayTwoNamePar,
+      dayTwoDatePar,
       dayTwoWeatherImg,
       dayTwoLhTempsPar
     );
@@ -243,6 +255,7 @@ export const displayWeatherData = async (location, event) => {
     displayFcDayElements(
       dayThreeFc,
       dayThreeNamePar,
+      dayThreeDatePar,
       dayThreeWeatherImg,
       dayThreeLhTempsPar
     );
@@ -250,6 +263,7 @@ export const displayWeatherData = async (location, event) => {
     displayFcDayElements(
       dayFourFc,
       dayFourNamePar,
+      dayFourDatePar,
       dayFourWeatherImg,
       dayFourLhTempsPar
     );
@@ -257,6 +271,7 @@ export const displayWeatherData = async (location, event) => {
     displayFcDayElements(
       dayFiveFc,
       dayFiveNamePar,
+      dayFiveDatePar,
       dayFiveWeatherImg,
       dayFiveLhTempsPar
     );
