@@ -346,9 +346,9 @@ export const displayFcDayElements = (
     nameId.innerHTML = dayName;
   }
 
-  dateId.innerHTML = `${dtToDate(dayFc[0].dt).getDate()}, ${dtToDate(
-    dayFc[0].dt
-  ).toLocaleString('en-US', { month: 'short' })}`;
+  dateId.innerHTML = `${dtToDate(dayFc[0].dt).toLocaleString('en-US', {
+    month: 'short',
+  })} ${dtToDate(dayFc[0].dt).getDate()} `;
 
   imgId.setAttribute('src', getCustomIcon(dayFc[3].weather[0].main));
 
