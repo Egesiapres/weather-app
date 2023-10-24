@@ -302,9 +302,6 @@ export const getLhTemps = dayFc => {
   const minTemp = allHoursTemps[0];
   const maxTemp = allHoursTemps[allHoursTemps.length - 1];
 
-  // console.log(`${new Date(dayFc[0].dt * 1000).toDateString()} min`, minTemp);
-  // console.log(`${new Date(dayFc[0].dt * 1000).toDateString()} max`, maxTemp);
-
   return { minTemp: minTemp, maxTemp: maxTemp };
 };
 

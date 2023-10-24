@@ -107,19 +107,9 @@ export const displayWeatherData = async (location, event) => {
       const limit = locationParams[2] || '';
       const stateCode = locationParams[3] || '';
 
-      console.log(
-        'cityName:',
-        cityName,
-        'countryCode:',
-        countryCode,
-        'limit:',
-        limit,
-        'stateCode:',
-        stateCode
-      );
-
       locationParams = [cityName, countryCode, limit, stateCode];
     } else {
+      // location retrieved automatically
       const { name, sys } = await fetchData(getCurrentWeather, [
         location.lat,
         location.lon,
@@ -130,8 +120,6 @@ export const displayWeatherData = async (location, event) => {
 
     cityData = await fetchData(getGeocoding, locationParams);
 
-    // location not necessary a string
-    // coordParams = [location.lat || cityData.lat, location.lon || cityData.lon];
     coordParams = [cityData.lat, cityData.lon];
 
     clearInput();
@@ -299,9 +287,16 @@ export const displayWeatherData = async (location, event) => {
 
 displayWeatherData();
 
-form.addEventListener('submit', e => displayWeatherData(input.value, e));
+form.addEventListener('submit', e => {
+  displayWeatherData(input.value, e);
+  currentLocationBtn.setAttribute('class', 'b-0 br-10 inactive');
+});
 
-currentLocationBtn.addEventListener('click', getCurrentLocation);
+currentLocationBtn.addEventListener('click', () => {
+  getCurrentLocation();
+  currentLocationBtn.setAttribute('class', 'b-0 br-10 active');
+});
 
 // TODO: check code
 // TODO: hour forecast
+// TODO: manage search result = undefined

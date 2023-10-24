@@ -282,7 +282,7 @@ a:hover {
   transition: 500ms;
 }
 
-#current-location-btn {
+.inactive {
   background-color: #ffffff64;
   background-image: url('https://egesiapres.github.io/weather-app/img/location-light.svg');
   width: 36px;
@@ -291,10 +291,18 @@ a:hover {
   background-size: 25px;
 }
 
-#current-location-btn:hover {
+.inactive:hover {
   transition: 500ms;
-  background-color: #ffffffb6;
-  background-image: url('https://egesiapres.github.io/weather-app/img/location-dark.fill.svg');
+  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.fill.svg');
+  width: 36px;
+  background-repeat: no-repeat;
+  background-position: 5.5px center;
+  background-size: 25px;
+}
+
+.active {
+  background-color: #ffffff64;
+  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.fill.svg');
   width: 36px;
   background-repeat: no-repeat;
   background-position: 5.5px center;
@@ -321,4 +329,3 @@ a:hover {
 /* TODO: clear css **/
 /* TODO: animated icons copy */
 /* TODO: responsive */
-/* TODO: current location effects */
