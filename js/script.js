@@ -23,6 +23,7 @@ import {
   pressurePar,
   visibilityPar,
   secondaryDiv,
+  tertiaryDiv,
   currentLocationBtn,
   airDiv,
   airAqiPar,
@@ -46,7 +47,9 @@ import {
   dayThreeDatePar,
   dayFourDatePar,
   dayFiveDatePar,
-  todayDatePar,
+  currentDatePar,
+  errorPar,
+  errorDiv,
 } from './elements.js';
 import {
   kelvinToScale,
@@ -63,8 +66,8 @@ import {
   dtToDate,
   displayFcDayElements,
   getLhTemps,
-  getTime,
-  addZero,
+  getCurrentDate,
+  displayCurrentDate,
 } from './utils.js';
 import { getCurrentWeather, getFiveDayForecast } from './api/weather.js';
 import { getGeocoding } from './api/location.js';
@@ -82,28 +85,23 @@ export const displayWeatherData = async (location, event) => {
     event.preventDefault();
   }
 
-  const todayMonth = new Date().toLocaleDateString('en-US', { month: 'short' });
-  const todayDate = new Date().getDate();
+  // display current time values
+  displayCurrentDate();
+  // update the current time values
+  setInterval(displayCurrentDate, 1000);
 
-  setInterval(() => {
-    const { hours, minutes, seconds } = getTime();
+  //
+  showElement(currentDatePar, 'm-5 text-center');
 
-    todayDatePar.innerHTML = `${todayMonth} ${todayDate}, ${addZero(
-      hours
-    )}:${addZero(minutes)}`;
-  }, 1000);
+  let cityData,
+    coordParams,
+    fiveDayForecast,
+    weatherData,
+    pollutionData,
+    convertionTemps;
 
-  let cityData;
-  let coordParams;
-
-  let fiveDayForecast;
-  let weatherData;
-  let pollutionData;
-
-  let convertionTemps;
-
+  // no location inputted
   if (!location) {
-    // no location inputted
     cityData = await fetchData(getGeocoding, ['barcelona']);
 
     coordParams = [cityData.lat, cityData.lon];
@@ -133,14 +131,29 @@ export const displayWeatherData = async (location, event) => {
     }
 
     cityData = await fetchData(getGeocoding, locationParams);
+    console.log(cityData);
 
     coordParams = [cityData.lat, cityData.lon];
+
+    if (!cityData.lat || !cityData.lon) {
+      // error: no cityData
+      // stop fetch
+      cityData = null;
+
+      hideElement(primaryDiv);
+      hideElement(tertiaryDiv);
+
+      errorPar.innerHTML = `"${input.value}"`;
+      errorDiv.removeAttribute('class');
+    }
 
     clearInput();
   }
 
   // div unhided after its population
   if (cityData) {
+    hideElement(errorDiv);
+
     // api calls
     weatherData = await fetchData(getCurrentWeather, coordParams);
     fiveDayForecast = await fetchData(getFiveDayForecast, coordParams);
@@ -156,6 +169,7 @@ export const displayWeatherData = async (location, event) => {
 
     // show data unhiding elements
     primaryDiv.removeAttribute('class');
+    secondaryDiv.removeAttribute('class');
   }
 
   if (weatherData) {
@@ -199,31 +213,34 @@ export const displayWeatherData = async (location, event) => {
     pressurePar.innerHTML = `${main.pressure} hPa`;
     visibilityPar.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
 
-    // show data unhiding elements
-    secondaryDiv.removeAttribute('class');
+    tertiaryDiv.removeAttribute('class');
+  } else {
+    hideElement(secondaryDiv);
   }
 
   if (fiveDayForecast) {
     const { list } = fiveDayForecast;
 
+    const { currentDate: currentDate } = getCurrentDate();
+
     const dayOneFc = list.filter(
-      el => dtToDate(el.dt).getDate() === todayDate + 1
+      el => dtToDate(el.dt).getDate() === currentDate + 1
     );
 
     const dayTwoFc = list.filter(
-      el => dtToDate(el.dt).getDate() === todayDate + 2
+      el => dtToDate(el.dt).getDate() === currentDate + 2
     );
 
     const dayThreeFc = list.filter(
-      el => dtToDate(el.dt).getDate() === todayDate + 3
+      el => dtToDate(el.dt).getDate() === currentDate + 3
     );
 
     const dayFourFc = list.filter(
-      el => dtToDate(el.dt).getDate() === todayDate + 4
+      el => dtToDate(el.dt).getDate() === currentDate + 4
     );
 
     const dayFiveFc = list.filter(
-      el => dtToDate(el.dt).getDate() === todayDate + 5
+      el => dtToDate(el.dt).getDate() === currentDate + 5
     );
 
     convertionTemps = {
@@ -308,9 +325,8 @@ currentLocationBtn.addEventListener('click', () => {
   currentLocationBtn.setAttribute('class', 'b-0 br-10 active');
 });
 
-// TODO: manage search result = undefined
 // TODO: improve API results conditional display
-// TODO: check code
+// TODO: clear code
 
 // in future
 // TODO: hour forecast

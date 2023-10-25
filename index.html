@@ -68,15 +68,19 @@
               class="container col-direction"
             >
               <p
-                id="today-date-par"
-                class="m-5 text-center"
-              >Month XX, hh:mm</p>              
+                id="current-date-par"
+                class="hidden"
+              >
+                Month XX, hh:mm
+              </p>
+
               <p
                 id="name-par"
                 class="text-medium text-center"
               >
                 City
               </p>
+
               <p
                 id="position-details-par"
                 class="m-0 text-small text-center"
@@ -84,27 +88,35 @@
                 State, (COUNTRY)
               </p>
 
-              <div class="container x-center">
-                <img
-                  id="weather-main-img"
-                  class="m-5"
-                  src="https://egesiapres.github.io/weather-app/img/partly-cloudy-day.svg"
-                />
-              </div>
-
-              <p
-                id="weather-main-par"
-                class="m-0 text-medium text-center"
+              <div
+                id="secondary-div"
+                class="hidden"
               >
-                Weather
-              </p>
+                <div
+                  id="weather-main-img-div"
+                  class="container x-center"
+                >
+                  <img
+                    id="weather-main-img"
+                    class="m-5"
+                    src="https://egesiapres.github.io/weather-app/img/partly-cloudy-day.svg"
+                  />
+                </div>
+
+                <p
+                  id="weather-main-par"
+                  class="m-0 text-center text-medium"
+                >
+                  Weather
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
       <div
-        id="secondary-div"
+        id="tertiary-div"
         class="hidden"
       >
         <hr class="m-0 bc-transparent" />
@@ -586,6 +598,24 @@
             >Scroll</a
           >
         </footer>
+      </div>
+
+      <div
+        id="error-div"
+        class="hidden"
+      >
+        <hr class="m-0 bc-transparent" />
+
+        <div class="p-10 br-10 error">
+          <p class="m-10 text-center">No location corresponding to:</p>
+
+          <p
+            id="error-par"
+            class="m-5 text-center text-medium"
+          >
+            "XXX"
+          </p>
+        </div>
       </div>
     </div>
 

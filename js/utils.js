@@ -8,20 +8,62 @@ import {
   dayThreeLhTempsPar,
   dayFourLhTempsPar,
   dayFiveLhTempsPar,
-  todayDatePar,
+  currentDatePar,
 } from './elements.js';
 import { displayWeatherData } from './script.js';
+
+const baseUrl = 'https://egesiapres.github.io/weather-app';
+
+// dates
+export const dtToDate = dt => new Date(dt * 1000);
+
+export const unixTStoHour = timestamp => {
+  const msTimestamp = timestamp * 1000;
+
+  // Date object accepts ms as input
+  const date = new Date(msTimestamp);
+
+  const { currentHours, currentMinutes } = getCurrentDate(date);
+
+  return `${addZero(currentHours)}:${addZero(currentMinutes)}`;
+};
 
 export const addZero = number => {
   return number < 10 ? `0${number}` : number;
 };
 
-export const getTime = (date = new Date()) => {
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
+export const getCurrentDate = (date = new Date()) => {
+  const currentDate = date.getDate();
+  const currentMonthName = date.toLocaleString('en-US', { month: 'short' });
+  const currentHours = date.getHours();
+  const currentMinutes = date.getMinutes();
+  const currentSeconds = date.getSeconds();
 
-  return { hours, minutes, seconds };
+  return {
+    currentDate,
+    currentMonthName,
+    currentHours,
+    currentMinutes,
+    currentSeconds,
+  };
+};
+
+// elements
+export const hideElement = element => {
+  element.setAttribute('class', 'hidden');
+};
+
+export const showElement = (element, elClass) => {
+  element.setAttribute('class', elClass);
+};
+
+export const displayCurrentDate = () => {
+  const { currentDate, currentMonthName, currentHours, currentMinutes } =
+    getCurrentDate();
+
+  currentDatePar.innerHTML = `${currentMonthName} ${currentDate}, ${addZero(
+    currentHours
+  )}:${addZero(currentMinutes)}`;
 };
 
 export const formatInputValue = location => {
@@ -55,17 +97,6 @@ export const kelvinToScale = (
   if (scale === 'kelvin') {
     return `${temperature.toFixed(decimals)}${showScale ? ' K' : ''}`;
   }
-};
-
-export const unixTStoHour = timestamp => {
-  const msTimestamp = timestamp * 1000;
-
-  // Date object accepts ms as input
-  const date = new Date(msTimestamp);
-
-  const { hours, minutes } = getTime(date);
-
-  return `${addZero(hours)}:${addZero(minutes)}`;
 };
 
 export const changeScale = (
@@ -124,11 +155,6 @@ export const meteoDegToDirection = meteoDeg => {
 
   return direction;
 };
-
-export const getOriginalIcon = code =>
-  `https://openweathermap.org/img/wn/${code}@2x.png`;
-
-const baseUrl = 'https://egesiapres.github.io/weather-app';
 
 export const getCustomIcon = weather => {
   let icon;
@@ -267,14 +293,6 @@ export const getBftIcon = speed => {
   return bftIcon;
 };
 
-export const hideElement = element => {
-  element.setAttribute('class', 'hidden');
-};
-
-export const showElement = (element, elClass) => {
-  element.setAttribute('class', elClass);
-};
-
 let coordParams;
 
 const successCallback = position => {
@@ -302,20 +320,17 @@ export const getCurrentLocation = () =>
     options
   );
 
-export const dtToDate = dt => new Date(dt * 1000);
-
 export const getLhTemps = dayFc => {
   const allHoursTemps = dayFc.map(el => el.main.temp).sort();
 
   const minTemp = allHoursTemps[0];
   const maxTemp = allHoursTemps[allHoursTemps.length - 1];
 
-  return { minTemp: minTemp, maxTemp: maxTemp };
+  return { minTemp, maxTemp };
 };
 
 const displayLhTemps = (dayFc, lhTempsId, scale) => {
-  let lowTemp;
-  let highTemp;
+  let lowTemp, highTemp;
 
   if (dayFc && dayFc.length > 0) {
     const { minTemp, maxTemp } = getLhTemps(dayFc);

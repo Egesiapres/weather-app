@@ -20,7 +20,7 @@ body {
   height: fit-content;
   background-image: linear-gradient(to bottom, #164a8b, #25b9f88d);
   box-shadow: 5px 5px 10px #4d4e51;
-  border-radius: 25px;
+  border-radius: 20px;
 }
 
 section {
@@ -213,6 +213,12 @@ section {
 
 .wi {
   margin-left: 12px;
+}
+
+.error {
+  /* background-image: linear-gradient(to top, #940101, #de0000); */
+  background-color: #c40000;
+  border-radius: 0 0 20px 20px;
 }
 
 h1 {

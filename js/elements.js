@@ -2,9 +2,7 @@ export const input = document.querySelector('input');
 
 export const form = document.querySelector('form');
 
-export const todayDatePar = document.querySelector('#today-date-par');
-
-export const todayHourPar = document.querySelector('#today-hour-par');
+export const currentDatePar = document.querySelector('#current-date-par');
 
 export const currentLocationBtn = document.querySelector(
   '#current-location-btn'
@@ -14,6 +12,8 @@ export const primaryDiv = document.querySelector('#primary-div');
 
 export const secondaryDiv = document.querySelector('#secondary-div');
 
+export const tertiaryDiv = document.querySelector('#tertiary-div');
+
 export const namePar = document.querySelector('#name-par');
 
 export const positionDetailsPar = document.querySelector(
@@ -21,6 +21,10 @@ export const positionDetailsPar = document.querySelector(
 );
 
 export const weatherMainPar = document.querySelector('#weather-main-par');
+
+export const weatherMainImgDiv = document.querySelector(
+  '#weather-main-img-div'
+);
 
 export const weatherMainImg = document.querySelector('#weather-main-img');
 
@@ -122,3 +126,7 @@ export const visibilityPar = document.querySelector('#visibility-par');
 export const airDiv = document.querySelector('#air-div');
 
 export const airAqiPar = document.querySelector('#air-aqi-par');
+
+export const errorDiv = document.querySelector('#error-div');
+
+export const errorPar = document.querySelector('#error-par');
