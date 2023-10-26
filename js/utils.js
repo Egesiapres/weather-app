@@ -9,61 +9,39 @@ import {
   dayFourLhTempsPar,
   dayFiveLhTempsPar,
   currentDatePar,
+  currentLocationBtn,
 } from './elements.js';
 import { displayWeatherData } from './script.js';
 
 const baseUrl = 'https://egesiapres.github.io/weather-app';
 
 // dates
-export const dtToDate = dt => new Date(dt * 1000);
-
-export const unixTStoHour = timestamp => {
-  const msTimestamp = timestamp * 1000;
-
-  // Date object accepts ms as input
-  const date = new Date(msTimestamp);
-
-  const { currentHours, currentMinutes } = getCurrentDate(date);
-
-  return `${addZero(currentHours)}:${addZero(currentMinutes)}`;
-};
+export const tsToLocalDateFromOffset = (timestamp, offset) =>
+  new Date(timestamp * 1000 + offset * 1000);
 
 export const addZero = number => {
   return number < 10 ? `0${number}` : number;
 };
 
-export const getCurrentDate = (date = new Date()) => {
-  const currentDate = date.getDate();
-  const currentMonthName = date.toLocaleString('en-US', { month: 'short' });
-  const currentHours = date.getHours();
-  const currentMinutes = date.getMinutes();
-  const currentSeconds = date.getSeconds();
+export const getDateValues = (inputDate = new Date()) => {
+  const date = inputDate.getUTCDate();
+  const monthName = inputDate.toLocaleString('en-US', { month: 'short' });
+  const hours = inputDate.getUTCHours();
+  const minutes = inputDate.getUTCMinutes();
+  const seconds = inputDate.getUTCSeconds();
 
   return {
-    currentDate,
-    currentMonthName,
-    currentHours,
-    currentMinutes,
-    currentSeconds,
+    date,
+    monthName,
+    hours,
+    minutes,
+    seconds,
   };
 };
 
-// elements
-export const hideElement = element => {
-  element.setAttribute('class', 'hidden');
-};
-
-export const showElement = (element, elClass) => {
-  element.setAttribute('class', elClass);
-};
-
-export const displayCurrentDate = () => {
-  const { currentDate, currentMonthName, currentHours, currentMinutes } =
-    getCurrentDate();
-
-  currentDatePar.innerHTML = `${currentMonthName} ${currentDate}, ${addZero(
-    currentHours
-  )}:${addZero(currentMinutes)}`;
+// others
+export const msToKmh = (speed, decimals = 0) => {
+  return (speed * 3.6).toFixed(decimals);
 };
 
 export const formatInputValue = location => {
@@ -99,6 +77,42 @@ export const kelvinToScale = (
   }
 };
 
+// elements
+const setElementClass = (element, elementClass) =>
+  element.setAttribute('class', elementClass);
+
+export const hideElement = element => {
+  setElementClass(element, 'hidden');
+};
+
+export const showElement = (elements, elementsClass) => {
+  if (Array.isArray(elements)) {
+    elements.forEach(el => setElementClass(el, elementsClass));
+  } else {
+    setElementClass(elements, elementsClass);
+  }
+};
+
+export const setCurrentLocationBtn = (status) => {
+  setElementClass(currentLocationBtn, `b-0 br-10 ${status}`);
+}
+
+export const displayCurrentDate = (
+  monthName,
+  date,
+  hours,
+  minutes,
+  seconds
+) => {
+  currentDatePar.innerHTML = `${monthName} ${date}${
+    hours && minutes
+      ? `, ${addZero(hours)}:${addZero(minutes)}${
+          seconds ? `: ${addZero(seconds)}` : ''
+        }`
+      : ''
+  }`;
+};
+
 export const changeScale = (
   { main, dayOneLh, dayTwoLh, dayThreeLh, dayFourLh, dayFiveLh },
   value
@@ -117,10 +131,6 @@ export const changeScale = (
   displayLhTemps(dayThreeLh, dayThreeLhTempsPar, value);
   displayLhTemps(dayFourLh, dayFourLhTempsPar, value);
   displayLhTemps(dayFiveLh, dayFiveLhTempsPar, value);
-};
-
-export const msToKmh = (speed, decimals = 0) => {
-  return (speed * 3.6).toFixed(decimals);
 };
 
 // TODO: icons instead of arrows
@@ -156,7 +166,99 @@ export const meteoDegToDirection = meteoDeg => {
   return direction;
 };
 
-export const getCustomIcon = weather => {
+let coordParams;
+
+const successCallback = position => {
+  // console.log(position);
+
+  coordParams = {
+    lat: position.coords.latitude,
+    lon: position.coords.longitude,
+  };
+
+  displayWeatherData(coordParams);
+};
+
+const errorCallback = error => {
+  console.log(error);
+};
+
+const options = {
+  enableHighAccuracy: true,
+  timeout: 10000,
+};
+
+export const getCurrentLocation = () =>
+  navigator.geolocation.getCurrentPosition(
+    successCallback,
+    errorCallback,
+    options
+  );
+
+export const getLhTemps = dayFc => {
+  const allHoursTemps = dayFc.map(el => el.main.temp).sort();
+
+  const minTemp = allHoursTemps[0];
+  const maxTemp = allHoursTemps[allHoursTemps.length - 1];
+
+  return { minTemp, maxTemp };
+};
+
+const displayLhTemps = (dayFc, lhTempsId, scale) => {
+  let lowTemp, highTemp;
+
+  if (dayFc && dayFc.length > 0) {
+    const { minTemp, maxTemp } = getLhTemps(dayFc);
+    lowTemp = minTemp;
+    highTemp = maxTemp;
+  } else {
+    const { minTemp, maxTemp } = dayFc;
+    lowTemp = minTemp;
+    highTemp = maxTemp;
+  }
+
+  lhTempsId.innerHTML = `${kelvinToScale(
+    lowTemp,
+    scale,
+    null,
+    false
+  )}/${kelvinToScale(highTemp, scale)}`;
+};
+
+export const displayFcDayElements = (
+  dayFc,
+  offset,
+  nameId = null,
+  dateId,
+  imgId,
+  lhTempsId
+) => {
+  // day 1 is just 'Tomorrow'
+  if (nameId) {
+    const dayName = tsToLocalDateFromOffset(dayFc[0].dt, offset).toLocaleString(
+      'en-US',
+      {
+        weekday: 'short',
+      }
+    );
+
+    nameId.innerHTML = dayName;
+  }
+
+  dateId.innerHTML = `${tsToLocalDateFromOffset(
+    dayFc[0].dt,
+    offset
+  ).toLocaleString('en-US', {
+    month: 'short',
+  })} ${tsToLocalDateFromOffset(dayFc[0].dt, offset).getDate()} `;
+
+  imgId.setAttribute('src', getCustomWeatherIcon(dayFc[2].weather[0].main));
+
+  displayLhTemps(dayFc, lhTempsId, 'celsius');
+};
+
+// icons
+export const getCustomWeatherIcon = weather => {
   let icon;
 
   switch (weather) {
@@ -291,88 +393,6 @@ export const getBftIcon = speed => {
   });
 
   return bftIcon;
-};
-
-let coordParams;
-
-const successCallback = position => {
-  coordParams = {
-    lat: position.coords.latitude,
-    lon: position.coords.longitude,
-  };
-
-  displayWeatherData(coordParams);
-};
-
-const errorCallback = error => {
-  console.log(error);
-};
-
-const options = {
-  enableHighAccuracy: true,
-  timeout: 10000,
-};
-
-export const getCurrentLocation = () =>
-  navigator.geolocation.getCurrentPosition(
-    successCallback,
-    errorCallback,
-    options
-  );
-
-export const getLhTemps = dayFc => {
-  const allHoursTemps = dayFc.map(el => el.main.temp).sort();
-
-  const minTemp = allHoursTemps[0];
-  const maxTemp = allHoursTemps[allHoursTemps.length - 1];
-
-  return { minTemp, maxTemp };
-};
-
-const displayLhTemps = (dayFc, lhTempsId, scale) => {
-  let lowTemp, highTemp;
-
-  if (dayFc && dayFc.length > 0) {
-    const { minTemp, maxTemp } = getLhTemps(dayFc);
-    lowTemp = minTemp;
-    highTemp = maxTemp;
-  } else {
-    const { minTemp, maxTemp } = dayFc;
-    lowTemp = minTemp;
-    highTemp = maxTemp;
-  }
-
-  lhTempsId.innerHTML = `${kelvinToScale(
-    lowTemp,
-    scale,
-    null,
-    false
-  )} - ${kelvinToScale(highTemp, scale)}`;
-};
-
-export const displayFcDayElements = (
-  dayFc,
-  nameId = null,
-  dateId,
-  imgId,
-  lhTempsId
-) => {
-  // day 1 is just 'Tomorrow'
-  if (nameId) {
-    const dayName = dtToDate(dayFc[0].dt).toLocaleString('en-US', {
-      weekday: 'short',
-    });
-
-    nameId.innerHTML = dayName;
-  }
-
-  dateId.innerHTML = `${dtToDate(dayFc[0].dt).toLocaleString('en-US', {
-    month: 'short',
-  })} ${dtToDate(dayFc[0].dt).getDate()} `;
-
-  imgId.setAttribute('src', getCustomIcon(dayFc[3].weather[0].main));
-
-  displayLhTemps(dayFc, lhTempsId, 'celsius');
 };
 
 // TODO: check code

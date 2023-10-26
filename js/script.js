@@ -23,7 +23,6 @@ import {
   pressurePar,
   visibilityPar,
   secondaryDiv,
-  tertiaryDiv,
   currentLocationBtn,
   airDiv,
   airAqiPar,
@@ -48,26 +47,34 @@ import {
   dayFourDatePar,
   dayFiveDatePar,
   currentDatePar,
-  errorPar,
+  errorValuePar,
   errorDiv,
+  weatherMainImgDiv,
+  humidityDiv,
+  sunWindDiv,
+  otherInfoDiv,
+  pressureDiv,
+  visibilityDiv,
+  tempDiv,
 } from './elements.js';
 import {
   kelvinToScale,
-  unixTStoHour,
   changeScale,
   msToKmh,
   meteoDegToDirection,
-  getCustomIcon,
+  getCustomWeatherIcon,
   getBftIcon,
   hideElement,
   showElement,
   formatInputValue,
   getCurrentLocation,
-  dtToDate,
   displayFcDayElements,
   getLhTemps,
-  getCurrentDate,
+  getDateValues,
   displayCurrentDate,
+  tsToLocalDateFromOffset,
+  addZero,
+  setCurrentLocationBtn,
 } from './utils.js';
 import { getCurrentWeather, getFiveDayForecast } from './api/weather.js';
 import { getGeocoding } from './api/location.js';
@@ -84,14 +91,6 @@ export const displayWeatherData = async (location, event) => {
   if (event) {
     event.preventDefault();
   }
-
-  // display current time values
-  displayCurrentDate();
-  // update the current time values
-  setInterval(displayCurrentDate, 1000);
-
-  //
-  showElement(currentDatePar, 'm-5 text-center');
 
   let cityData,
     coordParams,
@@ -131,7 +130,6 @@ export const displayWeatherData = async (location, event) => {
     }
 
     cityData = await fetchData(getGeocoding, locationParams);
-    console.log(cityData);
 
     coordParams = [cityData.lat, cityData.lon];
 
@@ -141,9 +139,9 @@ export const displayWeatherData = async (location, event) => {
       cityData = null;
 
       hideElement(primaryDiv);
-      hideElement(tertiaryDiv);
+      hideElement(secondaryDiv);
 
-      errorPar.innerHTML = `"${input.value}"`;
+      errorValuePar.innerHTML = `"${input.value}"`;
       errorDiv.removeAttribute('class');
     }
 
@@ -169,11 +167,29 @@ export const displayWeatherData = async (location, event) => {
 
     // show data unhiding elements
     primaryDiv.removeAttribute('class');
-    secondaryDiv.removeAttribute('class');
   }
 
   if (weatherData) {
-    const { main, sys, visibility, weather, wind } = weatherData;
+    const { dt, timezone, main, sys, visibility, weather, wind } = weatherData;
+
+    const localDate = tsToLocalDateFromOffset(dt, timezone);
+
+    // display current time values
+    const { monthName: currentMonthName, date: currentDate } =
+      getDateValues(localDate);
+
+    // console.log(
+    //   'Month:',
+    //   currentMonthName,
+    //   'Date:',
+    //   currentDate,
+    //   // 'Hours:',
+    //   // currentHours,
+    //   // 'Minutes:',
+    //   // currentMinutes
+    // );
+
+    displayCurrentDate(currentMonthName, currentDate);
 
     weatherMainPar.innerHTML = weather[0].main;
 
@@ -190,7 +206,7 @@ export const displayWeatherData = async (location, event) => {
 
     convertionTemps = { main: main };
 
-    weatherMainImg.setAttribute('src', getCustomIcon(weather[0].main));
+    weatherMainImg.setAttribute('src', getCustomWeatherIcon(weather[0].main));
 
     windBftIcon.setAttribute('src', getBftIcon(msToKmh(wind.speed)));
     windSpeedPar.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
@@ -206,42 +222,92 @@ export const displayWeatherData = async (location, event) => {
 
     windDegPar.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
 
-    sunrisePar.innerHTML = `Sunrise: ${unixTStoHour(sys.sunrise)}`;
-    sunsetPar.innerHTML = `Sunset: ${unixTStoHour(sys.sunset)}`;
+    const localSunriseDate = tsToLocalDateFromOffset(sys.sunrise, timezone);
+
+    const localSunsetDate = tsToLocalDateFromOffset(sys.sunset, timezone);
+
+    const { hours: sunriseHours, minutes: sunriseMinutes } =
+      getDateValues(localSunriseDate);
+
+    const { hours: sunsetHours, minutes: sunsetMinutes } =
+      getDateValues(localSunsetDate);
+
+    sunrisePar.innerHTML = `Sunrise: ${addZero(sunriseHours)}:${addZero(
+      sunriseMinutes
+    )}`;
+    sunsetPar.innerHTML = `Sunset: ${addZero(sunsetHours)}:${addZero(
+      sunsetMinutes
+    )}`;
 
     humidityPar.innerHTML = `${main.humidity}%`;
     pressurePar.innerHTML = `${main.pressure} hPa`;
     visibilityPar.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
 
-    tertiaryDiv.removeAttribute('class');
-  } else {
-    hideElement(secondaryDiv);
+    showElement(currentDatePar, 'm-5 text-center');
+    showElement(weatherMainImgDiv, 'container x-center');
+    showElement(weatherMainPar, 'm-0 text-center text-medium');
+
+    showElement(tempDiv, 'b-1 br-15 bc-transparent bg-transparent');
+
+    showElement(sunWindDiv, 'container cg-15 b-25');
+
+    showElement(
+      [humidityDiv, pressureDiv, visibilityDiv],
+      'container col-direction b-1 br-15 bc-transparent box-small bg-transparent'
+    );
+
+    showElement(otherInfoDiv, 'container cg-15 b-25');
+
+    secondaryDiv.removeAttribute('class');
   }
 
   if (fiveDayForecast) {
-    const { list } = fiveDayForecast;
+    const { list, city } = fiveDayForecast;
 
-    const { currentDate: currentDate } = getCurrentDate();
+    const { date: currentDate } = getDateValues();
 
     const dayOneFc = list.filter(
-      el => dtToDate(el.dt).getDate() === currentDate + 1
+      el =>
+        tsToLocalDateFromOffset(el.dt, city.timezone).getDate() ===
+        currentDate + 1
     );
 
     const dayTwoFc = list.filter(
-      el => dtToDate(el.dt).getDate() === currentDate + 2
+      el =>
+        tsToLocalDateFromOffset(el.dt, city.timezone).getDate() ===
+        currentDate + 2
     );
 
     const dayThreeFc = list.filter(
-      el => dtToDate(el.dt).getDate() === currentDate + 3
+      el =>
+        tsToLocalDateFromOffset(el.dt, city.timezone).getDate() ===
+        currentDate + 3
     );
 
     const dayFourFc = list.filter(
-      el => dtToDate(el.dt).getDate() === currentDate + 4
+      el =>
+        tsToLocalDateFromOffset(el.dt, city.timezone).getDate() ===
+        currentDate + 4
     );
 
     const dayFiveFc = list.filter(
-      el => dtToDate(el.dt).getDate() === currentDate + 5
+      el =>
+        tsToLocalDateFromOffset(el.dt, city.timezone).getDate() ===
+        currentDate + 5
     );
+
+    // console.log(
+    //   'Day 1:',
+    //   dayOneFc,
+    //   'Day 2:',
+    //   dayTwoFc,
+    //   'Day 3:',
+    //   dayThreeFc,
+    //   'Day 4:',
+    //   dayFourFc,
+    //   'Day 5:',
+    //   dayFiveFc
+    // );
 
     convertionTemps = {
       ...convertionTemps,
@@ -254,6 +320,7 @@ export const displayWeatherData = async (location, event) => {
 
     displayFcDayElements(
       dayOneFc,
+      city.timezone,
       null,
       dayOneDatePar,
       dayOneWeatherImg,
@@ -262,6 +329,7 @@ export const displayWeatherData = async (location, event) => {
 
     displayFcDayElements(
       dayTwoFc,
+      city.timezone,
       dayTwoNamePar,
       dayTwoDatePar,
       dayTwoWeatherImg,
@@ -270,6 +338,7 @@ export const displayWeatherData = async (location, event) => {
 
     displayFcDayElements(
       dayThreeFc,
+      city.timezone,
       dayThreeNamePar,
       dayThreeDatePar,
       dayThreeWeatherImg,
@@ -278,6 +347,7 @@ export const displayWeatherData = async (location, event) => {
 
     displayFcDayElements(
       dayFourFc,
+      city.timezone,
       dayFourNamePar,
       dayFourDatePar,
       dayFourWeatherImg,
@@ -286,6 +356,7 @@ export const displayWeatherData = async (location, event) => {
 
     displayFcDayElements(
       dayFiveFc,
+      city.timezone,
       dayFiveNamePar,
       dayFiveDatePar,
       dayFiveWeatherImg,
@@ -294,6 +365,8 @@ export const displayWeatherData = async (location, event) => {
 
     // show data unhiding elements
     showElement(fiveDayForecastDiv, 'b-1 br-15 bc-transparent bg-transparent');
+
+    secondaryDiv.removeAttribute('class');
   }
 
   scaleSelect.addEventListener('change', e => {
@@ -310,6 +383,10 @@ export const displayWeatherData = async (location, event) => {
       airDiv,
       'container col-direction b-1 br-15 bc-transparent box-small bg-transparent'
     );
+
+    showElement(otherInfoDiv, 'container cg-15 b-25');
+
+    secondaryDiv.removeAttribute('class');
   }
 };
 
@@ -317,16 +394,13 @@ displayWeatherData();
 
 form.addEventListener('submit', e => {
   displayWeatherData(input.value, e);
-  currentLocationBtn.setAttribute('class', 'b-0 br-10 inactive');
+  setCurrentLocationBtn('inactive');
 });
 
 currentLocationBtn.addEventListener('click', () => {
   getCurrentLocation();
-  currentLocationBtn.setAttribute('class', 'b-0 br-10 active');
+  setCurrentLocationBtn('active');
 });
-
-// TODO: improve API results conditional display
-// TODO: clear code
 
 // in future
 // TODO: hour forecast
