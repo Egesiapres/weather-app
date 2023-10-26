@@ -8,12 +8,10 @@ export const currentLocationBtn = document.querySelector(
   '#current-location-btn'
 );
 
+// primary div
 export const primaryDiv = document.querySelector('#primary-div');
 
-export const secondaryDiv = document.querySelector('#secondary-div');
-
-export const tertiaryDiv = document.querySelector('#tertiary-div');
-
+// city primary info
 export const namePar = document.querySelector('#name-par');
 
 export const positionDetailsPar = document.querySelector(
@@ -27,6 +25,12 @@ export const weatherMainImgDiv = document.querySelector(
 );
 
 export const weatherMainImg = document.querySelector('#weather-main-img');
+
+// secondary div
+export const secondaryDiv = document.querySelector('#secondary-div');
+
+// temp div
+export const tempDiv = document.querySelector('#temp-div');
 
 export const tempPar = document.querySelector('#temp-par');
 
@@ -99,6 +103,9 @@ export const dayFiveLhTempsPar = document.querySelector(
 
 export const scaleSelect = document.querySelector('select');
 
+// wind sun div
+export const sunWindDiv = document.querySelector('#sun-wind-div');
+
 export const windContentDiv = document.querySelector('#wind-content-div');
 
 export const windBftIcon = document.querySelector('#wind-bft-icon');
@@ -117,9 +124,18 @@ export const sunrisePar = document.querySelector('#sunrise-par');
 
 export const sunsetPar = document.querySelector('#sunset-par');
 
+// other-info-div
+export const otherInfoDiv = document.querySelector('#other-info-div');
+
+export const humidityDiv = document.querySelector('#humidity-div');
+
 export const humidityPar = document.querySelector('#humidity-par');
 
+export const pressureDiv = document.querySelector('#pressure-div');
+
 export const pressurePar = document.querySelector('#pressure-par');
+
+export const visibilityDiv = document.querySelector('#visibility-div');
 
 export const visibilityPar = document.querySelector('#visibility-par');
 
@@ -129,4 +145,4 @@ export const airAqiPar = document.querySelector('#air-aqi-par');
 
 export const errorDiv = document.querySelector('#error-div');
 
-export const errorPar = document.querySelector('#error-par');
+export const errorValuePar = document.querySelector('#error-value-par');

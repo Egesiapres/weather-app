@@ -50,11 +50,7 @@
             id="current-location-btn"
             class="b-0 br-10 inactive"
             type="button"
-          >
-            <!-- <img
-              src="https://egesiapres.github.io/weather-app/img/location.svg"
-            /> -->
-          </button>
+          ></button>
         </form>
 
         <div
@@ -89,34 +85,29 @@
               </p>
 
               <div
-                id="secondary-div"
+                id="weather-main-img-div"
                 class="hidden"
               >
-                <div
-                  id="weather-main-img-div"
-                  class="container x-center"
-                >
-                  <img
-                    id="weather-main-img"
-                    class="m-5"
-                    src="https://egesiapres.github.io/weather-app/img/partly-cloudy-day.svg"
-                  />
-                </div>
-
-                <p
-                  id="weather-main-par"
-                  class="m-0 text-center text-medium"
-                >
-                  Weather
-                </p>
+                <img
+                  id="weather-main-img"
+                  class="m-5"
+                  src="https://egesiapres.github.io/weather-app/img/partly-cloudy-day.svg"
+                />
               </div>
+
+              <p
+                id="weather-main-par"
+                class="hidden"
+              >
+                Weather
+              </p>
             </div>
           </div>
         </div>
       </header>
 
       <div
-        id="tertiary-div"
+        id="secondary-div"
         class="hidden"
       >
         <hr class="m-0 bc-transparent" />
@@ -125,10 +116,10 @@
           id="scrollable-section"
           class="container col-direction scrollable rg-15 p-15"
         >
-          <!-- secondary info -->
+          <!-- temp -->
           <div
-            id="city-secondary-info-div"
-            class="b-1 br-15 bc-transparent bg-transparent"
+            id="temp-div"
+            class="hidden"
           >
             <div class="container y-center">
               <i class="wi wi-thermometer m-10 text-transparent"></i>
@@ -210,6 +201,7 @@
             </div>
           </div>
 
+          <!-- five day forecast -->
           <div
             id="five-day-forecast-div"
             class="hidden"
@@ -390,10 +382,10 @@
             </div>
           </div>
 
-          <!-- tertiary info -->
+          <!-- sun wind -->
           <div
-            id="city-tertiary-info-div"
-            class="container cg-15 b-25"
+            id="sun-wind-div"
+            class="hidden"
           >
             <div
               id="wind-div"
@@ -504,14 +496,14 @@
             </div>
           </div>
 
-          <!-- quaternary info -->
+          <!-- other info -->
           <div
-            id="city-quaternary-info-div"
+            id="other-info-div"
             class="container cg-15 b-25"
           >
             <div
               id="humidity-div"
-              class="container col-direction b-1 br-15 bc-transparent box-small bg-transparent"
+              class="hidden"
             >
               <div class="container y-center">
                 <i class="wi wi-humidity m-10 text-transparent"></i>
@@ -551,7 +543,7 @@
 
             <div
               id="pressure-div"
-              class="container col-direction b-1 br-15 bc-transparent box-small bg-transparent"
+              class="hidden"
             >
               <div class="container y-center">
                 <i class="wi wi-barometer m-10 text-transparent"></i>
@@ -570,7 +562,7 @@
 
             <div
               id="visibility-div"
-              class="container flex col-direction b-1 br-15 bc-transparent box-small bg-transparent"
+              class="hidden"
             >
               <div class="container y-center">
                 <i class="wi wi-dust m-10 text-transparent"></i>
@@ -606,12 +598,12 @@
       >
         <hr class="m-0 bc-transparent" />
 
-        <div class="p-10 br-10 error">
-          <p class="m-10 text-center">No location corresponding to:</p>
+        <div class="br-10 p-10 error">
+          <p class="m-10 text-center text-red">No location corresponding to:</p>
 
           <p
-            id="error-par"
-            class="m-5 text-center text-medium"
+            id="error-value-par"
+            class="m-5 text-center text-red"
           >
             "XXX"
           </p>
