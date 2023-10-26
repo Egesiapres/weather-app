@@ -105,6 +105,10 @@ section {
   margin: 0;
 }
 
+.ml-0 {
+  margin-left: 0;
+}
+
 .b-1 {
   border: 1px solid;
 }
@@ -155,6 +159,10 @@ section {
 
 .text-transparent {
   color: #ffffff8c;
+}
+
+.text-red {
+  color: #941701;
 }
 
 .bg-transparent {
@@ -215,14 +223,41 @@ section {
   margin-left: 12px;
 }
 
-.error {
-  /* background-image: linear-gradient(to top, #940101, #de0000); */
-  background-color: #c40000;
-  border-radius: 0 0 20px 20px;
+.inactive {
+  background-color: #ffffff64;
+  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.svg');
+  width: 36px;
+  background-repeat: no-repeat;
+  background-position: 5.5px center;
+  background-size: 25px;
 }
 
-h1 {
-  font-weight: 400;
+.inactive:hover {
+  transition: 500ms;
+  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.fill.svg');
+  width: 36px;
+  background-repeat: no-repeat;
+  background-position: 5.5px center;
+  background-size: 25px;
+}
+
+.active {
+  background-color: #ffffff64;
+  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.fill.svg');
+  width: 36px;
+  background-repeat: no-repeat;
+  background-position: 5.5px center;
+  background-size: 25px;
+}
+
+.error {
+  background-color: #ff54548a;
+  margin: 15px;
+  border-radius: 13px;
+}
+
+strong {
+  font-weight: 800;
 }
 
 form {
@@ -278,41 +313,10 @@ i {
   margin: 0;
 }
 
-.ml-0 {
-  margin-left: 0;
-}
-
 a:hover i.wi,
 a:hover {
   color: #ffffff;
   transition: 500ms;
-}
-
-.inactive {
-  background-color: #ffffff64;
-  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.svg');
-  width: 36px;
-  background-repeat: no-repeat;
-  background-position: 5.5px center;
-  background-size: 25px;
-}
-
-.inactive:hover {
-  transition: 500ms;
-  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.fill.svg');
-  width: 36px;
-  background-repeat: no-repeat;
-  background-position: 5.5px center;
-  background-size: 25px;
-}
-
-.active {
-  background-color: #ffffff64;
-  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.fill.svg');
-  width: 36px;
-  background-repeat: no-repeat;
-  background-position: 5.5px center;
-  background-size: 25px;
 }
 
 #name-par {
@@ -332,6 +336,10 @@ a:hover {
   padding-bottom: 0;
 }
 
-/* TODO: clear css **/
+#error-value-par {
+  font-size: 20px;
+  font-weight: 1000;
+}
+
 /* TODO: animated icons copy */
 /* TODO: responsive */
