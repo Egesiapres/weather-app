@@ -37,71 +37,69 @@
       id="content"
       class="container col-direction"
     >
-      <header class="container col-direction y-center rg-15 p-15">
-        <form class="container x-center">
-          <input
-            class="b-0 br-10 p-10 bg-transparent text-white"
-            type="text"
-            placeholder="Search a city..."
-            value=""
-          />
+      <form class="container x-center">
+        <input
+          class="b-0 br-10 p-10 bg-transparent text-white"
+          type="text"
+          placeholder="Search a city..."
+          value=""
+        />
 
-          <button
-            id="current-location-btn"
-            class="b-0 br-10 inactive"
-            type="button"
-          ></button>
-        </form>
+        <button
+          id="current-location-btn"
+          class="b-0 br-10 inactive"
+          type="button"
+        ></button>
+      </form>
 
+      <header class="container col-direction y-center x-center rg-15 p-15">
         <div
           id="primary-div"
           class="hidden"
         >
-          <div class="container col-direction rg-15">
-            <!-- primary info -->
-            <div
-              id="city-main-info-div"
-              class="container col-direction"
+          <!-- primary info -->
+          <div
+            id="city-main-info-div"
+            class="container col-direction x-center"
+          >
+            <p
+              id="current-date-par"
+              class="hidden"
             >
-              <p
-                id="current-date-par"
-                class="hidden"
-              >
-                Month XX, hh:mm
-              </p>
+              Month XX, hh:mm
+            </p>
 
-              <p
-                id="name-par"
-                class="text-medium text-center"
-              >
-                City
-              </p>
+            <p
+              id="name-par"
+              class="text-medium text-center"
+            >
+              City
+            </p>
 
-              <p
-                id="position-details-par"
-                class="m-0 text-small text-center"
-              >
-                State, (COUNTRY)
-              </p>
+            <p
+              id="position-details-par"
+              class="m-0 text-small text-center"
+            >
+              State, (COUNTRY)
+            </p>
 
-              <div
-                id="weather-main-img-div"
-                class="hidden"
-              >
-                <img
-                  id="weather-main-img"
-                  class="m-5"
-                  src="https://egesiapres.github.io/weather-app/img/partly-cloudy-day.svg"
-                />
-              </div>
-
-              <p
-                id="weather-main-par"
-                class="hidden"
-              >
-                Weather
-              </p>
+            <div
+              id="weather-main-img-div"
+              class="hidden"
+            >
+              <img
+                id="weather-main-img"
+                class="m-5"
+                src="https://egesiapres.github.io/weather-app/img/partly-cloudy-day.svg"
+              />
             </div>
+
+            <p
+              id="weather-main-par"
+              class="hidden"
+            >
+              Weather
+            </p>
           </div>
         </div>
       </header>
@@ -129,7 +127,10 @@
 
             <hr class="m-0 bc-transparent" />
 
-            <div class="container x-center cg-15 m-10">
+            <div
+              id="temp-content-div"
+              class="container x-center cg-15 m-10"
+            >
               <div>
                 <p
                   id="perceived-temp-par"
@@ -391,62 +392,60 @@
               id="wind-div"
               class="container col-direction b-1 br-15 bc-transparent box-medium bg-transparent"
             >
-              <div>
+              <div class="container y-center">
+                <i class="wi wi-strong-wind m-10 text-transparent"></i>
+                <p class="m-10 label text-transparent">WIND</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <div
+                id="wind-content-div"
+                class="p-10"
+              >
                 <div class="container y-center">
-                  <i class="wi wi-strong-wind m-10 text-transparent"></i>
-                  <p class="m-10 label text-transparent">WIND</p>
+                  <img
+                    id="wind-bft-icon"
+                    src="https://egesiapres.github.io/weather-app/img/wind.svg"
+                    class="mr-5 icon-small"
+                  />
+                  <p
+                    id="wind-speed-par"
+                    class="m-0"
+                  >
+                    Speed: XX km/h
+                  </p>
                 </div>
 
-                <hr class="m-0 bc-transparent" />
-
                 <div
-                  id="wind-content-div"
-                  class="p-10"
+                  id="gust-speed-div"
+                  class="hidden"
                 >
-                  <div class="container y-center">
-                    <img
-                      id="wind-bft-icon"
-                      src="https://egesiapres.github.io/weather-app/img/wind.svg"
-                      class="mr-5 icon-small"
-                    />
-                    <p
-                      id="wind-speed-par"
-                      class="m-0"
-                    >
-                      Speed: XX km/h
-                    </p>
-                  </div>
-
-                  <div
-                    id="gust-speed-div"
-                    class="hidden"
+                  <img
+                    id="gust-bft-icon"
+                    src="https://egesiapres.github.io/weather-app/img/wind.svg"
+                    class="mr-5 icon-small"
+                  />
+                  <p
+                    id="gust-speed-par"
+                    class="m-0"
                   >
-                    <img
-                      id="gust-bft-icon"
-                      src="https://egesiapres.github.io/weather-app/img/wind.svg"
-                      class="mr-5 icon-small"
-                    />
-                    <p
-                      id="gust-speed-par"
-                      class="m-0"
-                    >
-                      Gust: XX km/h
-                    </p>
-                  </div>
+                    Gust: XX km/h
+                  </p>
+                </div>
 
-                  <div class="container y-center">
-                    <img
-                      src="https://egesiapres.github.io/weather-app/img/compass.svg"
-                      class="mr-5 icon-small"
-                    />
+                <div class="container y-center">
+                  <img
+                    src="https://egesiapres.github.io/weather-app/img/compass.svg"
+                    class="mr-5 icon-small"
+                  />
 
-                    <p
-                      id="wind-deg-par"
-                      class="m-0"
-                    >
-                      ↑ D
-                    </p>
-                  </div>
+                  <p
+                    id="wind-deg-par"
+                    class="m-0"
+                  >
+                    ↑ D
+                  </p>
                 </div>
               </div>
             </div>
@@ -455,42 +454,40 @@
               id="sys-div"
               class="container col-direction b-1 br-15 bc-transparent box-medium bg-transparent"
             >
-              <div>
-                <div class="container y-center">
-                  <i class="wi wi-horizon m-10 text-transparent"></i>
+              <div class="container y-center">
+                <i class="wi wi-horizon m-10 text-transparent"></i>
 
-                  <p class="m-10 label text-transparent">SUN</p>
+                <p class="m-10 label text-transparent">SUN</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <div class="p-10">
+                <div class="container y-center">
+                  <img
+                    src="https://egesiapres.github.io/weather-app/img/sunrise.svg"
+                    class="mr-5 icon-small"
+                  />
+                  <p
+                    id="sunrise-par"
+                    class="m-0"
+                  >
+                    Sunrise: hh:mm
+                  </p>
                 </div>
 
-                <hr class="m-0 bc-transparent" />
+                <div class="container y-center">
+                  <img
+                    src="https://egesiapres.github.io/weather-app/img/sunset.svg"
+                    class="mr-5 icon-small"
+                  />
 
-                <div class="p-10">
-                  <div class="container y-center">
-                    <img
-                      src="https://egesiapres.github.io/weather-app/img/sunrise.svg"
-                      class="mr-5 icon-small"
-                    />
-                    <p
-                      id="sunrise-par"
-                      class="m-0"
-                    >
-                      Sunrise: hh:mm
-                    </p>
-                  </div>
-
-                  <div class="container y-center">
-                    <img
-                      src="https://egesiapres.github.io/weather-app/img/sunset.svg"
-                      class="mr-5 icon-small"
-                    />
-
-                    <p
-                      id="sunset-par"
-                      class="m-0"
-                    >
-                      Sunset: hh:mm
-                    </p>
-                  </div>
+                  <p
+                    id="sunset-par"
+                    class="m-0"
+                  >
+                    Sunset: hh:mm
+                  </p>
                 </div>
               </div>
             </div>
@@ -599,7 +596,7 @@
         <hr class="m-0 bc-transparent" />
 
         <div class="br-10 p-10 error">
-          <p class="m-10 text-center text-red">No location corresponding to:</p>
+          <p class="m-5 text-center text-red">No location corresponding to:</p>
 
           <p
             id="error-value-par"

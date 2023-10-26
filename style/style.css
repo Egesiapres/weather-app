@@ -14,6 +14,10 @@ body {
   background-color: #bdbdbd;
 }
 
+p {
+  font-size: 1em;
+}
+
 #content {
   position: fixed;
   width: fit-content;
@@ -35,6 +39,70 @@ section {
 
 #forecast-div div {
   width: 100px;
+}
+
+#temp-scale-div {
+  row-gap: 10px;
+  width: 25%;
+}
+
+@media screen and (max-width: 425px) {
+  /* @media screen and (max-width: 523px) { */
+
+  #content {
+    height: 100vh;
+    width: 100vw;
+    border-radius: 0;
+  }
+
+  header {
+    height: 35vh;
+  }
+
+  section {
+    height: 51vh;
+    width: auto;
+    padding: 10px;
+
+    align-items: center;
+  }
+
+  #weather-main-img {
+    width: 100px;
+  }
+
+  #forecast-div {
+    width: 86vw;
+  }
+
+  #temp-content-div,
+  #five-day-forecast-div,
+  #sun-wind-div,
+  #other-info-div {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  #sun-wind-div,
+  #other-info-div {
+    row-gap: 15px;
+  }
+
+  #temp-scale-div,
+  label {
+    width: fit-content;
+  }
+
+  #scale-select {
+    width: 55%;
+    text-align: center;
+  }
+
+  #sun-wind-div > div,
+  #other-info-div > div {
+    display: flex;
+    flex-grow: 1;
+  }
 }
 
 .scrollable {
@@ -87,6 +155,10 @@ section {
 
 .rg-5 {
   row-gap: 5px;
+}
+
+.m-15 {
+  margin: 10px;
 }
 
 .m-10 {
@@ -170,7 +242,7 @@ section {
 }
 
 .label {
-  font-size: 14px;
+  font-size: 0.9em;
   font-weight: 500;
   margin-left: 0;
 }
@@ -180,20 +252,20 @@ section {
 }
 
 .text-extra-small {
-  font-size: 12px;
+  font-size: 0.8em;
 }
 
 .text-small {
-  font-size: 14px;
+  font-size: 0.9em;
 }
 
 .text-medium {
-  font-size: 30px;
+  font-size: 2em;
   font-weight: 300;
 }
 
 .text-big {
-  font-size: 80px;
+  font-size: 6em;
   font-weight: 400;
 }
 
@@ -263,6 +335,7 @@ strong {
 form {
   display: flex;
   column-gap: 10px;
+  margin-top: 15px;
 }
 
 input {
@@ -327,17 +400,12 @@ a:hover {
   margin-bottom: 5px;
 }
 
-#temp-scale-div {
-  row-gap: 10px;
-  width: 25%;
-}
-
 #scrollable-section {
   padding-bottom: 0;
 }
 
 #error-value-par {
-  font-size: 20px;
+  font-size: 1.2em;
   font-weight: 1000;
 }
 
