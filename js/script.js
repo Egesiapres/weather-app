@@ -247,13 +247,13 @@ export const displayWeatherData = async (location, event) => {
     showElement(weatherMainImgDiv, 'container x-center');
     showElement(weatherMainPar, 'm-0 text-center text-medium');
 
-    showElement(tempDiv, 'b-1 br-15 bc-transparent bg-transparent');
+    showElement(tempDiv, 'b-1 br-10 bc-transparent bg-transparent');
 
     showElement(sunWindDiv, 'container cg-15 b-25');
 
     showElement(
       [humidityDiv, pressureDiv, visibilityDiv],
-      'container col-direction b-1 br-15 bc-transparent box-small bg-transparent'
+      'container col-direction b-1 br-10 bc-transparent box-small bg-transparent'
     );
 
     showElement(otherInfoDiv, 'container cg-15 b-25');
@@ -364,7 +364,7 @@ export const displayWeatherData = async (location, event) => {
     );
 
     // show data unhiding elements
-    showElement(fiveDayForecastDiv, 'b-1 br-15 bc-transparent bg-transparent');
+    showElement(fiveDayForecastDiv, 'b-1 br-10 bc-transparent bg-transparent');
 
     secondaryDiv.removeAttribute('class');
   }
@@ -381,7 +381,7 @@ export const displayWeatherData = async (location, event) => {
     // show data unhiding elements
     showElement(
       airDiv,
-      'container col-direction b-1 br-15 bc-transparent box-small bg-transparent'
+      'container col-direction b-1 br-10 bc-transparent box-small bg-transparent'
     );
 
     showElement(otherInfoDiv, 'container cg-15 b-25');
