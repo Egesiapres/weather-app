@@ -1,32 +1,46 @@
-export const API_KEY = 'd84df6a5359d1ca50cf0749743171b50';
-export const baseUrl = 'https://api.openweathermap.org';
-export const dataUrl = '/data/2.5';
-export const geolocationUrl = '/geo/1.0';
+import { baseOpenWeatherUrl } from "../../utils/constants.js";
 
+/**
+ * Makes a request to the specified URL with the given options.
+ *
+ * @function request
+ *
+ * @param {string} url - The URL to which the request is sent.
+ * @param {object} options - The options for the fetch request (e.g., method, headers).
+ *
+ * @returns {Promise<Response>} - A promise that resolves to the response of the fetch request.
+ *
+ * @example
+ * const response = await request('https://api.example.com/data', { method: 'GET' });
+ */
 const request = async (url, options) => {
   try {
-    let response = await fetch(url, options);
-
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// HTTP methods
-export const get = (dataTypeUrl, url) =>
-  request(`${baseUrl}${dataTypeUrl}${url}`, { method: 'GET' });
-
-// main fetch f
-export const fetchData = async (api, params) => {
-  try {
-    // TODO: study
-    const response = await api.apply(null, params);
+    const response = await fetch(url, options);
 
     const data = await response.json();
 
-    return data[0] || data;
+    return Array.isArray(data) ? data[0] : data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    throw new Error("Error fetching data");
   }
 };
+
+// ------------- HTTP METHODS -------------
+/**
+ * Makes a GET request to the specified URL.
+ *
+ * @function get
+ *
+ * @param {string} resource - The base URL for the specific data type (e.g., geolocation, weather).
+ * @param {string} url - The endpoint URL with query parameters.
+ *
+ * @returns {Promise<Response>} - A promise that resolves to the response of the fetch request.
+ *
+ * @example
+ * const response = await get('/data/2.5', '/weather?lat=51.5074&lon=-0.1278&appid=API_KEY');
+ */
+const get = (resource, url) =>
+  request(`${baseOpenWeatherUrl}${resource}${url}`, { method: "GET" });
+
+export { get };

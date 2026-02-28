@@ -1,18 +1,35 @@
-import { get, dataUrl, API_KEY } from './api.js';
+import { API_KEY, dataUrl } from "../../utils/constants.js";
+import { get } from "./api.js";
 
 /**
- * Generate the url to obtain the current weather/dive days forecast data of a city
+ * Generates the URL to obtain the current weather/dive days forecast data of a city.
  *
- * @param {string} lat - The city latitude (req)
- * @param {string} lon - The city longitude (req)
- * @param {string} APIkey - The API key (req)
- * @returns {string} - The URL for the API request
+ * @function getCurrentWeather
+ *
+ * @param {string} latitude - The city latitude.
+ * @param {string} longitude - The city longitude.
+ *
+ * @returns {string} - The URL for the API request.
+ *
+ * @example
+ * getCurrentWeather(51.5074, -0.1278);
  */
+const getCurrentWeather = (latitude, longitude) =>
+  get(dataUrl, `/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`);
 
-// TODO: check async
-export const getCurrentWeather = (lat, lon, APIkey = API_KEY) =>
-  get(dataUrl, `/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`);
+/**
+ * Generates the URL to obtain the 5 day/3 hour forecast data of a city.
+ *
+ * @function getFiveDayForecast
+ *
+ * @param {string} latitude - The city latitude.
+ * @param {string} longitude - The city longitude.
+ * @returns {string} - The URL for the API request.
+ *
+ * @example
+ * getFiveDayForecast(51.5074, -0.1278);
+ */
+const getFiveDayForecast = async (latitude, longitude) =>
+  get(dataUrl, `/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`);
 
-export const getFiveDayForecast = async (lat, lon, APIkey = API_KEY) => {
-  return get(dataUrl, `/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}`);
-};
+export { getCurrentWeather, getFiveDayForecast };

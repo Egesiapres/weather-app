@@ -1,26 +1,32 @@
-import { get, geolocationUrl, API_KEY } from './api.js';
+import { API_KEY, geolocationUrl } from "../../utils/constants.js";
+import { get } from "./api.js";
 
 /**
- * Generate the url to obtain the location data of a city
+ * Generates the url to obtain the location data of a city.
  *
- * @param {string} cityName - The city name (req)
- * @param {string} countryCode - The country code (opt)
- * @param {string} limit - The limit of results (opt)
- * @param {string} stateCode - The state/province code (opt)
- * @param {string} APIkey - The API key (req)
- * @returns {string} - The URL for the API request
+ * @function getGeocoding
+ *
+ * @param {string} cityName - The city name.
+ * @param {string} [countryCode] - The country code.
+ * @param {number} [limit] - The limit of results.
+ * @param {string} [stateCode] - The state/province code.
+ *
+ * @returns {string} - The URL for the API request.
+ *
+ * @example
+ * getGeocoding('London', 'GB', 5, '');
  */
-
-export const getGeocoding = (
-  cityName = '',
-  countryCode = '',
-  limit = '5',
-  stateCode = '',
-  APIkey = API_KEY
+const getGeocoding = (
+  cityName = "",
+  countryCode = "",
+  limit = 5,
+  stateCode = ""
 ) =>
   get(
     geolocationUrl,
-    `/direct?q=${cityName}${(stateCode || countryCode) && ','}${stateCode}${
-      countryCode && ','
-    }${countryCode}&limit=${limit}&appid=${APIkey}`
+    `/direct?q=${cityName}${(stateCode || countryCode) && ","}${stateCode}${
+      countryCode && ","
+    }${countryCode}&limit=${limit}&appid=${API_KEY}`
   );
+
+export { getGeocoding };
