@@ -1,127 +1,62 @@
+import { getGeocoding } from "../api/location.js";
+import { getAirPollution } from "../api/pollution.js";
+import { getCurrentWeather, getFiveDayForecast } from "../api/weather.js";
+import { elements } from "./elements.js";
 import {
-  input,
-  form,
-  namePar,
-  positionDetailsPar,
-  weatherMainPar,
-  tempPar,
-  sunrisePar,
-  sunsetPar,
-  windSpeedPar,
-  windDegPar,
-  weatherMainImg,
-  maxTempPar,
-  minTempPar,
-  scaleSelect,
-  perceivedTempPar,
-  windBftIcon,
-  primaryDiv,
-  gustBftIcon,
-  gustSpeedPar,
-  gustSpeedDiv,
-  humidityPar,
-  pressurePar,
-  visibilityPar,
-  secondaryDiv,
-  currentLocationBtn,
-  airDiv,
-  airAqiPar,
-  dayOneWeatherImg,
-  dayOneLhTempsPar,
-  dayTwoNamePar,
-  dayTwoWeatherImg,
-  dayTwoLhTempsPar,
-  dayThreeNamePar,
-  dayThreeWeatherImg,
-  dayThreeLhTempsPar,
-  dayFourNamePar,
-  dayFourWeatherImg,
-  dayFourLhTempsPar,
-  dayFiveNamePar,
-  dayFiveWeatherImg,
-  dayFiveLhTempsPar,
-  fiveDayForecastDiv,
-  dayOneDatePar,
-  dayTwoDatePar,
-  dayThreeDatePar,
-  dayFourDatePar,
-  dayFiveDatePar,
-  currentDatePar,
-  errorValuePar,
-  errorDiv,
-  weatherMainImgDiv,
-  humidityDiv,
-  sunWindDiv,
-  otherInfoDiv,
-  pressureDiv,
-  visibilityDiv,
-  tempDiv,
-} from './elements.js';
-import {
-  kelvinToScale,
-  changeScale,
-  msToKmh,
-  meteoDegToDirection,
-  getCustomWeatherIcon,
-  getBftIcon,
-  hideElement,
-  showElement,
-  formatInputValue,
-  getCurrentLocation,
-  displayFcDayElements,
-  getLhTemps,
-  getDateValues,
-  displayCurrentDate,
-  tsToLocalDateFromOffset,
   addZero,
+  changeScale,
+  displayCurrentDate,
+  displayFcDayElements,
+  formatInputValue,
+  getBftIcon,
+  getCurrentLocation,
+  getCustomWeatherIcon,
+  getDateValues,
+  getLhTemps,
+  hideElement,
+  kelvinToScale,
+  meteoDegToDirection,
+  msToKmh,
   setCurrentLocationBtn,
-} from './utils.js';
-import { getCurrentWeather, getFiveDayForecast } from './api/weather.js';
-import { getGeocoding } from './api/location.js';
-import { getAirPollution } from './api/pollution.js';
-import { fetchData } from './api/api.js';
+  showElement,
+  tsToLocalDateFromOffset,
+} from "./utils.js";
 
 const clearInput = () => {
-  input.value = '';
+  elements.input.value = "";
 };
 
 // f that displays the data retrieved
-export const displayWeatherData = async (location, event) => {
+export const displayWeatherData = async (location, e) => {
   // no automatic form submit
-  if (event) {
-    event.preventDefault();
+  if (e) {
+    e.preventDefault();
   }
 
-  let cityData,
-    coordParams,
-    fiveDayForecast,
-    weatherData,
-    pollutionData,
-    convertionTemps;
+  let cityData, fiveDayForecast, weatherData, pollutionData, convertionTemps;
 
   // no location inputted
   if (!location) {
-    cityData = await fetchData(getGeocoding, ['barcelona']);
-
-    coordParams = [cityData.lat, cityData.lon];
+    cityData = await getGeocoding(["barcelona"]);
+    console.log({ cityData });
   }
 
   if (location) {
     let locationParams;
 
     // location inputted manually
-    if (typeof location === 'string') {
+    if (typeof location === "string") {
       locationParams = formatInputValue(location);
 
-      const cityName = locationParams[0] || '';
-      const countryCode = locationParams[1] || '';
-      const limit = locationParams[2] || '';
-      const stateCode = locationParams[3] || '';
+      const cityName = locationParams[0] || "";
+      const countryCode = locationParams[1] || "";
+      const limit = locationParams[2] || "";
+      const stateCode = locationParams[3] || "";
 
       locationParams = [cityName, countryCode, limit, stateCode];
     } else {
       // location retrieved automatically
-      const { name, sys } = await fetchData(getCurrentWeather, [
+      const { name, sys } = await getCurrentWeather([
         location.lat,
         location.lon,
       ]);
@@ -129,7 +64,7 @@ export const displayWeatherData = async (location, event) => {
       locationParams = [name, sys.country];
     }
 
-    cityData = await fetchData(getGeocoding, locationParams);
+    cityData = await getGeocoding(locationParams);
 
     coordParams = [cityData.lat, cityData.lon];
 
@@ -138,11 +73,11 @@ export const displayWeatherData = async (location, event) => {
       // stop fetch
       cityData = null;
 
-      hideElement(primaryDiv);
-      hideElement(secondaryDiv);
+      hideElement(elements.primary.div);
+      hideElement(elements.secondary.div);
 
-      errorValuePar.innerHTML = `"${input.value}"`;
-      errorDiv.removeAttribute('class');
+      elements.error.value.innerHTML = `"${elements.input.value}"`;
+      elements.error.div.removeAttribute("class");
     }
 
     clearInput();
@@ -150,23 +85,23 @@ export const displayWeatherData = async (location, event) => {
 
   // div unhided after its population
   if (cityData) {
-    hideElement(errorDiv);
+    hideElement(elements.error.div);
 
     // api calls
-    weatherData = await fetchData(getCurrentWeather, coordParams);
-    fiveDayForecast = await fetchData(getFiveDayForecast, coordParams);
-    pollutionData = await fetchData(getAirPollution, coordParams);
+    weatherData = await getCurrentWeather(cityData.lat, cityData.lon);
+    fiveDayForecast = await getFiveDayForecast(cityData.lat, cityData.lon);
+    pollutionData = await getAirPollution(cityData.lat, cityData.lon);
 
     const { name, state, country } = cityData;
 
-    namePar.innerHTML = name;
+    elements.primary.name.innerHTML = name;
 
-    positionDetailsPar.innerHTML = `${state ? state : ''}${
-      state && country ? ', ' : ''
-    }${country ? `(${country})` : ''}`;
+    elements.primary.position.innerHTML = `${state ? state : ""}${
+      state && country ? ", " : ""
+    }${country ? `(${country})` : ""}`;
 
     // show data unhiding elements
-    primaryDiv.removeAttribute('class');
+    elements.primary.div.removeAttribute("class");
   }
 
   if (weatherData) {
@@ -191,36 +126,48 @@ export const displayWeatherData = async (location, event) => {
 
     displayCurrentDate(currentMonthName, currentDate);
 
-    weatherMainPar.innerHTML = weather[0].main;
+    elements.primary.weather.main.innerHTML = weather[0].main;
 
-    tempPar.innerHTML = kelvinToScale(main.temp, 'celsius');
+    elements.secondary.temperature.current.innerHTML = kelvinToScale(
+      main.temp,
+      "celsius"
+    );
 
-    perceivedTempPar.innerHTML = `Feels like: ${kelvinToScale(
+    elements.secondary.temperature.perceived.innerHTML = `Feels like: ${kelvinToScale(
       main.feels_like,
-      'celsius'
+      "celsius"
     )}`;
 
-    minTempPar.innerHTML = `Min: ${kelvinToScale(main.temp_min, 'celsius')}`;
+    elements.secondary.temperature.min.innerHTML = `Min: ${kelvinToScale(main.temp_min, "celsius")}`;
 
-    maxTempPar.innerHTML = `Max: ${kelvinToScale(main.temp_max, 'celsius')}`;
+    elements.secondary.temperature.max.innerHTML = `Max: ${kelvinToScale(main.temp_max, "celsius")}`;
 
     convertionTemps = { main: main };
 
-    weatherMainImg.setAttribute('src', getCustomWeatherIcon(weather[0].main));
+    elements.primary.weather.img.setAttribute(
+      "src",
+      getCustomWeatherIcon(weather[0].main)
+    );
 
-    windBftIcon.setAttribute('src', getBftIcon(msToKmh(wind.speed)));
-    windSpeedPar.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
+    elements.sunWind.wind.bftIcon.setAttribute(
+      "src",
+      getBftIcon(msToKmh(wind.speed))
+    );
+    elements.sunWind.wind.speed.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
 
     if (wind.gust) {
-      showElement(gustSpeedDiv, 'container y-center');
+      showElement(elements.sunWind.gust.speedDiv, "container y-center");
 
-      gustBftIcon.setAttribute('src', getBftIcon(msToKmh(wind.gust)));
-      gustSpeedPar.innerHTML = `Gust: ${msToKmh(wind.gust)} km/h`;
+      elements.sunWind.gust.bftIcon.setAttribute(
+        "src",
+        getBftIcon(msToKmh(wind.gust))
+      );
+      elements.sunWind.gust.speed.innerHTML = `Gust: ${msToKmh(wind.gust)} km/h`;
     } else {
-      hideElement(gustSpeedDiv);
+      hideElement(elements.sunWind.gust.speedDiv);
     }
 
-    windDegPar.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
+    elements.sunWind.wind.degrees.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
 
     const localSunriseDate = tsToLocalDateFromOffset(sys.sunrise, timezone);
 
@@ -232,33 +179,40 @@ export const displayWeatherData = async (location, event) => {
     const { hours: sunsetHours, minutes: sunsetMinutes } =
       getDateValues(localSunsetDate);
 
-    sunrisePar.innerHTML = `Sunrise: ${addZero(sunriseHours)}:${addZero(
+    elements.sunWind.sun.sunrise.innerHTML = `Sunrise: ${addZero(sunriseHours)}:${addZero(
       sunriseMinutes
     )}`;
-    sunsetPar.innerHTML = `Sunset: ${addZero(sunsetHours)}:${addZero(
+    elements.sunWind.sun.sunset.innerHTML = `Sunset: ${addZero(sunsetHours)}:${addZero(
       sunsetMinutes
     )}`;
 
-    humidityPar.innerHTML = `${main.humidity}%`;
-    pressurePar.innerHTML = `${main.pressure} hPa`;
-    visibilityPar.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
+    elements.otherInfo.humidity.value.innerHTML = `${main.humidity}%`;
+    elements.otherInfo.pressure.value.innerHTML = `${main.pressure} hPa`;
+    elements.otherInfo.visibility.value.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
 
-    showElement(currentDatePar, 'm-5 text-center');
-    showElement(weatherMainImgDiv, 'container x-center');
-    showElement(weatherMainPar, 'm-0 text-center text-medium');
-
-    showElement(tempDiv, 'b-1 br-10 bc-transparent bg-transparent');
-
-    showElement(sunWindDiv, 'container cg-15 b-25');
+    showElement(elements.currentDatePar, "m-5 text-center");
+    showElement(elements.primary.weather.imgDiv, "container x-center");
+    showElement(elements.primary.weather.main, "m-0 text-center text-medium");
 
     showElement(
-      [humidityDiv, pressureDiv, visibilityDiv],
-      'container col-direction b-1 br-10 bc-transparent box-small bg-transparent'
+      elements.secondary.temperature.div,
+      "b-1 br-10 bc-transparent bg-transparent"
     );
 
-    showElement(otherInfoDiv, 'container cg-15 b-25');
+    showElement(elements.sunWind.div, "container cg-15 b-25");
 
-    secondaryDiv.removeAttribute('class');
+    showElement(
+      [
+        elements.otherInfo.humidity.div,
+        elements.otherInfo.pressure.div,
+        elements.otherInfo.visibility.div,
+      ],
+      "container col-direction b-1 br-10 bc-transparent box-small bg-transparent"
+    );
+
+    showElement(elements.otherInfo.div, "container cg-15 b-25");
+
+    elements.secondary.div.removeAttribute("class");
   }
 
   if (fiveDayForecast) {
@@ -322,84 +276,87 @@ export const displayWeatherData = async (location, event) => {
       dayOneFc,
       city.timezone,
       null,
-      dayOneDatePar,
-      dayOneWeatherImg,
-      dayOneLhTempsPar
+      elements.forecast.dayOne.date,
+      elements.forecast.dayOne.img,
+      elements.forecast.dayOne.temps
     );
 
     displayFcDayElements(
       dayTwoFc,
       city.timezone,
-      dayTwoNamePar,
-      dayTwoDatePar,
-      dayTwoWeatherImg,
-      dayTwoLhTempsPar
+      elements.forecast.dayTwo.name,
+      elements.forecast.dayTwo.date,
+      elements.forecast.dayTwo.img,
+      elements.forecast.dayTwo.temps
     );
 
     displayFcDayElements(
       dayThreeFc,
       city.timezone,
-      dayThreeNamePar,
-      dayThreeDatePar,
-      dayThreeWeatherImg,
-      dayThreeLhTempsPar
+      elements.forecast.dayThree.name,
+      elements.forecast.dayThree.date,
+      elements.forecast.dayThree.img,
+      elements.forecast.dayThree.temps
     );
 
     displayFcDayElements(
       dayFourFc,
       city.timezone,
-      dayFourNamePar,
-      dayFourDatePar,
-      dayFourWeatherImg,
-      dayFourLhTempsPar
+      elements.forecast.dayFour.name,
+      elements.forecast.dayFour.date,
+      elements.forecast.dayFour.img,
+      elements.forecast.dayFour.temps
     );
 
     displayFcDayElements(
       dayFiveFc,
       city.timezone,
-      dayFiveNamePar,
-      dayFiveDatePar,
-      dayFiveWeatherImg,
-      dayFiveLhTempsPar
+      elements.forecast.dayFive.name,
+      elements.forecast.dayFive.date,
+      elements.forecast.dayFive.img,
+      elements.forecast.dayFive.temps
     );
 
     // show data unhiding elements
-    showElement(fiveDayForecastDiv, 'b-1 br-10 bc-transparent bg-transparent');
+    showElement(
+      elements.forecast.div,
+      "b-1 br-10 bc-transparent bg-transparent"
+    );
 
-    secondaryDiv.removeAttribute('class');
+    elements.secondary.div.removeAttribute("class");
   }
 
-  scaleSelect.addEventListener('change', e => {
+  elements.scaleSelect.addEventListener("change", e => {
     changeScale(convertionTemps, e.target.value);
   });
 
   if (pollutionData) {
     const { list } = pollutionData;
 
-    airAqiPar.innerHTML = `AQI: ${list[0].main.aqi}`;
+    elements.otherInfo.air.aqi.innerHTML = `AQI: ${list[0].main.aqi}`;
 
     // show data unhiding elements
     showElement(
-      airDiv,
-      'container col-direction b-1 br-10 bc-transparent box-small bg-transparent'
+      elements.otherInfo.air.div,
+      "container col-direction b-1 br-10 bc-transparent box-small bg-transparent"
     );
 
-    showElement(otherInfoDiv, 'container cg-15 b-25');
+    showElement(elements.otherInfo.div, "container cg-15 b-25");
 
-    secondaryDiv.removeAttribute('class');
+    elements.secondary.div.removeAttribute("class");
   }
 };
 
 displayWeatherData();
 
-form.addEventListener('submit', e => {
-  displayWeatherData(input.value, e);
-  setCurrentLocationBtn('inactive');
+elements.form.addEventListener("submit", e => {
+  displayWeatherData(elements.input.value, e);
+  setCurrentLocationBtn("inactive");
 });
 
-currentLocationBtn.addEventListener('click', () => {
+elements.currentLocationBtn.addEventListener("click", () => {
   getCurrentLocation();
-  setCurrentLocationBtn('active');
+  setCurrentLocationBtn("active");
 });
 
 // in future
