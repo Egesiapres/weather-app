@@ -1,4 +1,4 @@
-import { API_KEY, geolocationUrl } from "../../utils/constants.js";
+import { API_KEY, geolocationUrl } from "../utils/constants.js";
 import { get } from "./api.js";
 
 /**
