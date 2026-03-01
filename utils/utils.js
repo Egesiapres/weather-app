@@ -1,29 +1,7 @@
 import { displayWeatherData } from "../js/script.js";
+import { tsToLocalDateFromOffset } from "./dates.js";
 import { elements } from "./elements.js";
-
-// dates
-export const tsToLocalDateFromOffset = (timestamp, offset) =>
-  new Date(timestamp * 1000 + offset * 1000);
-
-export const addZero = number => {
-  return number < 10 ? `0${number}` : number;
-};
-
-export const getDateValues = (inputDate = new Date()) => {
-  const date = inputDate.getUTCDate();
-  const monthName = inputDate.toLocaleString("en-US", { month: "short" });
-  const hours = inputDate.getUTCHours();
-  const minutes = inputDate.getUTCMinutes();
-  const seconds = inputDate.getUTCSeconds();
-
-  return {
-    date,
-    monthName,
-    hours,
-    minutes,
-    seconds,
-  };
-};
+import { renderLowHighTemperatures } from "./render.js";
 
 // others
 export const msToKmh = (speed, decimals = 0) => {
@@ -38,29 +16,6 @@ export const formatInputValue = location => {
   formattedLocation = formattedLocation.map(el => el.trim());
 
   return formattedLocation;
-};
-
-export const kelvinToScale = (
-  temperature,
-  scale,
-  decimals = 0,
-  showScale = true
-) => {
-  if (scale === "celsius") {
-    return `${(temperature - 273.15).toFixed(decimals)}${
-      showScale ? "°C" : ""
-    }`;
-  }
-
-  if (scale === "fahrenheit") {
-    return `${(((temperature - 273.15) * 9) / 5 + 32).toFixed(decimals)}${
-      showScale ? "°F" : ""
-    }`;
-  }
-
-  if (scale === "kelvin") {
-    return `${temperature.toFixed(decimals)}${showScale ? " K" : ""}`;
-  }
 };
 
 // elements
@@ -99,29 +54,6 @@ export const displayCurrentDate = (
   }`;
 };
 
-export const changeScale = (
-  { main, dayOneLh, dayTwoLh, dayThreeLh, dayFourLh, dayFiveLh },
-  value
-) => {
-  elements.secondary.temperature.current.innerHTML = kelvinToScale(
-    main.temp,
-    value
-  );
-  elements.secondary.temperature.perceived.innerHTML = `Feels like: ${kelvinToScale(
-    main.feels_like,
-    value
-  )}`;
-  elements.secondary.temperature.min.innerHTML = `Min: ${kelvinToScale(main.temp_min, value)}`;
-  elements.secondary.temperature.max.innerHTML = `Max: ${kelvinToScale(main.temp_max, value)}`;
-
-  // forecast
-  displayLhTemps(dayOneLh, elements.forecast.dayOne.temps, value);
-  displayLhTemps(dayTwoLh, elements.forecast.dayTwo.temps, value);
-  displayLhTemps(dayThreeLh, elements.forecast.dayThree.temps, value);
-  displayLhTemps(dayFourLh, elements.forecast.dayFour.temps, value);
-  displayLhTemps(dayFiveLh, elements.forecast.dayFive.temps, value);
-};
-
 // TODO: icons instead of arrows
 export const meteoDegToDirection = meteoDeg => {
   const directions = [
@@ -158,8 +90,6 @@ export const meteoDegToDirection = meteoDeg => {
 let coordParams;
 
 const successCallback = position => {
-  // console.log(position);
-
   coordParams = {
     lat: position.coords.latitude,
     lon: position.coords.longitude,
@@ -183,36 +113,6 @@ export const getCurrentLocation = () =>
     errorCallback,
     options
   );
-
-export const getLhTemps = dayFc => {
-  const allHoursTemps = dayFc.map(el => el.main.temp).sort();
-
-  const minTemp = allHoursTemps[0];
-  const maxTemp = allHoursTemps[allHoursTemps.length - 1];
-
-  return { minTemp, maxTemp };
-};
-
-const displayLhTemps = (dayFc, lhTempsId, scale) => {
-  let lowTemp, highTemp;
-
-  if (dayFc && dayFc.length > 0) {
-    const { minTemp, maxTemp } = getLhTemps(dayFc);
-    lowTemp = minTemp;
-    highTemp = maxTemp;
-  } else {
-    const { minTemp, maxTemp } = dayFc;
-    lowTemp = minTemp;
-    highTemp = maxTemp;
-  }
-
-  lhTempsId.innerHTML = `${kelvinToScale(
-    lowTemp,
-    scale,
-    null,
-    false
-  )}/${kelvinToScale(highTemp, scale)}`;
-};
 
 export const displayFcDayElements = (
   dayFc,
@@ -243,7 +143,7 @@ export const displayFcDayElements = (
 
   imgId.setAttribute("src", getCustomWeatherIcon(dayFc[2].weather[0].main));
 
-  displayLhTemps(dayFc, lhTempsId, "celsius");
+  renderLowHighTemperatures(dayFc, lhTempsId, "celsius");
 };
 
 // icons

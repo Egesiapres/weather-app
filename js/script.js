@@ -1,33 +1,36 @@
 import { getGeocoding } from "../api/location.js";
 import { getAirPollution } from "../api/pollution.js";
 import { getCurrentWeather, getFiveDayForecast } from "../api/weather.js";
-import { elements } from "../utils/elements.js";
 import {
   addZero,
-  changeScale,
+  getDateValues,
+  tsToLocalDateFromOffset,
+} from "../utils/dates.js";
+import { elements } from "../utils/elements.js";
+import { changeScale, kelvinToScale } from "../utils/scale.js";
+import { getMinMaxTemperatures } from "../utils/temperature.js";
+import {
   displayCurrentDate,
   displayFcDayElements,
   formatInputValue,
   getBftIcon,
   getCurrentLocation,
   getCustomWeatherIcon,
-  getDateValues,
-  getLhTemps,
   hideElement,
-  kelvinToScale,
   meteoDegToDirection,
   msToKmh,
   setCurrentLocationBtn,
   showElement,
-  tsToLocalDateFromOffset,
 } from "../utils/utils.js";
+// TODO: hourly forecast
+// TODO: modals containing scales info (beaufort, air pollution params...)
 
 const clearInput = () => {
   elements.input.value = "";
 };
 
 // f that displays the data retrieved
-export const displayWeatherData = async (location, e) => {
+const displayWeatherData = async (location, e) => {
   // no automatic form submit
   if (e) {
     e.preventDefault();
@@ -37,8 +40,7 @@ export const displayWeatherData = async (location, e) => {
 
   // no location inputted
   if (!location) {
-    cityData = await getGeocoding(["barcelona"]);
-    console.log({ cityData });
+    cityData = await getGeocoding("barcelona");
   }
 
   if (location) {
@@ -53,20 +55,23 @@ export const displayWeatherData = async (location, e) => {
       const limit = locationParams[2] || "";
       const stateCode = locationParams[3] || "";
 
-      locationParams = [cityName, countryCode, limit, stateCode];
+      locationParams = { cityName, countryCode, limit, stateCode };
     } else {
       // location retrieved automatically
-      const { name, sys } = await getCurrentWeather([
-        location.lat,
-        location.lon,
-      ]);
+      const {
+        name: cityName,
+        sys: { country: countryCode },
+      } = await getCurrentWeather(location.lat, location.lon);
 
-      locationParams = [name, sys.country];
+      locationParams = { cityName, countryCode };
     }
 
-    cityData = await getGeocoding(locationParams);
-
-    coordParams = [cityData.lat, cityData.lon];
+    cityData = await getGeocoding(
+      locationParams.cityName,
+      locationParams.countryCode,
+      locationParams.limit,
+      locationParams.stateCode
+    );
 
     if (!cityData.lat || !cityData.lon) {
       // error: no cityData
@@ -265,11 +270,11 @@ export const displayWeatherData = async (location, e) => {
 
     convertionTemps = {
       ...convertionTemps,
-      dayOneLh: getLhTemps(dayOneFc),
-      dayTwoLh: getLhTemps(dayTwoFc),
-      dayThreeLh: getLhTemps(dayThreeFc),
-      dayFourLh: getLhTemps(dayFourFc),
-      dayFiveLh: getLhTemps(dayFiveFc),
+      dayOneLh: getMinMaxTemperatures(dayOneFc),
+      dayTwoLh: getMinMaxTemperatures(dayTwoFc),
+      dayThreeLh: getMinMaxTemperatures(dayThreeFc),
+      dayFourLh: getMinMaxTemperatures(dayFourFc),
+      dayFiveLh: getMinMaxTemperatures(dayFiveFc),
     };
 
     displayFcDayElements(
@@ -359,6 +364,4 @@ elements.currentLocationBtn.addEventListener("click", () => {
   setCurrentLocationBtn("active");
 });
 
-// in future
-// TODO: hour forecast
-// TODO: modals containing scales info (beaufort, air pollution params...)
+export { displayWeatherData };
