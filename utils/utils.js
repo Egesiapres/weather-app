@@ -1,7 +1,5 @@
+import { displayWeatherData } from "../js/script.js";
 import { elements } from "./elements.js";
-import { displayWeatherData } from "./script.js";
-
-const baseUrl = "https://egesiapres.github.io/weather-app";
 
 // dates
 export const tsToLocalDateFromOffset = (timestamp, offset) =>
@@ -254,31 +252,31 @@ export const getCustomWeatherIcon = weather => {
 
   switch (weather) {
     case "Clear":
-      icon = `${baseUrl}/img/clear-day.svg`;
+      icon = "assets/icons/clear-day.svg";
       break;
 
     case "Clouds":
-      icon = `${baseUrl}/img/cloudy.svg`;
+      icon = "assets/icons/cloudy.svg";
       break;
 
     case "Fog":
-      icon = `${baseUrl}/img/fog.svg`;
+      icon = "assets/icons/fog.svg";
       break;
 
     case "Mist":
-      icon = `${baseUrl}/img/mist.svg`;
+      icon = "assets/icons/mist.svg";
       break;
 
     case "Drizzle":
-      icon = `${baseUrl}/img/drizzle.svg`;
+      icon = "assets/icons/drizzle.svg";
       break;
 
     case "Rain":
-      icon = `${baseUrl}/img/rain.svg`;
+      icon = "assets/icons/rain.svg";
       break;
 
     case "Snow":
-      icon = `${baseUrl}/img/snow.svg`;
+      icon = "assets/icons/snow.svg";
       break;
   }
 
@@ -289,79 +287,79 @@ export const getBftIcon = speed => {
   const bftScale = [
     {
       bft: 0,
-      icon: `${baseUrl}/img/wind-beaufort-0.svg`,
+      icon: "assets/icons/wind-beaufort-0.svg",
       description: "Calm",
       interval: "",
     },
     {
       bft: 1,
-      icon: `${baseUrl}/img/wind-beaufort-1.svg`,
+      icon: "assets/icons/wind-beaufort-1.svg",
       description: "Light air",
       interval: [1, 5],
     },
     {
       bft: 2,
-      icon: `${baseUrl}/img/wind-beaufort-2.svg`,
+      icon: "assets/icons/wind-beaufort-2.svg",
       description: "Light breeze",
       interval: [5, 11],
     },
     {
       bft: 3,
-      icon: `${baseUrl}/img/wind-beaufort-3.svg`,
+      icon: "assets/icons/wind-beaufort-3.svg",
       description: "Gentle breeze",
       interval: [11, 19],
     },
     {
       bft: 4,
-      icon: `${baseUrl}/img/wind-beaufort-4.svg`,
+      icon: "assets/icons/wind-beaufort-4.svg",
       description: "Moderate breeze",
       interval: [19, 28],
     },
     {
       bft: 5,
-      icon: `${baseUrl}/img/wind-beaufort-5.svg`,
+      icon: "assets/icons/wind-beaufort-5.svg",
       description: "Fresh breeze",
       interval: [28, 38],
     },
     {
       bft: 6,
-      icon: `${baseUrl}/img/wind-beaufort-6.svg`,
+      icon: "assets/icons/wind-beaufort-6.svg",
       description: "Strong breeze",
       interval: [38, 49],
     },
     {
       bft: 7,
-      icon: `${baseUrl}/img/wind-beaufort-7.svg`,
+      icon: "assets/icons/wind-beaufort-7.svg",
       description: "High wind",
       interval: [49, 61],
     },
     {
       bft: 8,
-      icon: `${baseUrl}/img/wind-beaufort-8.svg`,
+      icon: "assets/icons/wind-beaufort-8.svg",
       description: "Gale",
       interval: [61, 74],
     },
     {
       bft: 9,
-      icon: `${baseUrl}/img/wind-beaufort-9.svg`,
+      icon: "assets/icons/wind-beaufort-9.svg",
       description: "Strong gale",
       interval: [74, 88],
     },
     {
       bft: 10,
-      icon: `${baseUrl}/img/wind-beaufort-10.svg`,
+      icon: "assets/icons/wind-beaufort-10.svg",
       description: "Storm",
       interval: [88, 102],
     },
     {
       bft: 11,
-      icon: `${baseUrl}/img/wind-beaufort-11.svg`,
+      icon: "assets/icons/wind-beaufort-11.svg",
       description: "Violent storm",
       interval: [102, 118],
     },
     {
       bft: 12,
-      icon: `${baseUrl}/img/wind-beaufort-12.svg`,
+      icon: "assets/icons/wind-beaufort-12.svg",
       description: "Hurricane-force",
       interval: "",
     },
