@@ -31,7 +31,7 @@ const elements = {
 
   // Forecast days
   forecast: {
-    div: document.querySelector("#five-day-forecast-div"),
+    div: document.querySelector("#five-days-forecast-div"),
     dayOne: {
       date: document.querySelector("#day-one-date-par"),
       img: document.querySelector("#day-one-weather-img"),

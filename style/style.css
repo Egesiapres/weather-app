@@ -1,3 +1,5 @@
+/* TODO: split css styles */
+
 @font-face {
   font-family: "Apercu";
   src:
@@ -384,7 +386,7 @@ a:hover {
   }
 
   #temp-content-div,
-  #five-day-forecast-div,
+  #five-days-forecast-div,
   #sun-wind-div,
   #other-info-div {
     justify-content: center;
