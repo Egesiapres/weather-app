@@ -38,22 +38,6 @@ export const setCurrentLocationBtn = status => {
   setElementClass(elements.currentLocationBtn, `b-0 br-10 ${status}`);
 };
 
-export const displayCurrentDate = (
-  monthName,
-  date,
-  hours,
-  minutes,
-  seconds
-) => {
-  elements.currentDatePar.innerHTML = `${monthName} ${date}${
-    hours && minutes
-      ? `, ${addZero(hours)}:${addZero(minutes)}${
-          seconds ? `: ${addZero(seconds)}` : ""
-        }`
-      : ""
-  }`;
-};
-
 // TODO: icons instead of arrows
 export const meteoDegToDirection = meteoDeg => {
   const directions = [

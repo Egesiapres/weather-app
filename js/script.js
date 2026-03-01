@@ -8,11 +8,10 @@ import {
   tsToLocalDateFromOffset,
 } from "../utils/dates.js";
 import { resolveBeaufortIcon, resolveWeatherIcon } from "../utils/icons.js";
-import { renderForecastDays } from "../utils/render.js";
+import { renderCurrentDate, renderForecastDays } from "../utils/render.js";
 import { changeScale, kelvinToScale } from "../utils/scale.js";
 import { getMinMaxTemperatures } from "../utils/temperature.js";
 import {
-  displayCurrentDate,
   formatInputValue,
   getCurrentLocation,
   hideElement,
@@ -128,7 +127,7 @@ const displayWeatherData = async (location, e) => {
     //   // currentMinutes
     // );
 
-    displayCurrentDate(currentMonthName, currentDate);
+    renderCurrentDate(currentMonthName, currentDate);
 
     elements.primary.weather.main.innerHTML = weather[0].main;
 
