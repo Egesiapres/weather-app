@@ -91,6 +91,8 @@ const renderForecastDays = (
 /**
  * Renders the current date in the specified format and updates the corresponding DOM element.
  *
+ * @function renderCurrentDate
+ *
  * @param {string} monthName - The name of the current month.
  * @param {number} date - The current date.
  * @param {number | null} hours - The current hours (optional).

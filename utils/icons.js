@@ -1,6 +1,8 @@
 /**
  * Resolves the correct icon to be used for the current weather condition.
  *
+ * @function resolveWeatherIcon
+ *
  * @param {string} weather - The weather condition (e.g., "Clear", "Clouds", etc.).
  *
  * @returns {string} The URL of the corresponding weather icon.
@@ -47,6 +49,8 @@ const resolveWeatherIcon = weather => {
 
 /**
  * Resolves the correct Beaufort scale icon based on the given wind speed.
+ *
+ * @function resolveBeaufortIcon
  *
  * @param {number} windSpeed - The wind speed in km/h.
  *
