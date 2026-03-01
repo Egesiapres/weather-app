@@ -1,7 +1,8 @@
 @font-face {
-  font-family: 'Apercu';
-  src: url('https://egesiapres.github.io/weather-app/font/apercu-regular.otf')
-    format('opentype');
+  font-family: "Apercu";
+  src:
+    url("../assets/fonts/apercu-regular.otf") format("otf"),
+    format("opentype");
 }
 
 * {
@@ -238,7 +239,7 @@ section {
 
 .inactive {
   background-color: #ffffff64;
-  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.svg');
+  background-image: url("../assets/icons/location-light.svg");
   width: 36px;
   background-repeat: no-repeat;
   background-position: 5.5px center;
@@ -247,7 +248,7 @@ section {
 
 .inactive:hover {
   transition: 500ms;
-  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.fill.svg');
+  background-image: url("../assets/icons/location-light.fill.svg");
   width: 36px;
   background-repeat: no-repeat;
   background-position: 5.5px center;
@@ -256,7 +257,7 @@ section {
 
 .active {
   background-color: #ffffff64;
-  background-image: url('https://egesiapres.github.io/weather-app/img/location-light.fill.svg');
+  background-image: url("../assets/icons/location-light.fill.svg");
   width: 36px;
   background-repeat: no-repeat;
   background-position: 5.5px center;
@@ -281,7 +282,7 @@ form {
 
 input {
   width: 150px;
-  background-image: url('https://egesiapres.github.io/weather-app/img/magnifyingglass.svg');
+  background-image: url("../assets/icons/magnifyingglass.svg");
   background-repeat: no-repeat;
   background-position: 3px center;
   background-size: 25px;
