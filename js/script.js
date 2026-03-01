@@ -1,21 +1,20 @@
 import { getGeocoding } from "../api/location.js";
 import { getAirPollution } from "../api/pollution.js";
 import { getCurrentWeather, getFiveDayForecast } from "../api/weather.js";
+import { elements } from "../utils/data/elements.js";
 import {
   addZero,
   getDateValues,
   tsToLocalDateFromOffset,
 } from "../utils/dates.js";
-import { elements } from "../utils/data/elements.js";
+import { resolveBeaufortIcon, resolveWeatherIcon } from "../utils/icons.js";
+import { renderForecastDays } from "../utils/render.js";
 import { changeScale, kelvinToScale } from "../utils/scale.js";
 import { getMinMaxTemperatures } from "../utils/temperature.js";
 import {
   displayCurrentDate,
-  displayFcDayElements,
   formatInputValue,
-  getBftIcon,
   getCurrentLocation,
-  getCustomWeatherIcon,
   hideElement,
   meteoDegToDirection,
   msToKmh,
@@ -151,12 +150,12 @@ const displayWeatherData = async (location, e) => {
 
     elements.primary.weather.img.setAttribute(
       "src",
-      getCustomWeatherIcon(weather[0].main)
+      resolveWeatherIcon(weather[0].main)
     );
 
     elements.sunWind.wind.bftIcon.setAttribute(
       "src",
-      getBftIcon(msToKmh(wind.speed))
+      resolveBeaufortIcon(msToKmh(wind.speed))
     );
     elements.sunWind.wind.speed.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
 
@@ -165,7 +164,7 @@ const displayWeatherData = async (location, e) => {
 
       elements.sunWind.gust.bftIcon.setAttribute(
         "src",
-        getBftIcon(msToKmh(wind.gust))
+        resolveBeaufortIcon(msToKmh(wind.gust))
       );
       elements.sunWind.gust.speed.innerHTML = `Gust: ${msToKmh(wind.gust)} km/h`;
     } else {
@@ -277,7 +276,7 @@ const displayWeatherData = async (location, e) => {
       dayFiveLh: getMinMaxTemperatures(dayFiveFc),
     };
 
-    displayFcDayElements(
+    renderForecastDays(
       dayOneFc,
       city.timezone,
       null,
@@ -286,7 +285,7 @@ const displayWeatherData = async (location, e) => {
       elements.forecast.dayOne.temps
     );
 
-    displayFcDayElements(
+    renderForecastDays(
       dayTwoFc,
       city.timezone,
       elements.forecast.dayTwo.name,
@@ -295,7 +294,7 @@ const displayWeatherData = async (location, e) => {
       elements.forecast.dayTwo.temps
     );
 
-    displayFcDayElements(
+    renderForecastDays(
       dayThreeFc,
       city.timezone,
       elements.forecast.dayThree.name,
@@ -304,7 +303,7 @@ const displayWeatherData = async (location, e) => {
       elements.forecast.dayThree.temps
     );
 
-    displayFcDayElements(
+    renderForecastDays(
       dayFourFc,
       city.timezone,
       elements.forecast.dayFour.name,
@@ -313,7 +312,7 @@ const displayWeatherData = async (location, e) => {
       elements.forecast.dayFour.temps
     );
 
-    displayFcDayElements(
+    renderForecastDays(
       dayFiveFc,
       city.timezone,
       elements.forecast.dayFive.name,
