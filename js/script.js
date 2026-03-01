@@ -1,7 +1,7 @@
 import { getGeocoding } from "../api/location.js";
 import { getAirPollution } from "../api/pollution.js";
 import { getCurrentWeather, getFiveDayForecast } from "../api/weather.js";
-import { elements } from "./elements.js";
+import { elements } from "../utils/elements.js";
 import {
   addZero,
   changeScale,
@@ -20,7 +20,7 @@ import {
   setCurrentLocationBtn,
   showElement,
   tsToLocalDateFromOffset,
-} from "./utils.js";
+} from "../utils/utils.js";
 
 const clearInput = () => {
   elements.input.value = "";
