@@ -6,7 +6,7 @@ import {
   getDateValues,
   tsToLocalDateFromOffset,
 } from "../utils/dates.js";
-import { elements } from "../utils/elements.js";
+import { elements } from "../utils/data/elements.js";
 import { changeScale, kelvinToScale } from "../utils/scale.js";
 import { getMinMaxTemperatures } from "../utils/temperature.js";
 import {

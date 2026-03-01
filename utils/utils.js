@@ -1,6 +1,6 @@
 import { displayWeatherData } from "../js/script.js";
 import { tsToLocalDateFromOffset } from "./dates.js";
-import { elements } from "./elements.js";
+import { elements } from "./data/elements.js";
 import { renderLowHighTemperatures } from "./render.js";
 
 // others

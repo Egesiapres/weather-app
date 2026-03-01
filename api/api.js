@@ -1,4 +1,4 @@
-import { baseOpenWeatherUrl } from "../utils/constants.js";
+import { baseOpenWeatherUrl } from "../utils/data/constants.js";
 
 /**
  * Makes a request to the specified URL with the given options.

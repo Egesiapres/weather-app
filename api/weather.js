@@ -1,4 +1,4 @@
-import { API_KEY, dataUrl } from "../utils/constants.js";
+import { API_KEY, dataUrl } from "../utils/data/constants.js";
 import { get } from "./api.js";
 
 /**
