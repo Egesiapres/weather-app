@@ -9,13 +9,13 @@ import { get } from "./api.js";
  * @param {string} latitude - The city latitude.
  * @param {string} longitude - The city longitude.
  *
- * @returns {string} - The URL for the API request.
+ * @returns {Promise<Object>} - The air pollution data for the specified city.
  *
  * @example
  * getAirPollution(51.5074, -0.1278);
  */
-const getAirPollution = (latitude, longitude) =>
-  get(
+const getAirPollution = async (latitude, longitude) =>
+  await get(
     dataUrl,
     `/air_pollution?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
   );

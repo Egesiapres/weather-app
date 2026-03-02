@@ -9,13 +9,16 @@ import { get } from "./api.js";
  * @param {string} latitude - The city latitude.
  * @param {string} longitude - The city longitude.
  *
- * @returns {string} - The URL for the API request.
+ * @returns {Promise<Object>} - The current weather data for the specified city.
  *
  * @example
  * getCurrentWeather(51.5074, -0.1278);
  */
-const getCurrentWeather = (latitude, longitude) =>
-  get(dataUrl, `/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`);
+const getCurrentWeather = async (latitude, longitude) =>
+  await get(
+    dataUrl,
+    `/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
+  );
 
 /**
  * Generates the URL to obtain the 5 day/3 hour forecast data of a city.
@@ -24,12 +27,16 @@ const getCurrentWeather = (latitude, longitude) =>
  *
  * @param {string} latitude - The city latitude.
  * @param {string} longitude - The city longitude.
- * @returns {string} - The URL for the API request.
+ *
+ * @returns {Promise<Object>} - The 5 day/3 hour forecast data for the specified city.
  *
  * @example
  * getFiveDayForecast(51.5074, -0.1278);
  */
 const getFiveDayForecast = async (latitude, longitude) =>
-  get(dataUrl, `/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`);
+  await get(
+    dataUrl,
+    `/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
+  );
 
 export { getCurrentWeather, getFiveDayForecast };

@@ -11,18 +11,18 @@ import { get } from "./api.js";
  * @param {number} [limit] - The limit of results.
  * @param {string} [stateCode] - The state/province code.
  *
- * @returns {string} - The URL for the API request.
+ * @returns {Promise<Object>} - The location data for the specified city.
  *
  * @example
  * getGeocoding('London', 'GB', 5, '');
  */
-const getGeocoding = (
+const getGeocoding = async (
   cityName = "",
   countryCode = "",
   limit = 5,
   stateCode = ""
 ) =>
-  get(
+  await get(
     geolocationUrl,
     `/direct?q=${cityName}${(stateCode || countryCode) && ","}${stateCode}${
       countryCode && ","

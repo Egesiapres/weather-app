@@ -40,7 +40,7 @@ const request = async (url, options) => {
  * @example
  * const response = await get('/data/2.5', '/weather?lat=51.5074&lon=-0.1278&appid=API_KEY');
  */
-const get = (resource, url) =>
-  request(`${baseOpenWeatherUrl}${resource}${url}`, { method: "GET" });
+const get = async (resource, url) =>
+  await request(`${baseOpenWeatherUrl}${resource}${url}`, { method: "GET" });
 
 export { get };
