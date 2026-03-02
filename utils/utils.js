@@ -1,75 +1,4 @@
 import { displayWeatherData } from "../js/script.js";
-import { tsToLocalDateFromOffset } from "./dates.js";
-import { elements } from "./data/elements.js";
-import { renderLowHighTemperatures } from "./render.js";
-
-// others
-export const msToKmh = (speed, decimals = 0) => {
-  return (speed * 3.6).toFixed(decimals);
-};
-
-export const formatInputValue = location => {
-  let formattedLocation;
-
-  formattedLocation = location.toLowerCase().trim();
-  formattedLocation = formattedLocation.split("," || ", ");
-  formattedLocation = formattedLocation.map(el => el.trim());
-
-  return formattedLocation;
-};
-
-// elements
-const setElementClass = (element, elementClass) =>
-  element.setAttribute("class", elementClass);
-
-export const hideElement = element => {
-  setElementClass(element, "hidden");
-};
-
-export const showElement = (elements, elementsClass) => {
-  if (Array.isArray(elements)) {
-    elements.forEach(el => setElementClass(el, elementsClass));
-  } else {
-    setElementClass(elements, elementsClass);
-  }
-};
-
-export const setCurrentLocationBtn = status => {
-  setElementClass(elements.currentLocationBtn, `b-0 br-10 ${status}`);
-};
-
-// TODO: icons instead of arrows
-export const meteoDegToDirection = meteoDeg => {
-  const directions = [
-    { direction: "N", arrow: "↓", interval: [0, 11.25] },
-    { direction: "N", arrow: "↓", interval: [348.75, 360] },
-    { direction: "NNE", arrow: "↙", interval: [11.25, 33.75] },
-    { direction: "NE", arrow: "↙", interval: [33.75, 56.25] },
-    { direction: "ENE", arrow: "↙", interval: [56.25, 78.75] },
-    { direction: "E", arrow: "←", interval: [78.75, 101.25] },
-    { direction: "ESE", arrow: "↖", interval: [101.25, 123.75] },
-    { direction: "SE", arrow: "↖", interval: [123.75, 146.25] },
-    { direction: "SSE", arrow: "↖", interval: [146.25, 168.75] },
-    { direction: "S", arrow: "↑", interval: [168.75, 191.25] },
-    { direction: "SSW", arrow: "↗", interval: [191.25, 213.75] },
-    { direction: "SW", arrow: "↗", interval: [213.75, 236.25] },
-    { direction: "WSW", arrow: "↗", interval: [236.25, 258.75] },
-    { direction: "W", arrow: "→", interval: [258.75, 281.25] },
-    { direction: "WNW", arrow: "↘", interval: [281.25, 303.75] },
-    { direction: "NW", arrow: "↘", interval: [303.75, 326.25] },
-    { direction: "NNW", arrow: "↘", interval: [326.25, 348.75] },
-  ];
-
-  let direction;
-
-  directions.forEach(el => {
-    if (meteoDeg >= el.interval[0] && meteoDeg < el.interval[1]) {
-      direction = `${el.arrow} ${el.direction}`;
-    }
-  });
-
-  return direction;
-};
 
 let coordParams;
 
@@ -91,9 +20,11 @@ const options = {
   timeout: 10000,
 };
 
-export const getCurrentLocation = () =>
+const getCurrentLocation = () =>
   navigator.geolocation.getCurrentPosition(
     successCallback,
     errorCallback,
     options
   );
+
+export { getCurrentLocation };

@@ -3,29 +3,27 @@ import { getAirPollution } from "../api/pollution.js";
 import { getCurrentWeather, getFiveDayForecast } from "../api/weather.js";
 import { elements } from "../utils/data/elements.js";
 import {
-  addZero,
+  addLeadingZero,
   getDateValues,
   tsToLocalDateFromOffset,
 } from "../utils/dates.js";
+import { meteoDegToDirection } from "../utils/directions.js";
+import {
+  clearInput,
+  hideElement,
+  setCurrentLocationBtnStatus,
+  setElementClass,
+  setElementsClass,
+} from "../utils/dom.js";
 import { resolveBeaufortIcon, resolveWeatherIcon } from "../utils/icons.js";
+import { queryToArr } from "../utils/input.js";
 import { renderCurrentDate, renderForecastDays } from "../utils/render.js";
 import { changeScale, kelvinToScale } from "../utils/scale.js";
+import { msToKmh } from "../utils/speed.js";
 import { getMinMaxTemperatures } from "../utils/temperature.js";
-import {
-  formatInputValue,
-  getCurrentLocation,
-  hideElement,
-  meteoDegToDirection,
-  msToKmh,
-  setCurrentLocationBtn,
-  showElement,
-} from "../utils/utils.js";
+import { getCurrentLocation } from "../utils/utils.js";
 // TODO: hourly forecast
 // TODO: modals containing scales info (beaufort, air pollution params...)
-
-const clearInput = () => {
-  elements.input.value = "";
-};
 
 // f that displays the data retrieved
 const displayWeatherData = async (location, e) => {
@@ -46,7 +44,7 @@ const displayWeatherData = async (location, e) => {
 
     // location inputted manually
     if (typeof location === "string") {
-      locationParams = formatInputValue(location);
+      locationParams = queryToArr(location);
 
       const cityName = locationParams[0] || "";
       const countryCode = locationParams[1] || "";
@@ -159,7 +157,7 @@ const displayWeatherData = async (location, e) => {
     elements.sunWind.wind.speed.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
 
     if (wind.gust) {
-      showElement(elements.sunWind.gust.speedDiv, "container y-center");
+      setElementClass(elements.sunWind.gust.speedDiv, "container y-center");
 
       elements.sunWind.gust.bftIcon.setAttribute(
         "src",
@@ -182,10 +180,10 @@ const displayWeatherData = async (location, e) => {
     const { hours: sunsetHours, minutes: sunsetMinutes } =
       getDateValues(localSunsetDate);
 
-    elements.sunWind.sun.sunrise.innerHTML = `Sunrise: ${addZero(sunriseHours)}:${addZero(
+    elements.sunWind.sun.sunrise.innerHTML = `Sunrise: ${addLeadingZero(sunriseHours)}:${addLeadingZero(
       sunriseMinutes
     )}`;
-    elements.sunWind.sun.sunset.innerHTML = `Sunset: ${addZero(sunsetHours)}:${addZero(
+    elements.sunWind.sun.sunset.innerHTML = `Sunset: ${addLeadingZero(sunsetHours)}:${addLeadingZero(
       sunsetMinutes
     )}`;
 
@@ -193,18 +191,21 @@ const displayWeatherData = async (location, e) => {
     elements.otherInfo.pressure.value.innerHTML = `${main.pressure} hPa`;
     elements.otherInfo.visibility.value.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
 
-    showElement(elements.currentDatePar, "m-5 text-center");
-    showElement(elements.primary.weather.imgDiv, "container x-center");
-    showElement(elements.primary.weather.main, "m-0 text-center text-medium");
+    setElementClass(elements.currentDatePar, "m-5 text-center");
+    setElementClass(elements.primary.weather.imgDiv, "container x-center");
+    setElementClass(
+      elements.primary.weather.main,
+      "m-0 text-center text-medium"
+    );
 
-    showElement(
+    setElementClass(
       elements.secondary.temperature.div,
       "b-1 br-10 bc-transparent bg-transparent"
     );
 
-    showElement(elements.sunWind.div, "container cg-15 b-25");
+    setElementClass(elements.sunWind.div, "container cg-15 b-25");
 
-    showElement(
+    setElementsClass(
       [
         elements.otherInfo.humidity.div,
         elements.otherInfo.pressure.div,
@@ -213,7 +214,7 @@ const displayWeatherData = async (location, e) => {
       "container col-direction b-1 br-10 bc-transparent box-small bg-transparent"
     );
 
-    showElement(elements.otherInfo.div, "container cg-15 b-25");
+    setElementClass(elements.otherInfo.div, "container cg-15 b-25");
 
     elements.secondary.div.removeAttribute("class");
   }
@@ -321,7 +322,7 @@ const displayWeatherData = async (location, e) => {
     );
 
     // show data unhiding elements
-    showElement(
+    setElementClass(
       elements.forecast.div,
       "b-1 br-10 bc-transparent bg-transparent"
     );
@@ -339,12 +340,12 @@ const displayWeatherData = async (location, e) => {
     elements.otherInfo.air.aqi.innerHTML = `AQI: ${list[0].main.aqi}`;
 
     // show data unhiding elements
-    showElement(
+    setElementClass(
       elements.otherInfo.air.div,
       "container col-direction b-1 br-10 bc-transparent box-small bg-transparent"
     );
 
-    showElement(elements.otherInfo.div, "container cg-15 b-25");
+    setElementClass(elements.otherInfo.div, "container cg-15 b-25");
 
     elements.secondary.div.removeAttribute("class");
   }
@@ -354,12 +355,12 @@ displayWeatherData();
 
 elements.form.addEventListener("submit", e => {
   displayWeatherData(elements.input.value, e);
-  setCurrentLocationBtn("inactive");
+  setCurrentLocationBtnStatus("inactive");
 });
 
 elements.currentLocationBtn.addEventListener("click", () => {
   getCurrentLocation();
-  setCurrentLocationBtn("active");
+  setCurrentLocationBtnStatus("active");
 });
 
 export { displayWeatherData };
