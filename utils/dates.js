@@ -1,16 +1,16 @@
 /**
  * Adds a leading zero to a number if it is less than 10.
  *
- * @function addZero
+ * @function addLeadingZero
  *
  * @param {number} number - The number to be zero-padded.
  *
  * @returns {string} The zero-padded number as a string.
  *
  * @example
- * addZero(5); // returns "05"
+ * addLeadingZero(5); // returns "05"
  */
-const addZero = number => (number < 10 ? `0${number}` : number);
+const addLeadingZero = number => (number < 10 ? `0${number}` : number);
 
 /**
  * Converts a timestamp to a local date based on the provided offset.
@@ -58,4 +58,4 @@ const getDateValues = (inputDate = new Date()) => {
   };
 };
 
-export { addZero, getDateValues, tsToLocalDateFromOffset };
+export { addLeadingZero, getDateValues, tsToLocalDateFromOffset };

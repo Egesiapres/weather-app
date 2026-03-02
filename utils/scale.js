@@ -1,3 +1,4 @@
+import { elements } from "./data/elements.js";
 import { renderLowHighTemperatures } from "./render.js";
 
 /**
@@ -75,4 +76,4 @@ const changeScale = (
   renderLowHighTemperatures(dayFiveLh, elements.forecast.dayFive.temps, value);
 };
 
-export { kelvinToScale, changeScale };
+export { changeScale, kelvinToScale };

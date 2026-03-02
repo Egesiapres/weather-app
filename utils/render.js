@@ -1,5 +1,5 @@
 import { elements } from "./data/elements.js";
-import { addZero, tsToLocalDateFromOffset } from "./dates.js";
+import { addLeadingZero, tsToLocalDateFromOffset } from "./dates.js";
 import { resolveWeatherIcon } from "./icons.js";
 import { kelvinToScale } from "./scale.js";
 import { getMinMaxTemperatures } from "./temperature.js";
@@ -11,7 +11,7 @@ import { getMinMaxTemperatures } from "./temperature.js";
  *
  * @param {Array<{main: {temp: number}}>} dayFc - The forecasted day's data, which can be an array of hourly forecasts or an object containing minTemp and maxTemp properties.
  * @param {HTMLElement} lhTempsId - The DOM element where the low and high temperatures will be displayed.
- * @param {"celsius"|"fahrenheit"|"kelvin"} scale - The temperature scale to be used for conversion ("celsius", "fahrenheit", or "kelvin").
+ * @param {"celsius" | "fahrenheit" | "kelvin"} scale - The temperature scale to be used for conversion ("celsius", "fahrenheit", or "kelvin").
  *
  * @returns {void}
  *
@@ -108,8 +108,8 @@ const renderForecastDays = (
 const renderCurrentDate = (monthName, date, hours, minutes, seconds) => {
   elements.currentDatePar.innerHTML = `${monthName} ${date}${
     hours && minutes
-      ? `, ${addZero(hours)}:${addZero(minutes)}${
-          seconds ? `: ${addZero(seconds)}` : ""
+      ? `, ${addLeadingZero(hours)}:${addLeadingZero(minutes)}${
+          seconds ? `: ${addLeadingZero(seconds)}` : ""
         }`
       : ""
   }`;
