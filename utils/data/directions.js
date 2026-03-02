@@ -1,4 +1,4 @@
-const directions = [
+const directionsMapping = [
   { direction: "N", arrow: "↓", interval: [0, 11.25] },
   { direction: "N", arrow: "↓", interval: [348.75, 360] },
   { direction: "NNE", arrow: "↙", interval: [11.25, 33.75] },
@@ -18,4 +18,4 @@ const directions = [
   { direction: "NNW", arrow: "↘", interval: [326.25, 348.75] },
 ];
 
-export { directions };
+export { directionsMapping };

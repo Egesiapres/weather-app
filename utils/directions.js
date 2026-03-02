@@ -1,4 +1,4 @@
-import { directions } from "./data/directions.js";
+import { directionsMapping } from "./data/directions.js";
 // TODO: replace arrows with icons
 
 /**
@@ -18,7 +18,7 @@ import { directions } from "./data/directions.js";
 const meteoDegToDirection = meteoDeg => {
   let direction;
 
-  directions.forEach(el => {
+  directionsMapping.forEach(el => {
     if (meteoDeg >= el.interval[0] && meteoDeg < el.interval[1]) {
       direction = `${el.arrow} ${el.direction}`;
     }

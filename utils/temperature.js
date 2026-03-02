@@ -12,7 +12,7 @@
  * console.log(minMaxTemps); // { minTemp: 280.15, maxTemp: 295.15 }
  */
 const getMinMaxTemperatures = dayForecast => {
-  const allHoursTemps = dayForecast.map(el => el.main.temp).sort();
+  const allHoursTemps = dayForecast.map(el => el.main.temp).toSorted();
 
   const minTemp = allHoursTemps[0];
   const maxTemp = allHoursTemps[allHoursTemps.length - 1];
