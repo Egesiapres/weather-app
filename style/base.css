@@ -1,5 +1,11 @@
+html,
 body {
   height: 100dvh;
+  overscroll-behavior: none; /* prevents the page from bouncing when scrolling on mobile devices */
+  cursor: default;
+}
+
+body {
   background-image: linear-gradient(to bottom, #164a8b, #75badd);
 }
 
@@ -19,6 +25,10 @@ p {
   font-size: 1em;
 }
 
+button {
+  cursor: pointer;
+}
+
 section {
   height: calc(100dvh - 35.4px - 30px - 36px - 30px - 284px);
 }
@@ -30,7 +40,7 @@ form {
 }
 
 input {
-  width: 150px;
+  width: 200px;
   background-image: url("../assets/icons/magnifyingglass.svg");
   background-repeat: no-repeat;
   background-position: 3px center;
@@ -62,7 +72,6 @@ img {
 
 button img {
   width: 25px;
-  margin-top: 5px;
 }
 
 select {
@@ -85,4 +94,10 @@ a:hover {
 
 #name-par {
   margin: 5px;
+}
+
+@media screen and (max-width: 425px) {
+  input {
+    width: 100%;
+  }
 }
