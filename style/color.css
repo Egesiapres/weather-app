@@ -1,0 +1,29 @@
+/* TODO: adjust transparent values */
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-black {
+  color: #1c1c1e;
+}
+
+.text-dark {
+  color: grey;
+}
+
+.text-transparent {
+  color: #ffffff8c;
+}
+
+.text-red {
+  color: #941701;
+}
+
+.bc-transparent {
+  border-color: #ffffff51;
+}
+
+.bg-transparent {
+  background-color: #ffffff18;
+}

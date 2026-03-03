@@ -1,0 +1,88 @@
+body {
+  height: 100dvh;
+  background-image: linear-gradient(to bottom, #164a8b, #75badd);
+}
+
+header {
+  padding: 15px 0 15px 0;
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  background-color: #75badd;
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+p {
+  font-size: 1em;
+}
+
+section {
+  height: calc(100dvh - 35.4px - 30px - 36px - 30px - 284px);
+}
+
+form {
+  display: flex;
+  column-gap: 10px;
+  margin: 15px;
+}
+
+input {
+  width: 150px;
+  background-image: url("../assets/icons/magnifyingglass.svg");
+  background-repeat: no-repeat;
+  background-position: 3px center;
+  background-size: 25px;
+}
+
+input.b-0.br-10.p-10.text-white.bg-transparent {
+  padding-left: 30px;
+}
+
+input::placeholder {
+  color: #ffffff8c;
+}
+
+input:focus,
+#current-location-btn:focus,
+#scale-select:focus,
+a:focus {
+  outline: 3px solid #3baaf9a9;
+}
+
+hr {
+  border: 0.5px solid;
+}
+
+img {
+  width: 120px;
+}
+
+button img {
+  width: 25px;
+  margin-top: 5px;
+}
+
+select {
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+i {
+  margin: 0;
+}
+
+a:hover i.wi,
+a:hover {
+  color: #ffffff;
+  transition: 500ms;
+}
+
+#name-par {
+  margin: 5px;
+}

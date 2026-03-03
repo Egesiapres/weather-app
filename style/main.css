@@ -1,0 +1,139 @@
+@import url("base.css");
+@import url("color.css");
+@import url("typography.css");
+@import url("spacing.css");
+@import url("layout.css");
+
+#content {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+}
+
+#forecast-div {
+  width: 100%;
+  column-gap: 10px;
+  padding: 15px;
+}
+
+#forecast-div div {
+  width: 100%;
+}
+
+#temp-scale-div {
+  row-gap: 10px;
+  width: 25%;
+}
+
+.scrollable {
+  overflow-y: auto;
+}
+
+.b-1 {
+  border: 1px solid #ffffff51;
+}
+
+.b-0 {
+  border: none;
+}
+
+.br-10 {
+  border-radius: 10px;
+}
+
+.wi {
+  margin-left: 12px;
+}
+
+.inactive {
+  background-color: #ffffff64;
+  background-image: url("../assets/icons/location-light.svg");
+  width: 36px;
+  background-repeat: no-repeat;
+  background-position: 5.5px center;
+  background-size: 25px;
+}
+
+.inactive:hover {
+  transition: 500ms;
+  background-image: url("../assets/icons/location-light.fill.svg");
+  width: 36px;
+  background-repeat: no-repeat;
+  background-position: 5.5px center;
+  background-size: 25px;
+}
+
+.active {
+  background-color: #ffffff64;
+  background-image: url("../assets/icons/location-light.fill.svg");
+  width: 36px;
+  background-repeat: no-repeat;
+  background-position: 5.5px center;
+  background-size: 25px;
+}
+
+.error {
+  background-color: #ff54548a;
+  margin: 15px;
+  border-radius: 13px;
+}
+
+/* TODO: animated icons copy */
+/* TODO: responsive */
+
+@media screen and (max-width: 425px) {
+  /* @media screen and (max-width: 523px) { */
+
+  #content {
+    height: 100dvh;
+    width: 100dvw;
+    border-radius: 0;
+  }
+
+  header {
+    height: 35dvh;
+  }
+
+  section {
+    padding: 10px;
+
+    align-items: center;
+  }
+
+  #weather-main-img {
+    width: 100px;
+  }
+
+  #forecast-div {
+    width: 86dvw;
+  }
+
+  #temp-content-div,
+  #five-days-forecast-div,
+  #sun-wind-div,
+  #other-info-div {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  #sun-wind-div,
+  #other-info-div {
+    row-gap: 15px;
+  }
+
+  #temp-scale-div,
+  label {
+    width: fit-content;
+  }
+
+  #scale-select {
+    width: 55%;
+    text-align: center;
+  }
+
+  #sun-wind-div > div,
+  #other-info-div > div {
+    display: flex;
+    flex-grow: 1;
+  }
+}

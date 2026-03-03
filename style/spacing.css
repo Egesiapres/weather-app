@@ -1,0 +1,55 @@
+.m-auto {
+  margin: auto;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.m-5 {
+  margin: 5px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
+.m-15 {
+  margin: 15px;
+}
+
+.mr-5 {
+  margin: 0 5px 0 0;
+}
+
+.ml-0 {
+  margin-left: 0;
+}
+
+.p-2 {
+  padding: 2px;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.p-15 {
+  padding: 15px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.cg-15 {
+  column-gap: 15px;
+}
+
+.rg-5 {
+  row-gap: 5px;
+}
+
+.rg-15 {
+  row-gap: 15px;
+}
