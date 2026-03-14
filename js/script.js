@@ -199,7 +199,7 @@ const displayWeatherData = async (location, e) => {
 
     setElementClass(
       elements.bottom.temperature.container,
-      "b-1 br-10 bc-transparent bg-transparent"
+      "b-1 br-10 bc-transparent bg-transparent-lightest"
     );
 
     setElementClass(elements.bottom.sunWind.container, "flex cg-15 b-25");
@@ -210,7 +210,7 @@ const displayWeatherData = async (location, e) => {
         elements.bottom.otherInfo.pressure.container,
         elements.bottom.otherInfo.visibility.container,
       ],
-      "flex col-direction b-1 br-10 bc-transparent box-small bg-transparent"
+      "flex col-direction b-1 br-10 bc-transparent box-small bg-transparent-lightest"
     );
 
     setElementClass(elements.bottom.otherInfo.container, "flex cg-15 b-25");
@@ -310,7 +310,7 @@ const displayWeatherData = async (location, e) => {
     // Show Forecast Container
     setElementClass(
       elements.bottom.forecast.container,
-      "b-1 br-10 bc-transparent bg-transparent"
+      "b-1 br-10 bc-transparent bg-transparent-lightest"
     );
 
     elements.bottom.container.classList.remove("hidden");
@@ -328,7 +328,7 @@ const displayWeatherData = async (location, e) => {
     // Show Air Pollution Container
     setElementClass(
       elements.bottom.otherInfo.air.container,
-      "flex col-direction b-1 br-10 bc-transparent box-small bg-transparent"
+      "flex col-direction b-1 br-10 bc-transparent box-small bg-transparent-lightest"
     );
 
     setElementClass(elements.bottom.otherInfo.container, "flex cg-15 b-25");

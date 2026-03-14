@@ -6,7 +6,8 @@
   width: 100%;
 }
 
-.container {
+/* Flex */
+.flex {
   display: flex;
 }
 
@@ -34,6 +35,7 @@
   align-items: center;
 }
 
+/* Box sizes */
 .box-small {
   width: 33%;
 }
@@ -42,6 +44,7 @@
   width: 50%;
 }
 
+/* Img & Icons */
 .img-small {
   width: 70px;
 }

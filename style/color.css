@@ -1,5 +1,6 @@
 /* TODO: adjust transparent values */
 
+/* Text */
 .text-white {
   color: #ffffff;
 }
@@ -16,14 +17,28 @@
   color: #ffffff8c;
 }
 
-.text-red {
+.text-error {
   color: #941701;
 }
 
+/* Border color */
 .bc-transparent {
   border-color: #ffffff51;
 }
 
-.bg-transparent {
+/* Background color */
+.bg-transparent-lightest {
   background-color: #ffffff18;
+}
+
+.bg-transparent-light {
+  background-color: #ffffff64;
+}
+
+.bg-gradient-blue {
+  background-image: linear-gradient(to bottom, #164a8b, #75badd);
+}
+
+.bg-error {
+  background-color: #ff54548a;
 }
