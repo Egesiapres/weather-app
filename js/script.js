@@ -24,17 +24,19 @@ import { getMinMaxTemperatures } from "../utils/temperature.js";
 import { getCurrentLocation } from "../utils/utils.js";
 // TODO: hourly forecast
 // TODO: modals containing scales info (beaufort, air pollution params...)
+// TODO: enhance containers' show/hide logic just removing "hidden" class and not setting a new class every time
 
 // f that displays the data retrieved
 const displayWeatherData = async (location, e) => {
-  // no automatic form submit
-  if (e) {
-    e.preventDefault();
-  }
+  e?.preventDefault(); // prevent default form submission behavior
 
-  let cityData, fiveDayForecast, weatherData, pollutionData, convertionTemps;
+  let cityData, fiveDayForecast, weatherData, pollutionData, conversionTemps;
 
-  // no location inputted
+  /**
+   * At the first page load, when there's still no location set,
+   * they will be retrieved automatically the data of a fallback city
+   * to show the app's functionalities and avoid showing an empty page.
+   */
   if (!location) {
     cityData = await getGeocoding("barcelona");
   }
@@ -42,7 +44,7 @@ const displayWeatherData = async (location, e) => {
   if (location) {
     let locationParams;
 
-    // location inputted manually
+    // location manually set by user
     if (typeof location === "string") {
       locationParams = queryToArr(location);
 
@@ -69,40 +71,43 @@ const displayWeatherData = async (location, e) => {
       locationParams.stateCode
     );
 
+    /**
+     * Error Handling:
+     * If no city data have been retrieved, show an error message
+     * (and hide top and bottom containers with weather data if they were previously shown).
+     */
     if (!cityData.lat || !cityData.lon) {
-      // error: no cityData
-      // stop fetch
       cityData = null;
 
-      hideElement(elements.primary.div);
-      hideElement(elements.secondary.div);
+      hideElement(elements.top.primaryInfo.container);
+      hideElement(elements.bottom.container);
 
-      elements.error.value.innerHTML = `"${elements.input.value}"`;
-      elements.error.div.removeAttribute("class");
+      elements.error.value.innerHTML = `"${elements.top.form.input.value}"`;
+      elements.error.container.removeAttribute("class");
     }
 
     clearInput();
   }
 
-  // div unhided after its population
+  // If city data have been retrieved, show the weather data related to that city
   if (cityData) {
-    hideElement(elements.error.div);
+    hideElement(elements.error.container);
 
-    // api calls
+    // API calls
     weatherData = await getCurrentWeather(cityData.lat, cityData.lon);
     fiveDayForecast = await getFiveDayForecast(cityData.lat, cityData.lon);
     pollutionData = await getAirPollution(cityData.lat, cityData.lon);
 
     const { name, state, country } = cityData;
 
-    elements.primary.name.innerHTML = name;
+    elements.top.primaryInfo.name.innerHTML = name;
 
-    elements.primary.position.innerHTML = `${state ? state : ""}${
+    elements.top.primaryInfo.position.innerHTML = `${state ? state : ""}${
       state && country ? ", " : ""
     }${country ? `(${country})` : ""}`;
 
-    // show data unhiding elements
-    elements.primary.div.removeAttribute("class");
+    // Shows Primary Info Container
+    elements.top.primaryInfo.container.classList.remove("hidden");
   }
 
   if (weatherData) {
@@ -110,65 +115,56 @@ const displayWeatherData = async (location, e) => {
 
     const localDate = tsToLocalDateFromOffset(dt, timezone);
 
-    // display current time values
     const { monthName: currentMonthName, date: currentDate } =
       getDateValues(localDate);
 
-    // console.log(
-    //   'Month:',
-    //   currentMonthName,
-    //   'Date:',
-    //   currentDate,
-    //   // 'Hours:',
-    //   // currentHours,
-    //   // 'Minutes:',
-    //   // currentMinutes
-    // );
-
     renderCurrentDate(currentMonthName, currentDate);
 
-    elements.primary.weather.main.innerHTML = weather[0].main;
+    elements.top.primaryInfo.weather.main.innerHTML = weather[0].main;
 
-    elements.secondary.temperature.current.innerHTML = kelvinToScale(
+    elements.bottom.temperature.current.innerHTML = kelvinToScale(
       main.temp,
       "celsius"
     );
 
-    elements.secondary.temperature.perceived.innerHTML = `Feels like: ${kelvinToScale(
+    elements.bottom.temperature.perceived.innerHTML = `Feels like: ${kelvinToScale(
       main.feels_like,
       "celsius"
     )}`;
 
-    elements.secondary.temperature.min.innerHTML = `Min: ${kelvinToScale(main.temp_min, "celsius")}`;
+    elements.bottom.temperature.min.innerHTML = `Min: ${kelvinToScale(main.temp_min, "celsius")}`;
 
-    elements.secondary.temperature.max.innerHTML = `Max: ${kelvinToScale(main.temp_max, "celsius")}`;
+    elements.bottom.temperature.max.innerHTML = `Max: ${kelvinToScale(main.temp_max, "celsius")}`;
 
-    convertionTemps = { main: main };
+    conversionTemps = { main };
 
-    elements.primary.weather.img.setAttribute(
+    elements.top.primaryInfo.weather.img.element.setAttribute(
       "src",
       resolveWeatherIcon(weather[0].main)
     );
 
-    elements.sunWind.wind.bftIcon.setAttribute(
+    elements.bottom.sunWind.wind.bftIcon.setAttribute(
       "src",
       resolveBeaufortIcon(msToKmh(wind.speed))
     );
-    elements.sunWind.wind.speed.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
+    elements.bottom.sunWind.wind.speed.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
 
     if (wind.gust) {
-      setElementClass(elements.sunWind.gust.speedDiv, "container y-center");
+      setElementClass(
+        elements.bottom.sunWind.gust.speedContainer,
+        "flex align-center"
+      );
 
-      elements.sunWind.gust.bftIcon.setAttribute(
+      elements.bottom.sunWind.gust.bftIcon.setAttribute(
         "src",
         resolveBeaufortIcon(msToKmh(wind.gust))
       );
-      elements.sunWind.gust.speed.innerHTML = `Gust: ${msToKmh(wind.gust)} km/h`;
+      elements.bottom.sunWind.gust.speed.innerHTML = `Gust: ${msToKmh(wind.gust)} km/h`;
     } else {
-      hideElement(elements.sunWind.gust.speedDiv);
+      hideElement(elements.bottom.sunWind.gust.speedContainer);
     }
 
-    elements.sunWind.wind.degrees.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
+    elements.bottom.sunWind.wind.degrees.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
 
     const localSunriseDate = tsToLocalDateFromOffset(sys.sunrise, timezone);
 
@@ -180,43 +176,46 @@ const displayWeatherData = async (location, e) => {
     const { hours: sunsetHours, minutes: sunsetMinutes } =
       getDateValues(localSunsetDate);
 
-    elements.sunWind.sun.sunrise.innerHTML = `Sunrise: ${addLeadingZero(sunriseHours)}:${addLeadingZero(
+    elements.bottom.sunWind.sun.sunrise.innerHTML = `Sunrise: ${addLeadingZero(sunriseHours)}:${addLeadingZero(
       sunriseMinutes
     )}`;
-    elements.sunWind.sun.sunset.innerHTML = `Sunset: ${addLeadingZero(sunsetHours)}:${addLeadingZero(
+    elements.bottom.sunWind.sun.sunset.innerHTML = `Sunset: ${addLeadingZero(sunsetHours)}:${addLeadingZero(
       sunsetMinutes
     )}`;
 
-    elements.otherInfo.humidity.value.innerHTML = `${main.humidity}%`;
-    elements.otherInfo.pressure.value.innerHTML = `${main.pressure} hPa`;
-    elements.otherInfo.visibility.value.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
+    elements.bottom.otherInfo.humidity.value.innerHTML = `${main.humidity}%`;
+    elements.bottom.otherInfo.pressure.value.innerHTML = `${main.pressure} hPa`;
+    elements.bottom.otherInfo.visibility.value.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
 
-    setElementClass(elements.currentDatePar, "m-5 text-center");
-    setElementClass(elements.primary.weather.imgDiv, "container x-center");
+    setElementClass(elements.top.currentDatePar, "m-5 text-center");
     setElementClass(
-      elements.primary.weather.main,
+      elements.top.primaryInfo.weather.img.container,
+      "flex justify-center"
+    );
+    setElementClass(
+      elements.top.primaryInfo.weather.main,
       "m-0 text-center text-medium"
     );
 
     setElementClass(
-      elements.secondary.temperature.div,
+      elements.bottom.temperature.container,
       "b-1 br-10 bc-transparent bg-transparent"
     );
 
-    setElementClass(elements.sunWind.div, "container cg-15 b-25");
+    setElementClass(elements.bottom.sunWind.container, "flex cg-15 b-25");
 
     setElementsClass(
       [
-        elements.otherInfo.humidity.div,
-        elements.otherInfo.pressure.div,
-        elements.otherInfo.visibility.div,
+        elements.bottom.otherInfo.humidity.container,
+        elements.bottom.otherInfo.pressure.container,
+        elements.bottom.otherInfo.visibility.container,
       ],
-      "container col-direction b-1 br-10 bc-transparent box-small bg-transparent"
+      "flex col-direction b-1 br-10 bc-transparent box-small bg-transparent"
     );
 
-    setElementClass(elements.otherInfo.div, "container cg-15 b-25");
+    setElementClass(elements.bottom.otherInfo.container, "flex cg-15 b-25");
 
-    elements.secondary.div.removeAttribute("class");
+    elements.bottom.container.classList.remove("hidden");
   }
 
   if (fiveDayForecast) {
@@ -254,21 +253,8 @@ const displayWeatherData = async (location, e) => {
         currentDate + 5
     );
 
-    // console.log(
-    //   'Day 1:',
-    //   dayOneFc,
-    //   'Day 2:',
-    //   dayTwoFc,
-    //   'Day 3:',
-    //   dayThreeFc,
-    //   'Day 4:',
-    //   dayFourFc,
-    //   'Day 5:',
-    //   dayFiveFc
-    // );
-
-    convertionTemps = {
-      ...convertionTemps,
+    conversionTemps = {
+      ...conversionTemps,
       dayOneLh: getMinMaxTemperatures(dayOneFc),
       dayTwoLh: getMinMaxTemperatures(dayTwoFc),
       dayThreeLh: getMinMaxTemperatures(dayThreeFc),
@@ -280,85 +266,85 @@ const displayWeatherData = async (location, e) => {
       dayOneFc,
       city.timezone,
       null,
-      elements.forecast.dayOne.date,
-      elements.forecast.dayOne.img,
-      elements.forecast.dayOne.temps
+      elements.bottom.forecast.dayOne.date,
+      elements.bottom.forecast.dayOne.img,
+      elements.bottom.forecast.dayOne.temps
     );
 
     renderForecastDays(
       dayTwoFc,
       city.timezone,
-      elements.forecast.dayTwo.name,
-      elements.forecast.dayTwo.date,
-      elements.forecast.dayTwo.img,
-      elements.forecast.dayTwo.temps
+      elements.bottom.forecast.dayTwo.name,
+      elements.bottom.forecast.dayTwo.date,
+      elements.bottom.forecast.dayTwo.img,
+      elements.bottom.forecast.dayTwo.temps
     );
 
     renderForecastDays(
       dayThreeFc,
       city.timezone,
-      elements.forecast.dayThree.name,
-      elements.forecast.dayThree.date,
-      elements.forecast.dayThree.img,
-      elements.forecast.dayThree.temps
+      elements.bottom.forecast.dayThree.name,
+      elements.bottom.forecast.dayThree.date,
+      elements.bottom.forecast.dayThree.img,
+      elements.bottom.forecast.dayThree.temps
     );
 
     renderForecastDays(
       dayFourFc,
       city.timezone,
-      elements.forecast.dayFour.name,
-      elements.forecast.dayFour.date,
-      elements.forecast.dayFour.img,
-      elements.forecast.dayFour.temps
+      elements.bottom.forecast.dayFour.name,
+      elements.bottom.forecast.dayFour.date,
+      elements.bottom.forecast.dayFour.img,
+      elements.bottom.forecast.dayFour.temps
     );
 
     renderForecastDays(
       dayFiveFc,
       city.timezone,
-      elements.forecast.dayFive.name,
-      elements.forecast.dayFive.date,
-      elements.forecast.dayFive.img,
-      elements.forecast.dayFive.temps
+      elements.bottom.forecast.dayFive.name,
+      elements.bottom.forecast.dayFive.date,
+      elements.bottom.forecast.dayFive.img,
+      elements.bottom.forecast.dayFive.temps
     );
 
-    // show data unhiding elements
+    // Show Forecast Container
     setElementClass(
-      elements.forecast.div,
+      elements.bottom.forecast.container,
       "b-1 br-10 bc-transparent bg-transparent"
     );
 
-    elements.secondary.div.removeAttribute("class");
+    elements.bottom.container.classList.remove("hidden");
   }
 
-  elements.scaleSelect.addEventListener("change", e => {
-    changeScale(convertionTemps, e.target.value);
+  elements.bottom.temperature.scaleSelect.addEventListener("change", e => {
+    changeScale(conversionTemps, e.target.value);
   });
 
   if (pollutionData) {
     const { list } = pollutionData;
 
-    elements.otherInfo.air.aqi.innerHTML = `AQI: ${list[0].main.aqi}`;
+    elements.bottom.otherInfo.air.aqi.innerHTML = `AQI: ${list[0].main.aqi}`;
 
-    // show data unhiding elements
+    // Show Air Pollution Container
     setElementClass(
-      elements.otherInfo.air.div,
-      "container col-direction b-1 br-10 bc-transparent box-small bg-transparent"
+      elements.bottom.otherInfo.air.container,
+      "flex col-direction b-1 br-10 bc-transparent box-small bg-transparent"
     );
 
-    setElementClass(elements.otherInfo.div, "container cg-15 b-25");
+    setElementClass(elements.bottom.otherInfo.container, "flex cg-15 b-25");
 
-    elements.secondary.div.removeAttribute("class");
+    elements.bottom.container.classList.remove("hidden");
   }
 };
 
 displayWeatherData();
 
-elements.form.addEventListener("submit", e => {
-  displayWeatherData(elements.input.value, e);
+elements.top.form.element.addEventListener("submit", e => {
+  displayWeatherData(elements.top.form.input.value, e);
   setCurrentLocationBtnStatus("inactive");
 });
 
-elements.currentLocationBtn.addEventListener("click", () => {
+elements.top.form.currentLocationBtn.addEventListener("click", () => {
   getCurrentLocation();
   setCurrentLocationBtnStatus("active");
 });

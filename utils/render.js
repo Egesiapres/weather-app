@@ -106,7 +106,7 @@ const renderForecastDays = (
  * This will update the current date element to display: "June 15, 14:30:45"
  */
 const renderCurrentDate = (monthName, date, hours, minutes, seconds) => {
-  elements.currentDatePar.innerHTML = `${monthName} ${date}${
+  elements.top.currentDatePar.innerHTML = `${monthName} ${date}${
     hours && minutes
       ? `, ${addLeadingZero(hours)}:${addLeadingZero(minutes)}${
           seconds ? `: ${addLeadingZero(seconds)}` : ""

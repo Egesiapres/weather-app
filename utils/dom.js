@@ -10,7 +10,7 @@ import { elements } from "./data/elements.js";
  * @example
  * clearInput();
  */
-const clearInput = () => (elements.input.value = "");
+const clearInput = () => (elements.top.form.input.value = "");
 
 /**
  * Sets the class of a given DOM element to the specified class name.
@@ -72,7 +72,7 @@ const hideElement = element => setElementClass(element, "hidden");
  * setCurrentLocationBtnStatus("inactive"); // Sets the button to inactive state
  */
 const setCurrentLocationBtnStatus = status =>
-  setElementClass(elements.currentLocationBtn, `b-0 br-10 ${status}`);
+  setElementClass(elements.top.form.currentLocationBtn, `b-0 br-10 ${status}`);
 
 export {
   clearInput,
