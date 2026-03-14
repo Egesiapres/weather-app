@@ -1,33 +1,28 @@
-import { getGeocoding } from "../api/location.js";
-import { getAirPollution } from "../api/pollution.js";
-import { getCurrentWeather, getFiveDayForecast } from "../api/weather.js";
-import { elements } from "../utils/data/elements.js";
+import { getGeocoding } from "./api/location.js";
+import { getAirPollution } from "./api/pollution.js";
+import { getCurrentWeather, getFiveDayForecast } from "./api/weather.js";
+import { elements } from "./utils/data/elements.js";
 import {
   addLeadingZero,
   getDateValues,
   tsToLocalDateFromOffset,
-} from "../utils/dates.js";
-import { meteoDegToDirection } from "../utils/directions.js";
+} from "./utils/dates.js";
+import { meteoDegToDirection } from "./utils/directions.js";
 import {
   clearInput,
   hideElement,
-  setCurrentLocationBtnStatus,
   setElementClass,
   setElementsClass,
-} from "../utils/dom.js";
-import { resolveBeaufortIcon, resolveWeatherIcon } from "../utils/icons.js";
-import { queryToArr } from "../utils/input.js";
-import { renderCurrentDate, renderForecastDays } from "../utils/render.js";
-import { changeScale, kelvinToScale } from "../utils/scale.js";
-import { msToKmh } from "../utils/speed.js";
-import { getMinMaxTemperatures } from "../utils/temperature.js";
-import { getCurrentLocation } from "../utils/utils.js";
-// TODO: hourly forecast
-// TODO: modals containing scales info (beaufort, air pollution params...)
+} from "./utils/dom.js";
+import { resolveBeaufortIcon, resolveWeatherIcon } from "./utils/icons.js";
+import { queryToArr } from "./utils/input.js";
+import { renderCurrentDate, renderForecastDays } from "./utils/render.js";
+import { changeScale, kelvinToScale } from "./utils/scale.js";
+import { msToKmh } from "./utils/speed.js";
+import { getMinMaxTemperatures } from "./utils/temperature.js";
 // TODO: enhance containers' show/hide logic just removing "hidden" class and not setting a new class every time
 
-// f that displays the data retrieved
-const displayWeatherData = async (location, e) => {
+const loadWeatherData = async (location, e) => {
   e?.preventDefault(); // prevent default form submission behavior
 
   let cityData, fiveDayForecast, weatherData, pollutionData, conversionTemps;
@@ -337,16 +332,4 @@ const displayWeatherData = async (location, e) => {
   }
 };
 
-displayWeatherData();
-
-elements.top.form.element.addEventListener("submit", e => {
-  displayWeatherData(elements.top.form.input.value, e);
-  setCurrentLocationBtnStatus("inactive");
-});
-
-elements.top.form.currentLocationBtn.addEventListener("click", () => {
-  getCurrentLocation();
-  setCurrentLocationBtnStatus("active");
-});
-
-export { displayWeatherData };
+export { loadWeatherData };
