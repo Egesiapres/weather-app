@@ -1,4 +1,4 @@
-import { displayWeatherData } from "../js/script.js";
+import { loadWeatherData } from "../main.js";
 
 let coordParams;
 
@@ -8,12 +8,10 @@ const successCallback = position => {
     lon: position.coords.longitude,
   };
 
-  displayWeatherData(coordParams);
+  loadWeatherData(coordParams);
 };
 
-const errorCallback = error => {
-  console.log(error);
-};
+const errorCallback = error => console.log(error);
 
 const options = {
   enableHighAccuracy: true,
@@ -21,7 +19,7 @@ const options = {
 };
 
 const getCurrentLocation = () =>
-  navigator.geolocation.getCurrentPosition(
+  navigator.geolocation?.getCurrentPosition(
     successCallback,
     errorCallback,
     options
