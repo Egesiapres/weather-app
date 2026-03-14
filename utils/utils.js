@@ -1,4 +1,4 @@
-import { loadWeatherData } from "../main.js";
+import { loadWeatherData } from "../controllers/weather.js";
 
 let coordParams;
 

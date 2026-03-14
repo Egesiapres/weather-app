@@ -1,25 +1,25 @@
-import { getGeocoding } from "./api/location.js";
-import { getAirPollution } from "./api/pollution.js";
-import { getCurrentWeather, getFiveDayForecast } from "./api/weather.js";
-import { elements } from "./utils/data/elements.js";
+import { getGeocoding } from "../api/location.js";
+import { getAirPollution } from "../api/pollution.js";
+import { getCurrentWeather, getFiveDayForecast } from "../api/weather.js";
+import { elements } from "../utils/data/elements.js";
 import {
   addLeadingZero,
   getDateValues,
   tsToLocalDateFromOffset,
-} from "./utils/dates.js";
-import { meteoDegToDirection } from "./utils/directions.js";
+} from "../utils/dates.js";
+import { meteoDegToDirection } from "../utils/directions.js";
 import {
   clearInput,
   hideElement,
   setElementClass,
   setElementsClass,
-} from "./utils/dom.js";
-import { resolveBeaufortIcon, resolveWeatherIcon } from "./utils/icons.js";
-import { queryToArr } from "./utils/input.js";
-import { renderCurrentDate, renderForecastDays } from "./utils/render.js";
-import { changeScale, kelvinToScale } from "./utils/scale.js";
-import { msToKmh } from "./utils/speed.js";
-import { getMinMaxTemperatures } from "./utils/temperature.js";
+} from "../utils/dom.js";
+import { resolveBeaufortIcon, resolveWeatherIcon } from "../utils/icons.js";
+import { queryToArr } from "../utils/input.js";
+import { renderCurrentDate, renderForecastDays } from "../utils/render.js";
+import { changeScale, kelvinToScale } from "../utils/scale.js";
+import { msToKmh } from "../utils/speed.js";
+import { getMinMaxTemperatures } from "../utils/temperature.js";
 // TODO: enhance containers' show/hide logic just removing "hidden" class and not setting a new class every time
 
 const loadWeatherData = async (location, e) => {

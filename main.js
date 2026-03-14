@@ -1,3 +1,4 @@
+import { loadWeatherData } from "./controllers/weather.js";
 import { elements } from "./utils/data/elements.js";
 import { setCurrentLocationBtnStatus } from "./utils/dom.js";
 import { getCurrentLocation } from "./utils/utils.js";
