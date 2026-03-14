@@ -4,23 +4,17 @@
 @import url("spacing.css");
 @import url("layout.css");
 
-#content {
-  position: fixed;
-  width: 100dvw;
-  height: 100dvh;
-}
-
-#forecast-div {
+#forecast-container {
   width: 100%;
   column-gap: 10px;
   padding: 15px;
 }
 
-#forecast-div div {
+#forecast-container div {
   width: 100%;
 }
 
-#temp-scale-div {
+#temp-scale-container {
   row-gap: 10px;
   width: 25%;
 }
@@ -29,51 +23,26 @@
   overflow-y: auto;
 }
 
-.b-1 {
-  border: 1px solid #ffffff51;
-}
-
-.b-0 {
-  border: none;
-}
-
-.br-10 {
-  border-radius: 10px;
-}
-
 .wi {
   margin-left: 12px;
 }
 
 .inactive {
-  background-color: #ffffff64;
-  background-image: url("../assets/icons/location-light.svg");
   width: 36px;
-  background-repeat: no-repeat;
-  background-position: 5.5px center;
   background-size: 25px;
 }
 
 .inactive:hover {
   transition: 500ms;
-  background-image: url("../assets/icons/location-light.fill.svg");
   width: 36px;
-  background-repeat: no-repeat;
-  background-position: 5.5px center;
-  background-size: 25px;
 }
 
 .active {
   background-color: #ffffff64;
-  background-image: url("../assets/icons/location-light.fill.svg");
   width: 36px;
-  background-repeat: no-repeat;
-  background-position: 5.5px center;
-  background-size: 25px;
 }
 
 .error {
-  background-color: #ff54548a;
   margin: 15px;
   border-radius: 13px;
 }
@@ -81,47 +50,34 @@
 /* TODO: animated icons copy */
 /* TODO: responsive */
 
-@media screen and (max-width: 425px) {
-  /* @media screen and (max-width: 523px) { */
-
+@media (width <= 500px) {
   #content {
     height: 100dvh;
     width: 100dvw;
-    border-radius: 0;
-  }
-
-  header {
-    height: 35dvh;
-  }
-
-  section {
-    padding: 10px;
-
-    align-items: center;
   }
 
   #weather-main-img {
     width: 100px;
   }
 
-  #forecast-div {
+  #forecast-container {
     width: 86dvw;
   }
 
-  #temp-content-div,
-  #five-days-forecast-div,
-  #sun-wind-div,
-  #other-info-div {
+  #temp-content-container,
+  #five-days-forecast-container,
+  #sun-wind-container,
+  #other-info-container {
     justify-content: center;
     flex-wrap: wrap;
   }
 
-  #sun-wind-div,
-  #other-info-div {
+  #sun-wind-container,
+  #other-info-container {
     row-gap: 15px;
   }
 
-  #temp-scale-div,
+  #temp-scale-container,
   label {
     width: fit-content;
   }
@@ -131,8 +87,8 @@
     text-align: center;
   }
 
-  #sun-wind-div > div,
-  #other-info-div > div {
+  #sun-wind-container > div,
+  #other-info-container > div {
     display: flex;
     flex-grow: 1;
   }

@@ -1,16 +1,26 @@
+/* 
+  With box-sizing: border-box, width and height are calculated including padding and border, so they won't increase the size of the element.
+ */
+* {
+  box-sizing: border-box;
+}
+
+/* 
+  Initialize html and body.
+  They have to be 100% height to make the main element take the full height of the viewport.
+  The max-width prevents horizontal scrolling when the content is wider than the viewport.
+*/
 html,
 body {
   height: 100dvh;
-  overscroll-behavior: none; /* prevents the page from bouncing when scrolling on mobile devices */
-  cursor: default;
+  max-width: 100dvw;
+  margin: 0;
+  padding: 0;
 }
 
-body {
-  background-image: linear-gradient(to bottom, #164a8b, #75badd);
-}
-
-header {
-  padding: 15px 0 15px 0;
+main {
+  height: 100dvh;
+  width: 100dvw;
 }
 
 footer {
@@ -33,12 +43,6 @@ section {
   height: calc(100dvh - 35.4px - 30px - 36px - 30px - 284px);
 }
 
-form {
-  display: flex;
-  column-gap: 10px;
-  margin: 15px;
-}
-
 input {
   width: 200px;
   background-image: url("../assets/icons/magnifyingglass.svg");
@@ -47,7 +51,7 @@ input {
   background-size: 25px;
 }
 
-input.b-0.br-10.p-10.text-white.bg-transparent {
+input.b-0.br-10.p-10.text-white.bg-transparent-lightest {
   padding-left: 30px;
 }
 
@@ -96,7 +100,7 @@ a:hover {
   margin: 5px;
 }
 
-@media screen and (max-width: 425px) {
+@media (width <= 500px) {
   input {
     width: 100%;
   }
