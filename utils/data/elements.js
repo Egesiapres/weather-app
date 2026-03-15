@@ -11,19 +11,20 @@ const elements = {
       input: document.querySelector("input"),
       currentLocationBtn: document.querySelector("#current-location-btn"),
     },
-    currentDatePar: document.querySelector("#current-date-par"),
 
     // Primary Info Container
-    primaryInfo: {
-      container: document.querySelector("#primary-info-container"),
-      name: document.querySelector("#name-par"),
-      position: document.querySelector("#position-details-par"),
+    primary: {
+      container: document.querySelector("#primary-container"),
+      city: {
+        container: document.querySelector("#city-container"),
+        currentDate: document.querySelector("#current-date-par"),
+        name: document.querySelector("#city-name-par"),
+        details: document.querySelector("#city-details-par"),
+      },
       weather: {
-        main: document.querySelector("#weather-main-par"),
-        img: {
-          container: document.querySelector("#weather-main-img-container"),
-          element: document.querySelector("#weather-main-img"),
-        },
+        container: document.querySelector("#weather-container"),
+        img: document.querySelector("#weather-img"),
+        description: document.querySelector("#weather-par"),
       },
     },
   },
@@ -34,7 +35,7 @@ const elements = {
 
     // Temperature Container
     temperature: {
-      container: document.querySelector("#temp-container"),
+      container: document.querySelector("#temperature-container"),
       current: document.querySelector("#temp-par"),
       perceived: document.querySelector("#perceived-temp-par"),
       min: document.querySelector("#min-temp-par"),
@@ -44,9 +45,9 @@ const elements = {
       scaleSelect: document.querySelector("select"),
     },
 
-    // Forecast Days Container
+    // Forecast Container
     forecast: {
-      container: document.querySelector("#five-days-forecast-container"),
+      container: document.querySelector("#forecast-container"),
       dayOne: {
         date: document.querySelector("#day-one-date-par"),
         img: document.querySelector("#day-one-weather-img"),
@@ -78,45 +79,40 @@ const elements = {
       },
     },
 
-    // Wind & Sun Container
-    sunWind: {
-      container: document.querySelector("#sun-wind-container"),
-      wind: {
-        contentContainer: document.querySelector("#wind-content-container"),
-        bftIcon: document.querySelector("#wind-bft-icon"),
-        speed: document.querySelector("#wind-speed-par"),
-        degrees: document.querySelector("#wind-deg-par"),
-      },
-      gust: {
-        speedContainer: document.querySelector("#gust-speed-container"),
-        bftIcon: document.querySelector("#gust-bft-icon"),
-        speed: document.querySelector("#gust-speed-par"),
-      },
-      sun: {
-        sunrise: document.querySelector("#sunrise-par"),
-        sunset: document.querySelector("#sunset-par"),
-      },
+    wind: {
+      container: document.querySelector("#wind-container"),
+      bftIcon: document.querySelector("#wind-bft-icon"),
+      speed: document.querySelector("#wind-speed-par"),
+      degrees: document.querySelector("#wind-deg-par"),
+    },
+    gust: {
+      speedContainer: document.querySelector("#gust-speed-container"),
+      bftIcon: document.querySelector("#gust-bft-icon"),
+      speed: document.querySelector("#gust-speed-par"),
     },
 
-    // Other Info Container
-    otherInfo: {
-      container: document.querySelector("#other-info-container"),
-      humidity: {
-        container: document.querySelector("#humidity-container"),
-        value: document.querySelector("#humidity-par"),
-      },
-      pressure: {
-        container: document.querySelector("#pressure-container"),
-        value: document.querySelector("#pressure-par"),
-      },
-      visibility: {
-        container: document.querySelector("#visibility-container"),
-        value: document.querySelector("#visibility-par"),
-      },
-      air: {
-        container: document.querySelector("#air-container"),
-        aqi: document.querySelector("#air-aqi-par"),
-      },
+    sun: {
+      container: document.querySelector("#sun-container"),
+      sunrise: document.querySelector("#sunrise-par"),
+      sunset: document.querySelector("#sunset-par"),
+    },
+
+    // Other Info
+    humidity: {
+      container: document.querySelector("#humidity-container"),
+      value: document.querySelector("#humidity-par"),
+    },
+    pressure: {
+      container: document.querySelector("#pressure-container"),
+      value: document.querySelector("#pressure-par"),
+    },
+    visibility: {
+      container: document.querySelector("#visibility-container"),
+      value: document.querySelector("#visibility-par"),
+    },
+    air: {
+      container: document.querySelector("#air-container"),
+      aqi: document.querySelector("#air-aqi-par"),
     },
   },
 
