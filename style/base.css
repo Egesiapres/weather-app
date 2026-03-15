@@ -1,13 +1,4 @@
 /* 
-  With box-sizing: border-box, width and height are calculated including padding and border, so they won't increase the size of the element.
- */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* 
   Initialize html and body.
   They have to be 100% height to make the main element take the full height of the viewport.
   The max-width prevents horizontal scrolling when the content is wider than the viewport.

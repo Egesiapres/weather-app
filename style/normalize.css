@@ -1,0 +1,8 @@
+/* 
+  With box-sizing: border-box, width and height are calculated including padding and border, so they won't increase the size of the element.
+ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
