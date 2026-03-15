@@ -1,3 +1,4 @@
+@import url("normalize.css");
 @import url("base.css");
 @import url("color.css");
 @import url("typography.css");
@@ -36,31 +37,9 @@
 
 /* TODO: animated icons copy */
 /* TODO: responsiveness */
-@media (width <= 500px) {
-  #content {
-    height: 100dvh;
-    width: 100dvw;
-  }
-
+@media (width <= 490px) {
   #weather-main-img {
     width: 100px;
-  }
-
-  #forecast-container {
-    width: 86dvw;
-  }
-
-  #temp-content-container,
-  #forecast-container,
-  #sun-wind-container,
-  #other-info-container {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  #sun-wind-container,
-  #other-info-container {
-    row-gap: 15px;
   }
 
   #temp-scale-container,
@@ -71,11 +50,5 @@
   #scale-select {
     width: 55%;
     text-align: center;
-  }
-
-  #sun-wind-container > div,
-  #other-info-container > div {
-    display: flex;
-    flex-grow: 1;
   }
 }
