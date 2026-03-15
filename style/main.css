@@ -4,42 +4,29 @@
 @import url("spacing.css");
 @import url("layout.css");
 
-#forecast-container {
-  width: 100%;
-  column-gap: 10px;
-  padding: 15px;
-}
-
-#forecast-container div {
-  width: 100%;
-}
-
 #temp-scale-container {
   row-gap: 10px;
   width: 25%;
 }
 
-.scrollable {
+.scrollable-y {
   overflow-y: auto;
 }
 
-.wi {
-  margin-left: 12px;
+.scrollable-x {
+  overflow-x: auto;
 }
 
 .inactive {
-  width: 36px;
   background-size: 25px;
 }
 
 .inactive:hover {
   transition: 500ms;
-  width: 36px;
 }
 
 .active {
   background-color: #ffffff64;
-  width: 36px;
 }
 
 .error {
@@ -48,8 +35,7 @@
 }
 
 /* TODO: animated icons copy */
-/* TODO: responsive */
-
+/* TODO: responsiveness */
 @media (width <= 500px) {
   #content {
     height: 100dvh;
@@ -65,7 +51,7 @@
   }
 
   #temp-content-container,
-  #five-days-forecast-container,
+  #forecast-container,
   #sun-wind-container,
   #other-info-container {
     justify-content: center;

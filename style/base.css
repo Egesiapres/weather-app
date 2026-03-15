@@ -3,6 +3,8 @@
  */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* 
@@ -24,15 +26,11 @@ main {
 }
 
 footer {
-  position: sticky;
+  position: fixed;
   bottom: 0;
   background-color: #75badd;
   border-top-width: 1px;
   border-top-style: solid;
-}
-
-p {
-  font-size: 1em;
 }
 
 button {
@@ -40,11 +38,11 @@ button {
 }
 
 section {
-  height: calc(100dvh - 35.4px - 30px - 36px - 30px - 284px);
+  height: calc(100dvh - 67.5px - 284px - 48.5px);
 }
 
 input {
-  width: 200px;
+  width: 350px;
   background-image: url("../assets/icons/magnifyingglass.svg");
   background-repeat: no-repeat;
   background-position: 3px center;
@@ -86,22 +84,49 @@ a {
   text-decoration: none;
 }
 
-i {
-  margin: 0;
-}
-
 a:hover i.wi,
 a:hover {
   color: #ffffff;
   transition: 500ms;
 }
 
-#name-par {
-  margin: 5px;
-}
-
-@media (width <= 500px) {
+/* Mobile */
+@media (width < 490px) {
   input {
     width: 100%;
+  }
+
+  #temperature-container,
+  #forecast-container,
+  #wind-container,
+  #sun-container {
+    grid-column: 1 / -1;
+  }
+
+  #humidity-container,
+  #air-container,
+  #pressure-container,
+  #visibility-container {
+    grid-column-start: span 4;
+  }
+}
+
+/* Tablet */
+@media (width >= 490px) and (width <= 768px) {
+  #temperature-container,
+  #forecast-container {
+    grid-column: 1 / -1;
+  }
+
+  #wind-container,
+  #sun-container {
+    grid-column: span 4;
+  }
+
+  #humidity-container,
+  #air-container,
+  #pressure-container,
+  #visibility-container {
+    grid-column-start: span 2;
   }
 }

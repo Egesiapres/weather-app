@@ -3,6 +3,10 @@
   color: #ffffff;
 }
 
+p {
+  font-size: 1em;
+}
+
 strong {
   font-weight: 800;
 }

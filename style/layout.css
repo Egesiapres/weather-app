@@ -6,6 +6,14 @@
   width: 100%;
 }
 
+.full-height {
+  height: 100%;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
 /* Flex */
 .flex {
   display: flex;
@@ -33,6 +41,27 @@
 
 .align-center {
   align-items: center;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+}
+
+.eight-cols {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.col-span-2 {
+  grid-column: span 2;
+}
+
+.col-span-4 {
+  grid-column: span 4;
+}
+
+.col-span-all {
+  grid-column: 1 / -1;
 }
 
 /* Box sizes */

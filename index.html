@@ -46,9 +46,9 @@
       >
         <!-- Header: Search Form + Current Location button -->
         <header>
-          <form class="flex justify-center p-15 cg-10">
+          <form class="flex justify-center p-15 g-10">
             <input
-              class="b-0 br-10 p-10 bg-transparent-lightest text-white"
+              class="b-0 br-10 p-10 bg-transparent-lightest text-white text-small"
               type="text"
               placeholder="Search a city..."
               value=""
@@ -56,7 +56,7 @@
 
             <button
               id="current-location-btn"
-              class="flex col-direction justify-center b-0 br-10 inactive bg-transparent-light"
+              class="flex col-direction justify-center align-center b-0 br-10 inactive p-5 bg-transparent-light"
               type="button"
             >
               <img
@@ -67,53 +67,63 @@
           </form>
         </header>
 
-        <!-- Primary Info Container -->
+        <!-- Primary Container: City + Weather Container -->
         <div
-          id="primary-info-container"
-          class="flex full-width col-direction align-center justify-center hidden"
+          id="primary-container"
+          class="hidden full-width flex col-direction align-center justify-center p-15 g-10"
         >
+          <!-- 
+            City Container:
+            - Date
+            - City
+            - State & Country
+          -->
           <div
-            id="city-main-info-container"
-            class="full-width flex col-direction justify-center"
+            id="city-container"
+            class="full-width flex col-direction justify-center align-center g-5"
           >
             <!-- Date -->
             <p
               id="current-date-par"
-              class="hidden"
+              class="hidden full-width flex justify-center"
             >
               Month XX, hh:mm
             </p>
 
             <!-- City, State & Country -->
             <p
-              id="name-par"
-              class="text-medium text-center"
+              id="city-name-par"
+              class="full-width flex justify-center text-medium"
             >
               City
             </p>
 
             <p
-              id="position-details-par"
-              class="m-0 text-small text-center"
+              id="city-details-par"
+              class="full-width flex justify-center text-small"
             >
               State, (COUNTRY)
             </p>
+          </div>
 
-            <!-- Weather main info (icon + description) -->
-            <div
-              id="weather-main-img-container"
-              class="hidden"
-            >
-              <img
-                id="weather-main-img"
-                class="m-auto"
-                src="assets/icons/partly-cloudy-day.svg"
-              />
-            </div>
+          <!-- 
+            Weather Container:  
+            - Icon
+            - Description 
+          -->
+          <div
+            id="weather-container"
+            class="hidden full-width flex col-direction justify-center align-center"
+          >
+            <img
+              id="weather-img"
+              class="text-medium"
+              src="assets/icons/partly-cloudy-day.svg"
+            />
 
             <p
-              id="weather-main-par"
-              class="hidden"
+              id="weather-par"
+              class="hidden full-width flex justify-center text-medium"
             >
               Weather
             </p>
@@ -130,42 +140,42 @@
       -->
       <div
         id="bottom-container"
-        class="full-width col-direction justify-center align-center hidden"
+        class="hidden flex col-direction"
       >
-        <hr class="m-0 bc-transparent" />
+        <hr class="bc-transparent" />
 
         <section
           id="scrollable-section"
-          class="flex col-direction scrollable rg-15 p-15 m-auto"
+          class="scrollable-y grid eight-cols g-15 p-15"
         >
           <!-- Temperature -->
           <div
-            id="temp-container"
-            class="hidden"
+            id="temperature-container"
+            class="hidden col-span-4 b-1 br-10 bc-transparent bg-transparent-lightest"
           >
-            <div class="flex align-center">
-              <i class="wi wi-thermometer m-10 text-transparent"></i>
+            <div class="flex align-center p-10 g-10">
+              <i class="wi wi-thermometer text-transparent"></i>
 
-              <p class="m-10 label text-transparent">TEMPERATURE</p>
+              <p class="label text-transparent">TEMPERATURE</p>
             </div>
 
-            <hr class="m-0 bc-transparent" />
+            <hr class="bc-transparent" />
 
             <div
               id="temp-content-container"
-              class="flex justify-center cg-15 m-10"
+              class="flex justify-center g-15 p-10"
             >
               <div>
                 <p
                   id="perceived-temp-par"
-                  class="flex justify-center m-10 text-small"
+                  class="flex justify-center p-10 text-small"
                 >
                   Feels like: XX°C
                 </p>
 
                 <p
                   id="temp-par"
-                  class="cg-15 m-0 text-big text-center"
+                  class="g-15 text-big text-center"
                 >
                   XX°C
                 </p>
@@ -182,7 +192,7 @@
 
                     <p
                       id="min-temp-par"
-                      class="m-0"
+                      class=""
                     >
                       Min: XX°C
                     </p>
@@ -195,7 +205,7 @@
                     />
                     <p
                       id="max-temp-par"
-                      class="m-0"
+                      class=""
                     >
                       Max: XX°C
                     </p>
@@ -205,11 +215,11 @@
 
               <div
                 id="temp-scale-container"
-                class="flex col-direction justify-center rg-15 p-10"
+                class="flex col-direction justify-center g-15 p-10"
               >
                 <label
                   for="scale-select"
-                  class="m-0 text-small"
+                  class="text-small"
                   >Select a temperature scale</label
                 >
 
@@ -226,376 +236,383 @@
             </div>
           </div>
 
-          <!-- Five days forecast -->
+          <!-- 5 Days Forecast -->
           <div
-            id="five-days-forecast-container"
-            class="hidden"
+            id="forecast-container"
+            class="hidden col-span-4 flex col-direction b-1 br-10 bc-transparent bg-transparent-lightest"
           >
-            <div class="flex align-center">
+            <div class="flex align-center p-10 g-10">
               <i
-                class="wi wi-forecast-io-partly-cloudy-day m-10 text-transparent"
+                class="wi wi-forecast-io-partly-cloudy-day text-transparent"
               ></i>
 
-              <p class="m-10 label text-transparent">5 DAYS FORECAST</p>
+              <p class="label text-transparent">5 DAYS FORECAST</p>
             </div>
 
-            <hr class="m-0 bc-transparent" />
+            <hr class="bc-transparent" />
+
+            <div class="full-height flex col-direction justify-center">
+              <div
+                id="forecast-container"
+                class="flex scrollable-x justify-evenly p-10 g-10"
+              >
+                <div class="flex col-direction">
+                  <div class="flex col-direction g-5 m-5">
+                    <p
+                      id="day-one-name-par"
+                      class="text-center"
+                    >
+                      Tomorrow
+                    </p>
+                    <p
+                      id="day-one-date-par"
+                      class="text-extra-small text-center"
+                    >
+                      Month XX
+                    </p>
+                  </div>
+
+                  <div class="flex justify-center">
+                    <img
+                      id="day-one-weather-img"
+                      src="assets/icons/partly-cloudy-day.svg"
+                      class="img-small"
+                    />
+                  </div>
+
+                  <p
+                    id="day-one-lh-temps-par"
+                    class="m-5 text-small text-center"
+                  >
+                    XX - XX°C
+                  </p>
+                </div>
+
+                <div class="flex col-direction">
+                  <div class="flex col-direction g-5 m-5">
+                    <p
+                      id="day-two-name-par"
+                      class="text-center"
+                    >
+                      Day 2
+                    </p>
+                    <p
+                      id="day-two-date-par"
+                      class="text-extra-small text-center"
+                    >
+                      Month XX
+                    </p>
+                  </div>
+
+                  <div class="flex justify-center">
+                    <img
+                      id="day-two-weather-img"
+                      src="assets/icons/partly-cloudy-day.svg"
+                      class="img-small"
+                    />
+                  </div>
+
+                  <p
+                    id="day-two-lh-temps-par"
+                    class="m-5 text-small text-center"
+                  >
+                    XX - XX°C
+                  </p>
+                </div>
+
+                <div class="flex col-direction">
+                  <div class="flex col-direction g-5 m-5">
+                    <p
+                      id="day-three-name-par"
+                      class="text-center"
+                    >
+                      Day 3
+                    </p>
+                    <p
+                      id="day-three-date-par"
+                      class="text-extra-small text-center"
+                    >
+                      Month XX
+                    </p>
+                  </div>
+
+                  <div class="flex justify-center">
+                    <img
+                      id="day-three-weather-img"
+                      src="assets/icons/partly-cloudy-day.svg"
+                      class="img-small"
+                    />
+                  </div>
+
+                  <p
+                    id="day-three-lh-temps-par"
+                    class="m-5 text-small text-center"
+                  >
+                    XX - XX°C
+                  </p>
+                </div>
+
+                <div class="flex col-direction">
+                  <div class="flex col-direction g-5 m-5">
+                    <p
+                      id="day-four-name-par"
+                      class="text-center"
+                    >
+                      Day 4
+                    </p>
+                    <p
+                      id="day-four-date-par"
+                      class="text-extra-small text-center"
+                    >
+                      Month XX
+                    </p>
+                  </div>
+
+                  <div class="flex justify-center">
+                    <img
+                      id="day-four-weather-img"
+                      src="assets/icons/partly-cloudy-day.svg"
+                      class="img-small"
+                    />
+                  </div>
+
+                  <p
+                    id="day-four-lh-temps-par"
+                    class="m-5 text-small text-center"
+                  >
+                    XX - XX°C
+                  </p>
+                </div>
+
+                <div class="flex col-direction">
+                  <div class="flex col-direction g-5 m-5">
+                    <p
+                      id="day-five-name-par"
+                      class="text-center"
+                    >
+                      Day 5
+                    </p>
+                    <p
+                      id="day-five-date-par"
+                      class="text-extra-small text-center"
+                    >
+                      Month XX
+                    </p>
+                  </div>
+
+                  <div class="flex justify-center">
+                    <img
+                      id="day-five-weather-img"
+                      src="assets/icons/partly-cloudy-day.svg"
+                      class="img-small"
+                    />
+                  </div>
+
+                  <p
+                    id="day-five-lh-temps-par"
+                    class="m-5 text-small text-center"
+                  >
+                    XX - XX°C
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wind -->
+          <div
+            id="wind-container"
+            class="hidden col-span-2 flex col-direction b-1 br-10 bc-transparent bg-transparent-lightest"
+          >
+            <div class="flex align-center p-10 g-10">
+              <i class="wi wi-strong-wind text-transparent"></i>
+
+              <p class="label text-transparent">WIND</p>
+            </div>
+
+            <hr class="bc-transparent" />
 
             <div
-              id="forecast-container"
-              class="flex full-width scrollable"
+              id="wind-content-container"
+              class="flex col-direction p-10 g-5"
             >
-              <div class="flex col-direction">
-                <div class="flex col-direction rg-5 m-5">
-                  <p
-                    id="day-one-name-par"
-                    class="m-0 text-center"
-                  >
-                    Tomorrow
-                  </p>
-                  <p
-                    id="day-one-date-par"
-                    class="m-0 text-extra-small text-center"
-                  >
-                    Month XX
-                  </p>
-                </div>
-
-                <div class="flex justify-center">
-                  <img
-                    id="day-one-weather-img"
-                    src="assets/icons/partly-cloudy-day.svg"
-                    class="img-small"
-                  />
-                </div>
+              <div class="flex align-center g-5">
+                <img
+                  id="wind-bft-icon"
+                  src="assets/icons/wind.svg"
+                  class="icon-small"
+                />
 
                 <p
-                  id="day-one-lh-temps-par"
-                  class="m-5 text-small text-center"
+                  id="wind-speed-par"
+                  class=""
                 >
-                  XX - XX°C
+                  Speed: XX km/h
                 </p>
               </div>
 
-              <div class="flex col-direction">
-                <div class="flex col-direction rg-5 m-5">
-                  <p
-                    id="day-two-name-par"
-                    class="m-0 text-center"
-                  >
-                    Day 2
-                  </p>
-                  <p
-                    id="day-two-date-par"
-                    class="m-0 text-extra-small text-center"
-                  >
-                    Month XX
-                  </p>
-                </div>
-
-                <div class="flex justify-center">
-                  <img
-                    id="day-two-weather-img"
-                    src="assets/icons/partly-cloudy-day.svg"
-                    class="img-small"
-                  />
-                </div>
+              <div
+                id="gust-speed-container"
+                class="flex align-center g-5"
+              >
+                <img
+                  id="gust-bft-icon"
+                  src="assets/icons/wind.svg"
+                  class="icon-small"
+                />
 
                 <p
-                  id="day-two-lh-temps-par"
-                  class="m-5 text-small text-center"
+                  id="gust-speed-par"
+                  class=""
                 >
-                  XX - XX°C
+                  Gust: XX km/h
                 </p>
               </div>
 
-              <div class="flex col-direction">
-                <div class="flex col-direction rg-5 m-5">
-                  <p
-                    id="day-three-name-par"
-                    class="m-0 text-center"
-                  >
-                    Day 3
-                  </p>
-                  <p
-                    id="day-three-date-par"
-                    class="m-0 text-extra-small text-center"
-                  >
-                    Month XX
-                  </p>
-                </div>
-
-                <div class="flex justify-center">
-                  <img
-                    id="day-three-weather-img"
-                    src="assets/icons/partly-cloudy-day.svg"
-                    class="img-small"
-                  />
-                </div>
+              <div class="flex align-center g-5">
+                <img
+                  src="assets/icons/compass.svg"
+                  class="icon-small"
+                />
 
                 <p
-                  id="day-three-lh-temps-par"
-                  class="m-5 text-small text-center"
+                  id="wind-deg-par"
+                  class=""
                 >
-                  XX - XX°C
-                </p>
-              </div>
-
-              <div class="flex col-direction">
-                <div class="flex col-direction rg-5 m-5">
-                  <p
-                    id="day-four-name-par"
-                    class="m-0 text-center"
-                  >
-                    Day 4
-                  </p>
-                  <p
-                    id="day-four-date-par"
-                    class="m-0 text-extra-small text-center"
-                  >
-                    Month XX
-                  </p>
-                </div>
-
-                <div class="flex justify-center">
-                  <img
-                    id="day-four-weather-img"
-                    src="assets/icons/partly-cloudy-day.svg"
-                    class="img-small"
-                  />
-                </div>
-
-                <p
-                  id="day-four-lh-temps-par"
-                  class="m-5 text-small text-center"
-                >
-                  XX - XX°C
-                </p>
-              </div>
-
-              <div class="flex col-direction">
-                <div class="flex col-direction rg-5 m-5">
-                  <p
-                    id="day-five-name-par"
-                    class="m-0 text-center"
-                  >
-                    Day 5
-                  </p>
-                  <p
-                    id="day-five-date-par"
-                    class="m-0 text-extra-small text-center"
-                  >
-                    Month XX
-                  </p>
-                </div>
-
-                <div class="flex justify-center">
-                  <img
-                    id="day-five-weather-img"
-                    src="assets/icons/partly-cloudy-day.svg"
-                    class="img-small"
-                  />
-                </div>
-
-                <p
-                  id="day-five-lh-temps-par"
-                  class="m-5 text-small text-center"
-                >
-                  XX - XX°C
+                  ↑ D
                 </p>
               </div>
             </div>
           </div>
 
-          <!-- Sun Wind -->
+          <!-- Sun -->
           <div
-            id="sun-wind-container"
-            class="hidden"
+            id="sun-container"
+            class="hidden col-span-2 flex col-direction b-1 br-10 bc-transparent bg-transparent-lightest"
           >
-            <div
-              id="wind-container"
-              class="flex col-direction b-1 br-10 bc-transparent box-medium bg-transparent-lightest"
-            >
-              <div class="flex align-center">
-                <i class="wi wi-strong-wind m-10 text-transparent"></i>
-                <p class="m-10 label text-transparent">WIND</p>
-              </div>
+            <div class="flex align-center p-10 g-10">
+              <i class="wi wi-horizon text-transparent"></i>
 
-              <hr class="m-0 bc-transparent" />
-
-              <div
-                id="wind-content-container"
-                class="p-10"
-              >
-                <div class="flex align-center">
-                  <img
-                    id="wind-bft-icon"
-                    src="assets/icons/wind.svg"
-                    class="mr-5 icon-small"
-                  />
-                  <p
-                    id="wind-speed-par"
-                    class="m-0"
-                  >
-                    Speed: XX km/h
-                  </p>
-                </div>
-
-                <div
-                  id="gust-speed-container"
-                  class="hidden"
-                >
-                  <img
-                    id="gust-bft-icon"
-                    src="assets/icons/wind.svg"
-                    class="mr-5 icon-small"
-                  />
-                  <p
-                    id="gust-speed-par"
-                    class="m-0"
-                  >
-                    Gust: XX km/h
-                  </p>
-                </div>
-
-                <div class="flex align-center">
-                  <img
-                    src="assets/icons/compass.svg"
-                    class="mr-5 icon-small"
-                  />
-
-                  <p
-                    id="wind-deg-par"
-                    class="m-0"
-                  >
-                    ↑ D
-                  </p>
-                </div>
-              </div>
+              <p class="label text-transparent">SUN</p>
             </div>
 
-            <div
-              id="sys-container"
-              class="flex col-direction b-1 br-10 bc-transparent box-medium bg-transparent-lightest"
-            >
-              <div class="flex align-center">
-                <i class="wi wi-horizon m-10 text-transparent"></i>
+            <hr class="bc-transparent" />
 
-                <p class="m-10 label text-transparent">SUN</p>
+            <div class="flex col-direction p-10 g-5">
+              <div class="flex align-center g-5">
+                <img
+                  src="assets/icons/sunrise.svg"
+                  class="icon-small"
+                />
+
+                <p
+                  id="sunrise-par"
+                  class=""
+                >
+                  Sunrise: hh:mm
+                </p>
               </div>
 
-              <hr class="m-0 bc-transparent" />
+              <div class="flex align-center g-5">
+                <img
+                  src="assets/icons/sunset.svg"
+                  class="icon-small"
+                  x
+                />
 
-              <div class="p-10">
-                <div class="flex align-center">
-                  <img
-                    src="assets/icons/sunrise.svg"
-                    class="mr-5 icon-small"
-                  />
-                  <p
-                    id="sunrise-par"
-                    class="m-0"
-                  >
-                    Sunrise: hh:mm
-                  </p>
-                </div>
-
-                <div class="flex align-center">
-                  <img
-                    src="assets/icons/sunset.svg"
-                    class="mr-5 icon-small"
-                  />
-
-                  <p
-                    id="sunset-par"
-                    class="m-0"
-                  >
-                    Sunset: hh:mm
-                  </p>
-                </div>
+                <p
+                  id="sunset-par"
+                  class=""
+                >
+                  Sunset: hh:mm
+                </p>
               </div>
             </div>
           </div>
 
           <!-- Other info -->
           <div
-            id="other-info-container"
-            class="flex cg-15 b-25"
+            id="humidity-container"
+            class="hidden flex col-direction b-1 br-10 bc-transparent bg-transparent-lightest"
           >
-            <div
-              id="humidity-container"
-              class="hidden"
-            >
-              <div class="flex align-center">
-                <i class="wi wi-humidity m-10 text-transparent"></i>
+            <div class="flex align-center p-10 g-10">
+              <i class="wi wi-humidity text-transparent"></i>
 
-                <p class="m-10 label text-transparent">HUMIDITY</p>
-              </div>
+              <p class="label text-transparent">HUMIDITY</p>
+            </div>
 
-              <hr class="m-0 bc-transparent" />
+            <hr class="bc-transparent" />
 
+            <div class="full-height flex col-direction justify-center">
               <p
                 id="humidity-par"
-                class="m-10 text-center"
+                class="p-10 text-center"
               >
                 XX %
               </p>
             </div>
+          </div>
 
-            <div
-              id="air-container"
-              class="hidden"
-            >
-              <div class="flex align-center">
-                <i class="wi wi-smog m-10 text-transparent"></i>
+          <div
+            id="air-container"
+            class="hidden flex col-direction b-1 br-10 bc-transparent bg-transparent-lightest"
+          >
+            <div class="flex align-center p-10 g-10">
+              <i class="wi wi-smog text-transparent"></i>
 
-                <p class="m-10 label text-transparent">AIR</p>
-              </div>
+              <p class="label text-transparent">AIR</p>
+            </div>
 
-              <hr class="m-0 bc-transparent" />
+            <hr class="bc-transparent" />
 
+            <div class="full-height flex col-direction justify-center">
               <p
                 id="air-aqi-par"
-                class="m-10 text-center"
+                class="p-10 text-center"
               >
                 AQI: XX
               </p>
             </div>
+          </div>
 
-            <div
-              id="pressure-container"
-              class="hidden"
-            >
-              <div class="flex align-center">
-                <i class="wi wi-barometer m-10 text-transparent"></i>
-                <p class="m-10 label text-transparent">PRESSURE</p>
-              </div>
+          <div
+            id="pressure-container"
+            class="hidden flex col-direction b-1 br-10 bc-transparent bg-transparent-lightest"
+          >
+            <div class="flex align-center p-10 g-10">
+              <i class="wi wi-barometer text-transparent"></i>
 
-              <hr class="m-0 bc-transparent" />
+              <p class="label text-transparent">PRESSURE</p>
+            </div>
 
+            <hr class="bc-transparent" />
+
+            <div class="full-height flex col-direction justify-center">
               <p
                 id="pressure-par"
-                class="m-10 text-center"
+                class="p-10 text-center"
               >
                 XX %
               </p>
             </div>
+          </div>
 
-            <div
-              id="visibility-container"
-              class="hidden"
-            >
-              <div class="flex align-center">
-                <i class="wi wi-dust m-10 text-transparent"></i>
+          <div
+            id="visibility-container"
+            class="hidden flex col-direction b-1 br-10 bc-transparent bg-transparent-lightest"
+          >
+            <div class="flex align-center p-10 g-10">
+              <i class="wi wi-dust text-transparent"></i>
 
-                <p class="m-10 label text-transparent">VISIBILITY</p>
-              </div>
+              <p class="label text-transparent">VISIBILITY</p>
+            </div>
 
-              <hr class="m-0 bc-transparent" />
+            <hr class="bc-transparent" />
 
+            <div class="full-height flex col-direction justify-center">
               <p
                 id="visibility-par"
-                class="m-10 text-center"
+                class="p-10 text-center"
               >
                 XX km
               </p>
@@ -608,7 +625,7 @@
         id="error-container"
         class="hidden"
       >
-        <hr class="m-0 bc-transparent" />
+        <hr class="bc-transparent" />
 
         <div class="br-10 p-10 error">
           <p class="m-5 text-center text-error">
@@ -624,11 +641,12 @@
         </div>
       </div>
 
-      <footer class="full-width justify-center bc-transparent">
+      <footer class="full-width flex justify-center p-15 g-10 bc-transparent">
+        <i class="wi wi-direction-down text-transparent"></i>
+
         <a
           href="#air-container"
-          class="m-0 text-small text-transparent"
-          ><i class="wi wi-direction-down m-10 ml-0 text-transparent"></i
+          class="text-small text-transparent"
           >Scroll</a
         >
       </footer>
