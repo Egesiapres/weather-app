@@ -13,6 +13,7 @@ import {
   hideElement,
   setElementClass,
   setElementsClass,
+  showElement,
 } from "../utils/dom.js";
 import { resolveBeaufortIcon, resolveWeatherIcon } from "../utils/icons.js";
 import { queryToArr } from "../utils/input.js";
@@ -20,7 +21,6 @@ import { renderCurrentDate, renderForecastDays } from "../utils/render.js";
 import { changeScale, kelvinToScale } from "../utils/scale.js";
 import { msToKmh } from "../utils/speed.js";
 import { getMinMaxTemperatures } from "../utils/temperature.js";
-// TODO: enhance containers' show/hide logic just removing "hidden" class and not setting a new class every time
 
 const loadWeatherData = async (location, e) => {
   e?.preventDefault(); // prevent default form submission behavior
@@ -33,7 +33,7 @@ const loadWeatherData = async (location, e) => {
    * to show the app's functionalities and avoid showing an empty page.
    */
   if (!location) {
-    cityData = await getGeocoding("barcelona");
+    cityData = await getGeocoding("trento");
   }
 
   if (location) {
@@ -74,7 +74,7 @@ const loadWeatherData = async (location, e) => {
     if (!cityData.lat || !cityData.lon) {
       cityData = null;
 
-      hideElement(elements.top.primaryInfo.container);
+      hideElement(elements.top.primary.container);
       hideElement(elements.bottom.container);
 
       elements.error.value.innerHTML = `"${elements.top.form.input.value}"`;
@@ -95,14 +95,14 @@ const loadWeatherData = async (location, e) => {
 
     const { name, state, country } = cityData;
 
-    elements.top.primaryInfo.name.innerHTML = name;
+    elements.top.primary.city.name.innerHTML = name;
 
-    elements.top.primaryInfo.position.innerHTML = `${state ? state : ""}${
+    elements.top.primary.city.details.innerHTML = `${state ? state : ""}${
       state && country ? ", " : ""
     }${country ? `(${country})` : ""}`;
 
-    // Shows Primary Info Container
-    elements.top.primaryInfo.container.classList.remove("hidden");
+    // Shows Primary Container
+    showElement(elements.top.primary.container);
   }
 
   if (weatherData) {
@@ -115,7 +115,7 @@ const loadWeatherData = async (location, e) => {
 
     renderCurrentDate(currentMonthName, currentDate);
 
-    elements.top.primaryInfo.weather.main.innerHTML = weather[0].main;
+    elements.top.primary.weather.description.innerHTML = weather[0].main;
 
     elements.bottom.temperature.current.innerHTML = kelvinToScale(
       main.temp,
@@ -133,33 +133,30 @@ const loadWeatherData = async (location, e) => {
 
     conversionTemps = { main };
 
-    elements.top.primaryInfo.weather.img.element.setAttribute(
+    elements.top.primary.weather.img.setAttribute(
       "src",
       resolveWeatherIcon(weather[0].main)
     );
 
-    elements.bottom.sunWind.wind.bftIcon.setAttribute(
+    elements.bottom.wind.bftIcon.setAttribute(
       "src",
       resolveBeaufortIcon(msToKmh(wind.speed))
     );
-    elements.bottom.sunWind.wind.speed.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
+    elements.bottom.wind.speed.innerHTML = `Wind: ${msToKmh(wind.speed)} km/h`;
 
     if (wind.gust) {
-      setElementClass(
-        elements.bottom.sunWind.gust.speedContainer,
-        "flex align-center"
-      );
+      setElementClass(elements.bottom.gust.speedContainer, "flex align-center");
 
-      elements.bottom.sunWind.gust.bftIcon.setAttribute(
+      elements.bottom.gust.bftIcon.setAttribute(
         "src",
         resolveBeaufortIcon(msToKmh(wind.gust))
       );
-      elements.bottom.sunWind.gust.speed.innerHTML = `Gust: ${msToKmh(wind.gust)} km/h`;
+      elements.bottom.gust.speed.innerHTML = `Gust: ${msToKmh(wind.gust)} km/h`;
     } else {
-      hideElement(elements.bottom.sunWind.gust.speedContainer);
+      hideElement(elements.bottom.gust.speedContainer);
     }
 
-    elements.bottom.sunWind.wind.degrees.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
+    elements.bottom.wind.degrees.innerHTML = `Direction: ${meteoDegToDirection(wind.deg)}`;
 
     const localSunriseDate = tsToLocalDateFromOffset(sys.sunrise, timezone);
 
@@ -171,46 +168,28 @@ const loadWeatherData = async (location, e) => {
     const { hours: sunsetHours, minutes: sunsetMinutes } =
       getDateValues(localSunsetDate);
 
-    elements.bottom.sunWind.sun.sunrise.innerHTML = `Sunrise: ${addLeadingZero(sunriseHours)}:${addLeadingZero(
+    elements.bottom.sun.sunrise.innerHTML = `Sunrise: ${addLeadingZero(sunriseHours)}:${addLeadingZero(
       sunriseMinutes
     )}`;
-    elements.bottom.sunWind.sun.sunset.innerHTML = `Sunset: ${addLeadingZero(sunsetHours)}:${addLeadingZero(
+    elements.bottom.sun.sunset.innerHTML = `Sunset: ${addLeadingZero(sunsetHours)}:${addLeadingZero(
       sunsetMinutes
     )}`;
 
-    elements.bottom.otherInfo.humidity.value.innerHTML = `${main.humidity}%`;
-    elements.bottom.otherInfo.pressure.value.innerHTML = `${main.pressure} hPa`;
-    elements.bottom.otherInfo.visibility.value.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
+    elements.bottom.humidity.value.innerHTML = `${main.humidity}%`;
+    elements.bottom.visibility.value.innerHTML = `${(visibility / 1000).toFixed(0)} km`;
 
-    setElementClass(elements.top.currentDatePar, "m-5 text-center");
-    setElementClass(
-      elements.top.primaryInfo.weather.img.container,
-      "flex justify-center"
-    );
-    setElementClass(
-      elements.top.primaryInfo.weather.main,
-      "m-0 text-center text-medium"
-    );
+    showElement(elements.top.primary.city.currentDate);
+    showElement(elements.top.primary.weather.container);
 
-    setElementClass(
-      elements.bottom.temperature.container,
-      "b-1 br-10 bc-transparent bg-transparent-lightest"
-    );
+    showElement(elements.bottom.temperature.container);
 
-    setElementClass(elements.bottom.sunWind.container, "flex cg-15 b-25");
+    showElement(elements.bottom.wind.container);
+    showElement(elements.bottom.sun.container);
 
-    setElementsClass(
-      [
-        elements.bottom.otherInfo.humidity.container,
-        elements.bottom.otherInfo.pressure.container,
-        elements.bottom.otherInfo.visibility.container,
-      ],
-      "flex col-direction b-1 br-10 bc-transparent box-small bg-transparent-lightest"
-    );
-
-    setElementClass(elements.bottom.otherInfo.container, "flex cg-15 b-25");
-
-    elements.bottom.container.classList.remove("hidden");
+    showElement(elements.bottom.humidity.container);
+    showElement(elements.bottom.air.container);
+    showElement(elements.bottom.pressure.container);
+    showElement(elements.bottom.visibility.container);
   }
 
   if (fiveDayForecast) {
@@ -302,11 +281,7 @@ const loadWeatherData = async (location, e) => {
       elements.bottom.forecast.dayFive.temps
     );
 
-    // Show Forecast Container
-    setElementClass(
-      elements.bottom.forecast.container,
-      "b-1 br-10 bc-transparent bg-transparent-lightest"
-    );
+    showElement(elements.bottom.forecast.container);
 
     elements.bottom.container.classList.remove("hidden");
   }
@@ -318,17 +293,11 @@ const loadWeatherData = async (location, e) => {
   if (pollutionData) {
     const { list } = pollutionData;
 
-    elements.bottom.otherInfo.air.aqi.innerHTML = `AQI: ${list[0].main.aqi}`;
+    elements.bottom.air.aqi.innerHTML = `AQI: ${list[0].main.aqi}`;
 
-    // Show Air Pollution Container
-    setElementClass(
-      elements.bottom.otherInfo.air.container,
-      "flex col-direction b-1 br-10 bc-transparent box-small bg-transparent-lightest"
-    );
+    showElement(elements.bottom.air.container);
 
-    setElementClass(elements.bottom.otherInfo.container, "flex cg-15 b-25");
-
-    elements.bottom.container.classList.remove("hidden");
+    showElement(elements.bottom.container);
   }
 };
 

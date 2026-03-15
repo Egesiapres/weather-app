@@ -59,6 +59,20 @@ const setElementsClass = (elements, classToSet) =>
 const hideElement = element => setElementClass(element, "hidden");
 
 /**
+ * Shows a given DOM element by removing the "hidden" class.
+ *
+ * @function showElement
+ *
+ * @param {HTMLElement} element - The DOM element to be shown.
+ *
+ * @returns {void}
+ *
+ * @example
+ * showElement(document.getElementById("my-element"));
+ */
+const showElement = element => element.classList.remove("hidden");
+
+/**
  * Sets the status of the current location button by applying the appropriate class based on the provided status.
  *
  * @function setCurrentLocationBtnStatus
@@ -80,4 +94,5 @@ export {
   setCurrentLocationBtnStatus,
   setElementClass,
   setElementsClass,
+  showElement,
 };
